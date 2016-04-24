@@ -1,0 +1,85 @@
+module gestAcc {
+
+	typedef string Empreinte;
+
+	typedef string Photo;
+
+	typedef short Heure;
+
+	struct Jour {
+
+	    short annee;
+	    short mois;
+	    short jour;
+
+	};
+
+
+
+	struct Zone {
+
+	    short idZone;
+	    string nomZone;
+	    string tailleZone;
+	    string typeZone;
+
+	};
+
+
+
+	interface ServeurAnnuaire {
+
+		exception CollaborateurInexistant {};
+		exception CollaborateurDejaExistant {};
+		short enregisterCollaborateur(in string nom, in string prenom, in Photop) raises(CollaborateurDejaExistant);
+
+		short rechercherCollaborateur(in string nom, in string prenom);
+
+		void supprimerCollaborateur(in short id) raises(CollaborateurInnexistant);
+
+	};
+
+
+
+	interface ServeurEmpreinte {
+
+		exception EmpreinteInexistante {};
+
+		exception EmpreintePresente{};
+
+		short enregistrerEmpreinte(in Empreinte e, in short id) raises(EmpreintePresente);
+
+		short modifierEmpreinte(in Empreinte ancienneEmpreinte, in Empreinte nouvelleEmpreinte) raises (EmpreinteInexistante);
+
+		short supprimerEmpreinte(in short id);
+
+		short verifierEmpreinte(in Photo id,in Empreinte mdp);
+	};
+
+
+
+	interface ServeurLog {
+
+		oneway void envoyerLog(in string log);
+
+	};
+
+
+
+	interface ServeurAcces {
+
+		exception CollaborateurDejaExistant {};
+
+		exception CollaborateurInexistant {};
+
+		exception ZoneInexistante {};
+
+		short ajoutPerm(in short id, in Heure heureDebut, in Heure heureFin, in Zone z) raises (ZoneInexistante);
+		short ajoutTemp(in short id, in Jour jourDeb, in Jour jourFin,in Heure heureDebut, in Heure heureFin, in Zone z) raises (ZoneInexistante);
+		short demanderAcces(in Photo id,in Empreinte mdp);
+		short supprimerAcces (in short id) raises (CollaborateurInexistant);
+		short verifierAcces (in short idCollaborateur,in short idZone);
+
+	};
+
+};
