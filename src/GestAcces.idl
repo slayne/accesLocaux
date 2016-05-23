@@ -61,6 +61,9 @@ module gestAcc {
 	interface ServeurLog {
 
 		oneway void envoyerLog(in string log);
+		oneway void afficherLog();
+		oneway void afficherLog(in short date);
+		oneway void afficherLog(in short dated, in short datef);
 
 	};
 
@@ -79,6 +82,7 @@ module gestAcc {
 		short demanderAcces(in Photo id,in Empreinte mdp);
 		short supprimerAcces (in short idCollaborateur, in short idZone) raises (CollaborateurInexistant);
 		short verifierAcces (in short idCollaborateur,in short idZone);
+
 
 	};
 
