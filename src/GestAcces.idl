@@ -82,6 +82,8 @@ module gestAcc {
 		short demanderAcces(in Photo id,in Empreinte mdp);
 		short supprimerAcces (in short idCollaborateur, in short idZone) raises (CollaborateurInexistant);
 		short verifierAcces (in short idCollaborateur,in short idZone);
+		sequence<Zone> getListeZone();
+
 
 
 	};
