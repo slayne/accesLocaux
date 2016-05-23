@@ -77,7 +77,7 @@ module gestAcc {
 		short ajoutPerm(in short id, in Heure heureDebut, in Heure heureFin, in Zone z) raises (ZoneInexistante);
 		short ajoutTemp(in short id, in Jour jourDeb, in Jour jourFin,in Heure heureDebut, in Heure heureFin, in Zone z) raises (ZoneInexistante);
 		short demanderAcces(in Photo id,in Empreinte mdp);
-		short supprimerAcces (in short id) raises (CollaborateurInexistant);
+		short supprimerAcces (in short idCollaborateur, in short idZone) raises (CollaborateurInexistant);
 		short verifierAcces (in short idCollaborateur,in short idZone);
 
 	};
