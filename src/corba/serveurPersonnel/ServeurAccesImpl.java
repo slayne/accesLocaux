@@ -1,3 +1,5 @@
+package corba.serveurPersonnel;
+
 import GestAcces.Jour;
 import GestAcces.ServeurAccesPOA;
 import GestAcces.ServeurAccesPackage.CollaborateurInexistant;
