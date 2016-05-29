@@ -1,9 +1,7 @@
-package objetsMetier.zonePortes;
+package bdd.objetsMetier.zonePortes;
 
-import objetsMetier.Zone;
-import objetsMetier.exceptions.ListTooLargeException;
+import bdd.objetsMetier.exceptions.ListTooLargeException;
 
-import java.awt.*;
 import java.util.ArrayList;
 
 /**

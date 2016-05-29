@@ -1,7 +1,6 @@
-package objetsMetier.acces;
+package bdd.objetsMetier.acces;
 
-import objetsMetier.Acces;
-import objetsMetier.Zone;
+import bdd.objetsMetier.Acces;
 
 /**
  * Created by igloo on 28/05/2016.

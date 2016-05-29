@@ -1,13 +1,10 @@
-package objetsMetier;
-
-import objetsMetier.personnel.Collaborateur;
-
-import java.util.Date;
+package bdd.objetsMetier;
 
 /**
  * Created by igloo on 27/05/2016.
  */
 public class Personnel {
+    private int id;
     private String nom;
     private String prenom;
     private String adresse;
@@ -70,5 +67,13 @@ public class Personnel {
 
     public void setMdp(String mdp) {
         this.mdp = mdp;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getId() {
+        return id;
     }
 }
