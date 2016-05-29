@@ -18,7 +18,7 @@ public class ServeurAcceso {
 
             // Gestion du POA
             //****************
-            // Recuperation du POA
+            // Recuperation du POA t
             POA rootPOA = POAHelper.narrow(orb.resolve_initial_references("RootPOA"));
 
             // Creation du servant
