@@ -1,3 +1,5 @@
+package corba.serveurPersonnel;
+
 import org.omg.CosNaming.NamingContext;
 import org.omg.PortableServer.POA;
 import org.omg.PortableServer.POAHelper;
