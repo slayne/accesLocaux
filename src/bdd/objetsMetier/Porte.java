@@ -1,6 +1,6 @@
-package objetsMetier;
+package bdd.objetsMetier;
 
-import objetsMetier.zonePortes.ZonesPorteList;
+import bdd.objetsMetier.zonePortes.ZonesPorteList;
 
 /**
  * Created by igloo on 28/05/2016.
