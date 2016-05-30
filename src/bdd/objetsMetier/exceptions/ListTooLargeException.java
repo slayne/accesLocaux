@@ -1,4 +1,4 @@
-package objetsMetier.exceptions;
+package bdd.objetsMetier.exceptions;
 
 /**
  * Created by igloo on 28/05/2016.

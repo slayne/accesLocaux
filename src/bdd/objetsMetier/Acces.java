@@ -1,4 +1,4 @@
-package objetsMetier;
+package bdd.objetsMetier;
 
 /**
  * Created by igloo on 28/05/2016.

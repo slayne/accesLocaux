@@ -1,6 +1,6 @@
-package objetsMetier.acces;
+package bdd.objetsMetier.acces;
 
-import objetsMetier.Acces;
+import bdd.objetsMetier.Acces;
 
 import java.util.Date;
 
