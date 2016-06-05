@@ -25,6 +25,7 @@ public class ServeurAccesImpl extends ServeurAccesPOA {
 
     @Override
     public short demanderAcces(String id, String mdp) {
+        System.out.println("Test méthode");
         return 0;
     }
 
