@@ -1,58 +1,58 @@
 package GestAcces;
 
 /**
- * Holder class for : ServeurAcces
+ * Holder class for : lZone
  * 
  * @author OpenORB Compiler
  */
-final public class ServeurAccesHolder
+final public class lZoneHolder
         implements org.omg.CORBA.portable.Streamable
 {
     /**
-     * Internal ServeurAcces value
+     * Internal lZone value
      */
-    public GestAcces.ServeurAcces value;
+    public GestAcces.Zone[] value;
 
     /**
      * Default constructor
      */
-    public ServeurAccesHolder()
+    public lZoneHolder()
     { }
 
     /**
      * Constructor with value initialisation
      * @param initial the initial value
      */
-    public ServeurAccesHolder(GestAcces.ServeurAcces initial)
+    public lZoneHolder(GestAcces.Zone[] initial)
     {
         value = initial;
     }
 
     /**
-     * Read ServeurAcces from a marshalled stream
+     * Read lZone from a marshalled stream
      * @param istream the input stream
      */
     public void _read(org.omg.CORBA.portable.InputStream istream)
     {
-        value = ServeurAccesHelper.read(istream);
+        value = lZoneHelper.read(istream);
     }
 
     /**
-     * Write ServeurAcces into a marshalled stream
+     * Write lZone into a marshalled stream
      * @param ostream the output stream
      */
     public void _write(org.omg.CORBA.portable.OutputStream ostream)
     {
-        ServeurAccesHelper.write(ostream,value);
+        lZoneHelper.write(ostream,value);
     }
 
     /**
-     * Return the ServeurAcces TypeCode
+     * Return the lZone TypeCode
      * @return a TypeCode
      */
     public org.omg.CORBA.TypeCode _type()
     {
-        return ServeurAccesHelper.type();
+        return lZoneHelper.type();
     }
 
 }

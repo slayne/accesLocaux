@@ -91,7 +91,7 @@ public class CollaborateurInexistantHelper
         return _id;
     }
 
-    private final static String _id = "IDL:GestAcces/ServeurAcceso/CollaborateurInexistant:1.0";
+    private final static String _id = "IDL:GestAcces/ServeurAcces/CollaborateurInexistant:1.0";
 
     /**
      * Read CollaborateurInexistant from a marshalled stream

@@ -134,8 +134,6 @@ public class CollaborateurDAO extends DAO<Collaborateur> {
             rs = prepareLiaison.getGeneratedKeys();
             rs.next();
 
-
-
             return find(idCollabo);
         }
         catch (SQLException e) {

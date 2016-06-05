@@ -23,7 +23,7 @@ public class _ServeurAnnuaireStub extends org.omg.CORBA.portable.ObjectImpl
     /**
      * Operation enregisterCollaborateur
      */
-    public short enregisterCollaborateur(String nom, String prenom, String p)
+    public void enregisterCollaborateur(String nom, String prenom, String p)
         throws GestAcces.ServeurAnnuairePackage.CollaborateurDejaExistant
     {
         while(true)
@@ -38,8 +38,7 @@ public class _ServeurAnnuaireStub extends org.omg.CORBA.portable.ObjectImpl
                     _output.write_string(prenom);
                     GestAcces.PhotoHelper.write(_output,p);
                     _input = this._invoke(_output);
-                    short _arg_ret = _input.read_short();
-                    return _arg_ret;
+                    return;
                 }
                 catch(org.omg.CORBA.portable.RemarshalException _exception)
                 {
@@ -68,7 +67,8 @@ public class _ServeurAnnuaireStub extends org.omg.CORBA.portable.ObjectImpl
                 GestAcces.ServeurAnnuaireOperations _self = (GestAcces.ServeurAnnuaireOperations) _so.servant;
                 try
                 {
-                    return _self.enregisterCollaborateur( nom,  prenom,  p);
+                    _self.enregisterCollaborateur( nom,  prenom,  p);
+                    return;
                 }
                 finally
                 {
@@ -81,7 +81,7 @@ public class _ServeurAnnuaireStub extends org.omg.CORBA.portable.ObjectImpl
     /**
      * Operation rechercherCollaborateur
      */
-    public short rechercherCollaborateur(String nom, String prenom)
+    public void rechercherCollaborateur(String nom, String prenom)
     {
         while(true)
         {
@@ -94,8 +94,7 @@ public class _ServeurAnnuaireStub extends org.omg.CORBA.portable.ObjectImpl
                     _output.write_string(nom);
                     _output.write_string(prenom);
                     _input = this._invoke(_output);
-                    short _arg_ret = _input.read_short();
-                    return _arg_ret;
+                    return;
                 }
                 catch(org.omg.CORBA.portable.RemarshalException _exception)
                 {
@@ -119,7 +118,8 @@ public class _ServeurAnnuaireStub extends org.omg.CORBA.portable.ObjectImpl
                 GestAcces.ServeurAnnuaireOperations _self = (GestAcces.ServeurAnnuaireOperations) _so.servant;
                 try
                 {
-                    return _self.rechercherCollaborateur( nom,  prenom);
+                    _self.rechercherCollaborateur( nom,  prenom);
+                    return;
                 }
                 finally
                 {

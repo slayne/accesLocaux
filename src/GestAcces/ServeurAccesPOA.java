@@ -1,7 +1,7 @@
 package GestAcces;
 
 /**
- * Interface definition : ServeurAcceso
+ * Interface definition : ServeurAcces
  * 
  * @author OpenORB Compiler
  */
@@ -20,7 +20,7 @@ public abstract class ServeurAccesPOA extends org.omg.PortableServer.Servant
 
     private static String [] _ids_list =
     {
-        "IDL:GestAcces/ServeurAcceso:1.0"
+        "IDL:GestAcces/ServeurAcces:1.0"
     };
 
     public String[] _all_interfaces(org.omg.PortableServer.POA poa, byte [] objectId)
@@ -127,10 +127,9 @@ public abstract class ServeurAccesPOA extends org.omg.PortableServer.Servant
 
         try
         {
-            short _arg_result = supprimerAcces(arg0_in, arg1_in);
+            supprimerAcces(arg0_in, arg1_in);
 
             _output = handler.createReply();
-            _output.write_short(_arg_result);
 
         }
         catch (GestAcces.ServeurAccesPackage.CollaborateurInexistant _exception)
@@ -164,7 +163,7 @@ public abstract class ServeurAccesPOA extends org.omg.PortableServer.Servant
         GestAcces.Zone[] _arg_result = getListeZone();
 
         _output = handler.createReply();
-        GestAcces.lzoneHelper.write(_output,_arg_result);
+        GestAcces.lZoneHelper.write(_output,_arg_result);
 
         return _output;
     }

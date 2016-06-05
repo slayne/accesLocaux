@@ -55,10 +55,9 @@ public abstract class ServeurAnnuairePOA extends org.omg.PortableServer.Servant
 
         try
         {
-            short _arg_result = enregisterCollaborateur(arg0_in, arg1_in, arg2_in);
+            enregisterCollaborateur(arg0_in, arg1_in, arg2_in);
 
             _output = handler.createReply();
-            _output.write_short(_arg_result);
 
         }
         catch (GestAcces.ServeurAnnuairePackage.CollaborateurDejaExistant _exception)
@@ -76,10 +75,9 @@ public abstract class ServeurAnnuairePOA extends org.omg.PortableServer.Servant
         String arg0_in = _is.read_string();
         String arg1_in = _is.read_string();
 
-        short _arg_result = rechercherCollaborateur(arg0_in, arg1_in);
+        rechercherCollaborateur(arg0_in, arg1_in);
 
         _output = handler.createReply();
-        _output.write_short(_arg_result);
 
         return _output;
     }

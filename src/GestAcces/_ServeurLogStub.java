@@ -71,9 +71,9 @@ public class _ServeurLogStub extends org.omg.CORBA.portable.ObjectImpl
     }
 
     /**
-     * Operation afficherLog
+     * Operation afficherLogs
      */
-    public void afficherLog()
+    public GestAcces.Log[] afficherLogs()
     {
         while(true)
         {
@@ -82,9 +82,10 @@ public class _ServeurLogStub extends org.omg.CORBA.portable.ObjectImpl
                 org.omg.CORBA.portable.InputStream _input = null;
                 try
                 {
-                    org.omg.CORBA.portable.OutputStream _output = this._request("afficherLog",false);
+                    org.omg.CORBA.portable.OutputStream _output = this._request("afficherLogs",false);
                     _input = this._invoke(_output);
-                    return;
+                    GestAcces.Log[] _arg_ret = GestAcces.lLogHelper.read(_input);
+                    return _arg_ret;
                 }
                 catch(org.omg.CORBA.portable.RemarshalException _exception)
                 {
@@ -102,14 +103,13 @@ public class _ServeurLogStub extends org.omg.CORBA.portable.ObjectImpl
             }
             else
             {
-                org.omg.CORBA.portable.ServantObject _so = _servant_preinvoke("afficherLog",_opsClass);
+                org.omg.CORBA.portable.ServantObject _so = _servant_preinvoke("afficherLogs",_opsClass);
                 if (_so == null)
                    continue;
                 GestAcces.ServeurLogOperations _self = (GestAcces.ServeurLogOperations) _so.servant;
                 try
                 {
-                    _self.afficherLog();
-                    return;
+                    return _self.afficherLogs();
                 }
                 finally
                 {
@@ -120,9 +120,9 @@ public class _ServeurLogStub extends org.omg.CORBA.portable.ObjectImpl
     }
 
     /**
-     * Operation afficherLogd
+     * Operation afficherLogFromDate
      */
-    public void afficherLogd(short date)
+    public GestAcces.Log afficherLogFromDate(GestAcces.Date date)
     {
         while(true)
         {
@@ -131,10 +131,11 @@ public class _ServeurLogStub extends org.omg.CORBA.portable.ObjectImpl
                 org.omg.CORBA.portable.InputStream _input = null;
                 try
                 {
-                    org.omg.CORBA.portable.OutputStream _output = this._request("afficherLogd",false);
-                    _output.write_short(date);
+                    org.omg.CORBA.portable.OutputStream _output = this._request("afficherLogFromDate",false);
+                    GestAcces.DateHelper.write(_output,date);
                     _input = this._invoke(_output);
-                    return;
+                    GestAcces.Log _arg_ret = GestAcces.LogHelper.read(_input);
+                    return _arg_ret;
                 }
                 catch(org.omg.CORBA.portable.RemarshalException _exception)
                 {
@@ -152,14 +153,13 @@ public class _ServeurLogStub extends org.omg.CORBA.portable.ObjectImpl
             }
             else
             {
-                org.omg.CORBA.portable.ServantObject _so = _servant_preinvoke("afficherLogd",_opsClass);
+                org.omg.CORBA.portable.ServantObject _so = _servant_preinvoke("afficherLogFromDate",_opsClass);
                 if (_so == null)
                    continue;
                 GestAcces.ServeurLogOperations _self = (GestAcces.ServeurLogOperations) _so.servant;
                 try
                 {
-                    _self.afficherLogd( date);
-                    return;
+                    return _self.afficherLogFromDate( date);
                 }
                 finally
                 {
@@ -170,9 +170,9 @@ public class _ServeurLogStub extends org.omg.CORBA.portable.ObjectImpl
     }
 
     /**
-     * Operation afficherLogdf
+     * Operation afficherLogfromDateToDate
      */
-    public void afficherLogdf(short dated, short datef)
+    public GestAcces.Log afficherLogfromDateToDate(GestAcces.Date dated, GestAcces.Date datef)
     {
         while(true)
         {
@@ -181,11 +181,12 @@ public class _ServeurLogStub extends org.omg.CORBA.portable.ObjectImpl
                 org.omg.CORBA.portable.InputStream _input = null;
                 try
                 {
-                    org.omg.CORBA.portable.OutputStream _output = this._request("afficherLogdf",false);
-                    _output.write_short(dated);
-                    _output.write_short(datef);
+                    org.omg.CORBA.portable.OutputStream _output = this._request("afficherLogfromDateToDate",false);
+                    GestAcces.DateHelper.write(_output,dated);
+                    GestAcces.DateHelper.write(_output,datef);
                     _input = this._invoke(_output);
-                    return;
+                    GestAcces.Log _arg_ret = GestAcces.LogHelper.read(_input);
+                    return _arg_ret;
                 }
                 catch(org.omg.CORBA.portable.RemarshalException _exception)
                 {
@@ -203,14 +204,13 @@ public class _ServeurLogStub extends org.omg.CORBA.portable.ObjectImpl
             }
             else
             {
-                org.omg.CORBA.portable.ServantObject _so = _servant_preinvoke("afficherLogdf",_opsClass);
+                org.omg.CORBA.portable.ServantObject _so = _servant_preinvoke("afficherLogfromDateToDate",_opsClass);
                 if (_so == null)
                    continue;
                 GestAcces.ServeurLogOperations _self = (GestAcces.ServeurLogOperations) _so.servant;
                 try
                 {
-                    _self.afficherLogdf( dated,  datef);
-                    return;
+                    return _self.afficherLogfromDateToDate( dated,  datef);
                 }
                 finally
                 {

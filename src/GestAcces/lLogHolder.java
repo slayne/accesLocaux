@@ -1,58 +1,58 @@
 package GestAcces;
 
 /**
- * Holder class for : ServeurAcces
+ * Holder class for : lLog
  * 
  * @author OpenORB Compiler
  */
-final public class ServeurAccesHolder
+final public class lLogHolder
         implements org.omg.CORBA.portable.Streamable
 {
     /**
-     * Internal ServeurAcces value
+     * Internal lLog value
      */
-    public GestAcces.ServeurAcces value;
+    public GestAcces.Log[] value;
 
     /**
      * Default constructor
      */
-    public ServeurAccesHolder()
+    public lLogHolder()
     { }
 
     /**
      * Constructor with value initialisation
      * @param initial the initial value
      */
-    public ServeurAccesHolder(GestAcces.ServeurAcces initial)
+    public lLogHolder(GestAcces.Log[] initial)
     {
         value = initial;
     }
 
     /**
-     * Read ServeurAcces from a marshalled stream
+     * Read lLog from a marshalled stream
      * @param istream the input stream
      */
     public void _read(org.omg.CORBA.portable.InputStream istream)
     {
-        value = ServeurAccesHelper.read(istream);
+        value = lLogHelper.read(istream);
     }
 
     /**
-     * Write ServeurAcces into a marshalled stream
+     * Write lLog into a marshalled stream
      * @param ostream the output stream
      */
     public void _write(org.omg.CORBA.portable.OutputStream ostream)
     {
-        ServeurAccesHelper.write(ostream,value);
+        lLogHelper.write(ostream,value);
     }
 
     /**
-     * Return the ServeurAcces TypeCode
+     * Return the lLog TypeCode
      * @return a TypeCode
      */
     public org.omg.CORBA.TypeCode _type()
     {
-        return ServeurAccesHelper.type();
+        return lLogHelper.type();
     }
 
 }

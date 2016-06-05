@@ -1,58 +1,58 @@
 package GestAcces;
 
 /**
- * Holder class for : ServeurAcces
+ * Holder class for : Date
  * 
  * @author OpenORB Compiler
  */
-final public class ServeurAccesHolder
+final public class DateHolder
         implements org.omg.CORBA.portable.Streamable
 {
     /**
-     * Internal ServeurAcces value
+     * Internal Date value
      */
-    public GestAcces.ServeurAcces value;
+    public GestAcces.Date value;
 
     /**
      * Default constructor
      */
-    public ServeurAccesHolder()
+    public DateHolder()
     { }
 
     /**
      * Constructor with value initialisation
      * @param initial the initial value
      */
-    public ServeurAccesHolder(GestAcces.ServeurAcces initial)
+    public DateHolder(GestAcces.Date initial)
     {
         value = initial;
     }
 
     /**
-     * Read ServeurAcces from a marshalled stream
+     * Read Date from a marshalled stream
      * @param istream the input stream
      */
     public void _read(org.omg.CORBA.portable.InputStream istream)
     {
-        value = ServeurAccesHelper.read(istream);
+        value = DateHelper.read(istream);
     }
 
     /**
-     * Write ServeurAcces into a marshalled stream
+     * Write Date into a marshalled stream
      * @param ostream the output stream
      */
     public void _write(org.omg.CORBA.portable.OutputStream ostream)
     {
-        ServeurAccesHelper.write(ostream,value);
+        DateHelper.write(ostream,value);
     }
 
     /**
-     * Return the ServeurAcces TypeCode
+     * Return the Date TypeCode
      * @return a TypeCode
      */
     public org.omg.CORBA.TypeCode _type()
     {
-        return ServeurAccesHelper.type();
+        return DateHelper.type();
     }
 
 }

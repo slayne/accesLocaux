@@ -1,19 +1,18 @@
-package corba.serveurPersonnel;
+package corba.serveur.acces;
 
 import org.omg.CosNaming.NamingContext;
 import org.omg.PortableServer.POA;
 import org.omg.PortableServer.POAHelper;
+import utils.AccesUtils;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
-/**
- * Created by david on 13/11/2015.
- */
 public class ServeurAcceso {
 
     public static void main(String[] args) {
         try {
+            System.out.println("to");
             // Intialisation de l'ORB
             //************************
             org.omg.CORBA.ORB orb = org.omg.CORBA.ORB.init(args,null);
@@ -41,14 +40,12 @@ public class ServeurAcceso {
             //NamingContext nameRoot=org.omg.CosNaming.NamingContextHelper.narrow(orb.string_to_object("corbaloc://iiop:1.2@130.120.210.149:2001/NameService"));
             // Construction du nom a enregistrer
             org.omg.CosNaming.NameComponent[] nameToRegister = new org.omg.CosNaming.NameComponent[1];
-            System.out.println("Sous quel nom voulez-vous enregistrer l'objet Corba ?");
-            BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
-            String nomObj = in.readLine();
-            nameToRegister[0] = new org.omg.CosNaming.NameComponent(nomObj,"");
+
+            nameToRegister[0] = new org.omg.CosNaming.NameComponent(AccesUtils.ACCES_SERVER,"");
 
             // Enregistrement de l'objet CORBA dans le service de noms
             nameRoot.rebind(nameToRegister,rootPOA.servant_to_reference(acces));
-            System.out.println("==> Nom '"+ nomObj + "' est enregistre dans le service de noms.");
+            System.out.println("==> Nom '"+ AccesUtils.ACCES_SERVER + "' est enregistre dans le service de noms.");
 
             String IORServant = orb.object_to_string(rootPOA.servant_to_reference(acces));
             System.out.println("L'objet possede la reference suivante :");

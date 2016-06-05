@@ -65,18 +65,18 @@ public class ServeurAnnuairePOATie extends ServeurAnnuairePOA
     /**
      * Operation enregisterCollaborateur
      */
-    public short enregisterCollaborateur(String nom, String prenom, String p)
+    public void enregisterCollaborateur(String nom, String prenom, String p)
         throws GestAcces.ServeurAnnuairePackage.CollaborateurDejaExistant
     {
-        return _tie.enregisterCollaborateur( nom,  prenom,  p);
+        _tie.enregisterCollaborateur( nom,  prenom,  p);
     }
 
     /**
      * Operation rechercherCollaborateur
      */
-    public short rechercherCollaborateur(String nom, String prenom)
+    public void rechercherCollaborateur(String nom, String prenom)
     {
-        return _tie.rechercherCollaborateur( nom,  prenom);
+        _tie.rechercherCollaborateur( nom,  prenom);
     }
 
     /**

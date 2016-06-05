@@ -23,7 +23,7 @@ public class _ServeurEmpreinteStub extends org.omg.CORBA.portable.ObjectImpl
     /**
      * Operation enregistrerEmpreinte
      */
-    public short enregistrerEmpreinte(String e, short id)
+    public void enregistrerEmpreinte(String e, short id)
         throws GestAcces.ServeurEmpreintePackage.EmpreintePresente
     {
         while(true)
@@ -37,8 +37,7 @@ public class _ServeurEmpreinteStub extends org.omg.CORBA.portable.ObjectImpl
                     GestAcces.EmpreinteHelper.write(_output,e);
                     _output.write_short(id);
                     _input = this._invoke(_output);
-                    short _arg_ret = _input.read_short();
-                    return _arg_ret;
+                    return;
                 }
                 catch(org.omg.CORBA.portable.RemarshalException _exception)
                 {
@@ -67,7 +66,8 @@ public class _ServeurEmpreinteStub extends org.omg.CORBA.portable.ObjectImpl
                 GestAcces.ServeurEmpreinteOperations _self = (GestAcces.ServeurEmpreinteOperations) _so.servant;
                 try
                 {
-                    return _self.enregistrerEmpreinte( e,  id);
+                    _self.enregistrerEmpreinte( e,  id);
+                    return;
                 }
                 finally
                 {
@@ -80,7 +80,7 @@ public class _ServeurEmpreinteStub extends org.omg.CORBA.portable.ObjectImpl
     /**
      * Operation modifierEmpreinte
      */
-    public short modifierEmpreinte(String ancienneEmpreinte, String nouvelleEmpreinte)
+    public void modifierEmpreinte(String ancienneEmpreinte, String nouvelleEmpreinte)
         throws GestAcces.ServeurEmpreintePackage.EmpreinteInexistante
     {
         while(true)
@@ -94,8 +94,7 @@ public class _ServeurEmpreinteStub extends org.omg.CORBA.portable.ObjectImpl
                     GestAcces.EmpreinteHelper.write(_output,ancienneEmpreinte);
                     GestAcces.EmpreinteHelper.write(_output,nouvelleEmpreinte);
                     _input = this._invoke(_output);
-                    short _arg_ret = _input.read_short();
-                    return _arg_ret;
+                    return;
                 }
                 catch(org.omg.CORBA.portable.RemarshalException _exception)
                 {
@@ -124,7 +123,8 @@ public class _ServeurEmpreinteStub extends org.omg.CORBA.portable.ObjectImpl
                 GestAcces.ServeurEmpreinteOperations _self = (GestAcces.ServeurEmpreinteOperations) _so.servant;
                 try
                 {
-                    return _self.modifierEmpreinte( ancienneEmpreinte,  nouvelleEmpreinte);
+                    _self.modifierEmpreinte( ancienneEmpreinte,  nouvelleEmpreinte);
+                    return;
                 }
                 finally
                 {
@@ -137,7 +137,7 @@ public class _ServeurEmpreinteStub extends org.omg.CORBA.portable.ObjectImpl
     /**
      * Operation supprimerEmpreinte
      */
-    public short supprimerEmpreinte(short id)
+    public void supprimerEmpreinte(short id)
     {
         while(true)
         {
@@ -149,8 +149,7 @@ public class _ServeurEmpreinteStub extends org.omg.CORBA.portable.ObjectImpl
                     org.omg.CORBA.portable.OutputStream _output = this._request("supprimerEmpreinte",true);
                     _output.write_short(id);
                     _input = this._invoke(_output);
-                    short _arg_ret = _input.read_short();
-                    return _arg_ret;
+                    return;
                 }
                 catch(org.omg.CORBA.portable.RemarshalException _exception)
                 {
@@ -174,7 +173,8 @@ public class _ServeurEmpreinteStub extends org.omg.CORBA.portable.ObjectImpl
                 GestAcces.ServeurEmpreinteOperations _self = (GestAcces.ServeurEmpreinteOperations) _so.servant;
                 try
                 {
-                    return _self.supprimerEmpreinte( id);
+                    _self.supprimerEmpreinte( id);
+                    return;
                 }
                 finally
                 {
@@ -187,7 +187,7 @@ public class _ServeurEmpreinteStub extends org.omg.CORBA.portable.ObjectImpl
     /**
      * Operation verifierEmpreinte
      */
-    public short verifierEmpreinte(String id, String mdp)
+    public void verifierEmpreinte(String id, String mdp)
     {
         while(true)
         {
@@ -200,8 +200,7 @@ public class _ServeurEmpreinteStub extends org.omg.CORBA.portable.ObjectImpl
                     GestAcces.PhotoHelper.write(_output,id);
                     GestAcces.EmpreinteHelper.write(_output,mdp);
                     _input = this._invoke(_output);
-                    short _arg_ret = _input.read_short();
-                    return _arg_ret;
+                    return;
                 }
                 catch(org.omg.CORBA.portable.RemarshalException _exception)
                 {
@@ -225,7 +224,8 @@ public class _ServeurEmpreinteStub extends org.omg.CORBA.portable.ObjectImpl
                 GestAcces.ServeurEmpreinteOperations _self = (GestAcces.ServeurEmpreinteOperations) _so.servant;
                 try
                 {
-                    return _self.verifierEmpreinte( id,  mdp);
+                    _self.verifierEmpreinte( id,  mdp);
+                    return;
                 }
                 finally
                 {

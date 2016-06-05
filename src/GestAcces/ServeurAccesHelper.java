@@ -1,16 +1,16 @@
 package GestAcces;
 
 /** 
- * Helper class for : ServeurAcceso
+ * Helper class for : ServeurAcces
  *  
  * @author OpenORB Compiler
  */ 
 public class ServeurAccesHelper
 {
     /**
-     * Insert ServeurAcceso into an any
+     * Insert ServeurAcces into an any
      * @param a an any
-     * @param t ServeurAcceso value
+     * @param t ServeurAcces value
      */
     public static void insert(org.omg.CORBA.Any a, GestAcces.ServeurAcces t)
     {
@@ -18,9 +18,9 @@ public class ServeurAccesHelper
     }
 
     /**
-     * Extract ServeurAcceso from an any
+     * Extract ServeurAcces from an any
      * @param a an any
-     * @return the extracted ServeurAcceso value
+     * @return the extracted ServeurAcces value
      */
     public static GestAcces.ServeurAcces extract(org.omg.CORBA.Any a)
     {
@@ -39,20 +39,20 @@ public class ServeurAccesHelper
     private static org.omg.CORBA.TypeCode _tc = null;
 
     /**
-     * Return the ServeurAcceso TypeCode
+     * Return the ServeurAcces TypeCode
      * @return a TypeCode
      */
     public static org.omg.CORBA.TypeCode type()
     {
         if (_tc == null) {
             org.omg.CORBA.ORB orb = org.omg.CORBA.ORB.init();
-            _tc = orb.create_interface_tc(id(),"ServeurAcceso");
+            _tc = orb.create_interface_tc(id(),"ServeurAcces");
         }
         return _tc;
     }
 
     /**
-     * Return the ServeurAcceso IDL ID
+     * Return the ServeurAcces IDL ID
      * @return an ID
      */
     public static String id()
@@ -60,12 +60,12 @@ public class ServeurAccesHelper
         return _id;
     }
 
-    private final static String _id = "IDL:GestAcces/ServeurAcceso:1.0";
+    private final static String _id = "IDL:GestAcces/ServeurAcces:1.0";
 
     /**
-     * Read ServeurAcceso from a marshalled stream
+     * Read ServeurAcces from a marshalled stream
      * @param istream the input stream
-     * @return the readed ServeurAcceso value
+     * @return the readed ServeurAcces value
      */
     public static GestAcces.ServeurAcces read(org.omg.CORBA.portable.InputStream istream)
     {
@@ -73,9 +73,9 @@ public class ServeurAccesHelper
     }
 
     /**
-     * Write ServeurAcceso into a marshalled stream
+     * Write ServeurAcces into a marshalled stream
      * @param ostream the output stream
-     * @param value ServeurAcceso value
+     * @param value ServeurAcces value
      */
     public static void write(org.omg.CORBA.portable.OutputStream ostream, GestAcces.ServeurAcces value)
     {
@@ -83,9 +83,9 @@ public class ServeurAccesHelper
     }
 
     /**
-     * Narrow CORBA::Object to ServeurAcceso
+     * Narrow CORBA::Object to ServeurAcces
      * @param obj the CORBA Object
-     * @return ServeurAcceso Object
+     * @return ServeurAcces Object
      */
     public static ServeurAcces narrow(org.omg.CORBA.Object obj)
     {
@@ -105,9 +105,9 @@ public class ServeurAccesHelper
     }
 
     /**
-     * Unchecked Narrow CORBA::Object to ServeurAcceso
+     * Unchecked Narrow CORBA::Object to ServeurAcces
      * @param obj the CORBA Object
-     * @return ServeurAcceso Object
+     * @return ServeurAcces Object
      */
     public static ServeurAcces unchecked_narrow(org.omg.CORBA.Object obj)
     {

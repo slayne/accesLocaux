@@ -1,58 +1,58 @@
 package GestAcces;
 
 /**
- * Holder class for : lzone
+ * Holder class for : Log
  * 
  * @author OpenORB Compiler
  */
-final public class lzoneHolder
+final public class LogHolder
         implements org.omg.CORBA.portable.Streamable
 {
     /**
-     * Internal lzone value
+     * Internal Log value
      */
-    public GestAcces.Zone[] value;
+    public GestAcces.Log value;
 
     /**
      * Default constructor
      */
-    public lzoneHolder()
+    public LogHolder()
     { }
 
     /**
      * Constructor with value initialisation
      * @param initial the initial value
      */
-    public lzoneHolder(GestAcces.Zone[] initial)
+    public LogHolder(GestAcces.Log initial)
     {
         value = initial;
     }
 
     /**
-     * Read lzone from a marshalled stream
+     * Read Log from a marshalled stream
      * @param istream the input stream
      */
     public void _read(org.omg.CORBA.portable.InputStream istream)
     {
-        value = lzoneHelper.read(istream);
+        value = LogHelper.read(istream);
     }
 
     /**
-     * Write lzone into a marshalled stream
+     * Write Log into a marshalled stream
      * @param ostream the output stream
      */
     public void _write(org.omg.CORBA.portable.OutputStream ostream)
     {
-        lzoneHelper.write(ostream,value);
+        LogHelper.write(ostream,value);
     }
 
     /**
-     * Return the lzone TypeCode
+     * Return the Log TypeCode
      * @return a TypeCode
      */
     public org.omg.CORBA.TypeCode _type()
     {
-        return lzoneHelper.type();
+        return LogHelper.type();
     }
 
 }

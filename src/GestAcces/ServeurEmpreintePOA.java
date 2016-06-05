@@ -56,10 +56,9 @@ public abstract class ServeurEmpreintePOA extends org.omg.PortableServer.Servant
 
         try
         {
-            short _arg_result = enregistrerEmpreinte(arg0_in, arg1_in);
+            enregistrerEmpreinte(arg0_in, arg1_in);
 
             _output = handler.createReply();
-            _output.write_short(_arg_result);
 
         }
         catch (GestAcces.ServeurEmpreintePackage.EmpreintePresente _exception)
@@ -79,10 +78,9 @@ public abstract class ServeurEmpreintePOA extends org.omg.PortableServer.Servant
 
         try
         {
-            short _arg_result = modifierEmpreinte(arg0_in, arg1_in);
+            modifierEmpreinte(arg0_in, arg1_in);
 
             _output = handler.createReply();
-            _output.write_short(_arg_result);
 
         }
         catch (GestAcces.ServeurEmpreintePackage.EmpreinteInexistante _exception)
@@ -99,10 +97,9 @@ public abstract class ServeurEmpreintePOA extends org.omg.PortableServer.Servant
         org.omg.CORBA.portable.OutputStream _output;
         short arg0_in = _is.read_short();
 
-        short _arg_result = supprimerEmpreinte(arg0_in);
+        supprimerEmpreinte(arg0_in);
 
         _output = handler.createReply();
-        _output.write_short(_arg_result);
 
         return _output;
     }
@@ -114,10 +111,9 @@ public abstract class ServeurEmpreintePOA extends org.omg.PortableServer.Servant
         String arg0_in = GestAcces.PhotoHelper.read(_is);
         String arg1_in = GestAcces.EmpreinteHelper.read(_is);
 
-        short _arg_result = verifierEmpreinte(arg0_in, arg1_in);
+        verifierEmpreinte(arg0_in, arg1_in);
 
         _output = handler.createReply();
-        _output.write_short(_arg_result);
 
         return _output;
     }

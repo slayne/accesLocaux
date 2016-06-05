@@ -1,7 +1,7 @@
 package GestAcces;
 
 /**
- * Interface definition : ServeurAcceso
+ * Interface definition : ServeurAcces
  * 
  * @author OpenORB Compiler
  */
@@ -91,10 +91,10 @@ public class ServeurAccesPOATie extends ServeurAccesPOA
     /**
      * Operation supprimerAcces
      */
-    public short supprimerAcces(short idCollaborateur, short idZone)
+    public void supprimerAcces(short idCollaborateur, short idZone)
         throws GestAcces.ServeurAccesPackage.CollaborateurInexistant
     {
-        return _tie.supprimerAcces( idCollaborateur,  idZone);
+        _tie.supprimerAcces( idCollaborateur,  idZone);
     }
 
     /**

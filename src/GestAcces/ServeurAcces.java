@@ -1,7 +1,7 @@
 package GestAcces;
 
 /**
- * Interface definition : ServeurAcceso
+ * Interface definition : ServeurAcces
  * 
  * @author OpenORB Compiler
  */

@@ -1,7 +1,7 @@
 package GestAcces;
 
 /**
- * Interface definition : ServeurAcceso
+ * Interface definition : ServeurAcces
  * 
  * @author OpenORB Compiler
  */
@@ -27,7 +27,7 @@ public interface ServeurAccesOperations
     /**
      * Operation supprimerAcces
      */
-    public short supprimerAcces(short idCollaborateur, short idZone)
+    public void supprimerAcces(short idCollaborateur, short idZone)
         throws GestAcces.ServeurAccesPackage.CollaborateurInexistant;
 
     /**

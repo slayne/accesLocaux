@@ -1,7 +1,7 @@
 package GestAcces;
 
 /**
- * Interface definition : ServeurAcceso
+ * Interface definition : ServeurAcces
  * 
  * @author OpenORB Compiler
  */
@@ -10,7 +10,7 @@ public class _ServeurAccesStub extends org.omg.CORBA.portable.ObjectImpl
 {
     static final String[] _ids_list =
     {
-        "IDL:GestAcces/ServeurAcceso:1.0"
+        "IDL:GestAcces/ServeurAcces:1.0"
     };
 
     public String[] _ids()
@@ -194,7 +194,7 @@ public class _ServeurAccesStub extends org.omg.CORBA.portable.ObjectImpl
     /**
      * Operation supprimerAcces
      */
-    public short supprimerAcces(short idCollaborateur, short idZone)
+    public void supprimerAcces(short idCollaborateur, short idZone)
         throws GestAcces.ServeurAccesPackage.CollaborateurInexistant
     {
         while(true)
@@ -208,8 +208,7 @@ public class _ServeurAccesStub extends org.omg.CORBA.portable.ObjectImpl
                     _output.write_short(idCollaborateur);
                     _output.write_short(idZone);
                     _input = this._invoke(_output);
-                    short _arg_ret = _input.read_short();
-                    return _arg_ret;
+                    return;
                 }
                 catch(org.omg.CORBA.portable.RemarshalException _exception)
                 {
@@ -238,7 +237,8 @@ public class _ServeurAccesStub extends org.omg.CORBA.portable.ObjectImpl
                 GestAcces.ServeurAccesOperations _self = (GestAcces.ServeurAccesOperations) _so.servant;
                 try
                 {
-                    return _self.supprimerAcces( idCollaborateur,  idZone);
+                    _self.supprimerAcces( idCollaborateur,  idZone);
+                    return;
                 }
                 finally
                 {
@@ -313,7 +313,7 @@ public class _ServeurAccesStub extends org.omg.CORBA.portable.ObjectImpl
                 {
                     org.omg.CORBA.portable.OutputStream _output = this._request("getListeZone",true);
                     _input = this._invoke(_output);
-                    GestAcces.Zone[] _arg_ret = GestAcces.lzoneHelper.read(_input);
+                    GestAcces.Zone[] _arg_ret = GestAcces.lZoneHelper.read(_input);
                     return _arg_ret;
                 }
                 catch(org.omg.CORBA.portable.RemarshalException _exception)

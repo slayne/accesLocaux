@@ -91,7 +91,7 @@ public class CollaborateurDejaExistantHelper
         return _id;
     }
 
-    private final static String _id = "IDL:GestAcces/ServeurAcceso/CollaborateurDejaExistant:1.0";
+    private final static String _id = "IDL:GestAcces/ServeurAcces/CollaborateurDejaExistant:1.0";
 
     /**
      * Read CollaborateurDejaExistant from a marshalled stream

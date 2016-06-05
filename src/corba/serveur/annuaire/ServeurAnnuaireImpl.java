@@ -1,4 +1,4 @@
-package corba.serveurPersonnel;
+package corba.serveur.annuaire;
 
 import GestAcces.ServeurAnnuairePackage.CollaborateurDejaExistant;
 import GestAcces.ServeurAnnuairePackage.CollaborateurInnexistant;
@@ -8,14 +8,17 @@ import GestAcces.ServeurAnnuairePackage.CollaborateurInnexistant;
  */
 public class ServeurAnnuaireImpl extends GestAcces.ServeurAnnuairePOA {
 
-    public short enregisterCollaborateur(String nom, String prenom, String p) throws CollaborateurDejaExistant {
-        return 0;
+    @Override
+    public void enregisterCollaborateur(String nom, String prenom, String p) throws CollaborateurDejaExistant {
+
     }
 
-    public short rechercherCollaborateur(String nom, String prenom) {
-        return 0;
+    @Override
+    public void rechercherCollaborateur(String nom, String prenom) {
+
     }
 
+    @Override
     public void supprimerCollaborateur(short id) throws CollaborateurInnexistant {
 
     }

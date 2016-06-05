@@ -1,4 +1,4 @@
-package corba.serveurPersonnel;
+package corba.serveur.acces;
 
 import GestAcces.Jour;
 import GestAcces.ServeurAccesPOA;
@@ -29,9 +29,10 @@ public class ServeurAccesImpl extends ServeurAccesPOA {
     }
 
     @Override
-    public short supprimerAcces(short idCollaborateur, short idZone) throws CollaborateurInexistant {
-        return 0;
+    public void supprimerAcces(short idCollaborateur, short idZone) throws CollaborateurInexistant {
+
     }
+
 
     @Override
     public short verifierAcces(short idCollaborateur, short idZone) {
