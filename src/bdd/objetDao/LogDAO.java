@@ -1,7 +1,9 @@
 package bdd.objetDao;
 
+import GestAcces.Date;
 import GestAcces.Log;
 import bdd.DAO;
+import bdd.objetsMetier.Acces;
 import utils.AccesUtils;
 
 import java.sql.PreparedStatement;
@@ -33,6 +35,45 @@ public class LogDAO extends DAO<Log> {
         }
         return logs;
     }
+
+    public ArrayList<Log> getInstancesFrom(Date from) {
+        ArrayList<Log> logs = new ArrayList<Log>();
+        try {
+
+            ResultSet result = this.connect.createStatement(
+                    ResultSet.TYPE_SCROLL_INSENSITIVE,
+                    ResultSet.CONCUR_UPDATABLE).executeQuery(
+                    "SELECT * FROM log WHERE date > " + AccesUtils.corbaDateToTimeStamp(from));
+            while (result.next()) {
+                Log s = this.find(result.getInt(1));
+                logs.add(s);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return logs;
+    }
+
+
+    public ArrayList<Log> getInstancesByDate(Date from, Date to) {
+        ArrayList<Log> logs = new ArrayList<Log>();
+        try {
+
+            ResultSet result = this.connect.createStatement(
+                    ResultSet.TYPE_SCROLL_INSENSITIVE,
+                    ResultSet.CONCUR_UPDATABLE).executeQuery(
+                    "SELECT * FROM log WHERE date BETWEEN " + AccesUtils.corbaDateToTimeStamp(from)
+                            + " AND " + AccesUtils.corbaDateToTimeStamp(to));
+            while (result.next()) {
+                Log s = this.find(result.getInt(1));
+                logs.add(s);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return logs;
+    }
+
 
     @Override
     public Log find(long id) {

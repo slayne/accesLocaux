@@ -79,19 +79,19 @@ public class ServeurLogPOATie extends ServeurLogPOA
     }
 
     /**
-     * Operation afficherLogFromDate
+     * Operation afficherLogsFromDate
      */
-    public GestAcces.Log afficherLogFromDate(GestAcces.Date date)
+    public GestAcces.Log[] afficherLogsFromDate(GestAcces.Date date)
     {
-        return _tie.afficherLogFromDate( date);
+        return _tie.afficherLogsFromDate( date);
     }
 
     /**
-     * Operation afficherLogfromDateToDate
+     * Operation afficherLogsfromDateToDate
      */
-    public GestAcces.Log afficherLogfromDateToDate(GestAcces.Date dated, GestAcces.Date datef)
+    public GestAcces.Log[] afficherLogsfromDateToDate(GestAcces.Date dated, GestAcces.Date datef)
     {
-        return _tie.afficherLogfromDateToDate( dated,  datef);
+        return _tie.afficherLogsfromDateToDate( dated,  datef);
     }
 
 }

@@ -33,12 +33,12 @@ public abstract class ServeurLogPOA extends org.omg.PortableServer.Servant
             final org.omg.CORBA.portable.ResponseHandler handler)
     {
 
-        if (opName.equals("afficherLogFromDate")) {
-                return _invoke_afficherLogFromDate(_is, handler);
-        } else if (opName.equals("afficherLogfromDateToDate")) {
-                return _invoke_afficherLogfromDateToDate(_is, handler);
-        } else if (opName.equals("afficherLogs")) {
+        if (opName.equals("afficherLogs")) {
                 return _invoke_afficherLogs(_is, handler);
+        } else if (opName.equals("afficherLogsFromDate")) {
+                return _invoke_afficherLogsFromDate(_is, handler);
+        } else if (opName.equals("afficherLogsfromDateToDate")) {
+                return _invoke_afficherLogsfromDateToDate(_is, handler);
         } else if (opName.equals("envoyerLog")) {
                 return _invoke_envoyerLog(_is, handler);
         } else {
@@ -73,31 +73,31 @@ public abstract class ServeurLogPOA extends org.omg.PortableServer.Servant
         return _output;
     }
 
-    private org.omg.CORBA.portable.OutputStream _invoke_afficherLogFromDate(
+    private org.omg.CORBA.portable.OutputStream _invoke_afficherLogsFromDate(
             final org.omg.CORBA.portable.InputStream _is,
             final org.omg.CORBA.portable.ResponseHandler handler) {
         org.omg.CORBA.portable.OutputStream _output;
         GestAcces.Date arg0_in = GestAcces.DateHelper.read(_is);
 
-        GestAcces.Log _arg_result = afficherLogFromDate(arg0_in);
+        GestAcces.Log[] _arg_result = afficherLogsFromDate(arg0_in);
 
         _output = handler.createReply();
-        GestAcces.LogHelper.write(_output,_arg_result);
+        GestAcces.lLogHelper.write(_output,_arg_result);
 
         return _output;
     }
 
-    private org.omg.CORBA.portable.OutputStream _invoke_afficherLogfromDateToDate(
+    private org.omg.CORBA.portable.OutputStream _invoke_afficherLogsfromDateToDate(
             final org.omg.CORBA.portable.InputStream _is,
             final org.omg.CORBA.portable.ResponseHandler handler) {
         org.omg.CORBA.portable.OutputStream _output;
         GestAcces.Date arg0_in = GestAcces.DateHelper.read(_is);
         GestAcces.Date arg1_in = GestAcces.DateHelper.read(_is);
 
-        GestAcces.Log _arg_result = afficherLogfromDateToDate(arg0_in, arg1_in);
+        GestAcces.Log[] _arg_result = afficherLogsfromDateToDate(arg0_in, arg1_in);
 
         _output = handler.createReply();
-        GestAcces.LogHelper.write(_output,_arg_result);
+        GestAcces.lLogHelper.write(_output,_arg_result);
 
         return _output;
     }

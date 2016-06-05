@@ -23,12 +23,12 @@ public class ServeurLogImpl extends ServeurLogPOA {
     }
 
     @Override
-    public Log afficherLogFromDate(Date date) {
-        return null;
+    public Log[] afficherLogsFromDate(Date date) {
+        return (Log[])logDAO.getInstancesFrom(date).toArray();
     }
 
     @Override
-    public Log afficherLogfromDateToDate(Date dated, Date datef) {
-        return null;
+    public Log[] afficherLogsfromDateToDate(Date dated, Date datef) {
+        return (Log[])logDAO.getInstancesByDate(dated,datef).toArray();
     }
 }

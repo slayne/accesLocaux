@@ -120,9 +120,9 @@ public class _ServeurLogStub extends org.omg.CORBA.portable.ObjectImpl
     }
 
     /**
-     * Operation afficherLogFromDate
+     * Operation afficherLogsFromDate
      */
-    public GestAcces.Log afficherLogFromDate(GestAcces.Date date)
+    public GestAcces.Log[] afficherLogsFromDate(GestAcces.Date date)
     {
         while(true)
         {
@@ -131,10 +131,10 @@ public class _ServeurLogStub extends org.omg.CORBA.portable.ObjectImpl
                 org.omg.CORBA.portable.InputStream _input = null;
                 try
                 {
-                    org.omg.CORBA.portable.OutputStream _output = this._request("afficherLogFromDate",false);
+                    org.omg.CORBA.portable.OutputStream _output = this._request("afficherLogsFromDate",false);
                     GestAcces.DateHelper.write(_output,date);
                     _input = this._invoke(_output);
-                    GestAcces.Log _arg_ret = GestAcces.LogHelper.read(_input);
+                    GestAcces.Log[] _arg_ret = GestAcces.lLogHelper.read(_input);
                     return _arg_ret;
                 }
                 catch(org.omg.CORBA.portable.RemarshalException _exception)
@@ -153,13 +153,13 @@ public class _ServeurLogStub extends org.omg.CORBA.portable.ObjectImpl
             }
             else
             {
-                org.omg.CORBA.portable.ServantObject _so = _servant_preinvoke("afficherLogFromDate",_opsClass);
+                org.omg.CORBA.portable.ServantObject _so = _servant_preinvoke("afficherLogsFromDate",_opsClass);
                 if (_so == null)
                    continue;
                 GestAcces.ServeurLogOperations _self = (GestAcces.ServeurLogOperations) _so.servant;
                 try
                 {
-                    return _self.afficherLogFromDate( date);
+                    return _self.afficherLogsFromDate( date);
                 }
                 finally
                 {
@@ -170,9 +170,9 @@ public class _ServeurLogStub extends org.omg.CORBA.portable.ObjectImpl
     }
 
     /**
-     * Operation afficherLogfromDateToDate
+     * Operation afficherLogsfromDateToDate
      */
-    public GestAcces.Log afficherLogfromDateToDate(GestAcces.Date dated, GestAcces.Date datef)
+    public GestAcces.Log[] afficherLogsfromDateToDate(GestAcces.Date dated, GestAcces.Date datef)
     {
         while(true)
         {
@@ -181,11 +181,11 @@ public class _ServeurLogStub extends org.omg.CORBA.portable.ObjectImpl
                 org.omg.CORBA.portable.InputStream _input = null;
                 try
                 {
-                    org.omg.CORBA.portable.OutputStream _output = this._request("afficherLogfromDateToDate",false);
+                    org.omg.CORBA.portable.OutputStream _output = this._request("afficherLogsfromDateToDate",false);
                     GestAcces.DateHelper.write(_output,dated);
                     GestAcces.DateHelper.write(_output,datef);
                     _input = this._invoke(_output);
-                    GestAcces.Log _arg_ret = GestAcces.LogHelper.read(_input);
+                    GestAcces.Log[] _arg_ret = GestAcces.lLogHelper.read(_input);
                     return _arg_ret;
                 }
                 catch(org.omg.CORBA.portable.RemarshalException _exception)
@@ -204,13 +204,13 @@ public class _ServeurLogStub extends org.omg.CORBA.portable.ObjectImpl
             }
             else
             {
-                org.omg.CORBA.portable.ServantObject _so = _servant_preinvoke("afficherLogfromDateToDate",_opsClass);
+                org.omg.CORBA.portable.ServantObject _so = _servant_preinvoke("afficherLogsfromDateToDate",_opsClass);
                 if (_so == null)
                    continue;
                 GestAcces.ServeurLogOperations _self = (GestAcces.ServeurLogOperations) _so.servant;
                 try
                 {
-                    return _self.afficherLogfromDateToDate( dated,  datef);
+                    return _self.afficherLogsfromDateToDate( dated,  datef);
                 }
                 finally
                 {

@@ -18,13 +18,13 @@ public interface ServeurLogOperations
     public GestAcces.Log[] afficherLogs();
 
     /**
-     * Operation afficherLogFromDate
+     * Operation afficherLogsFromDate
      */
-    public GestAcces.Log afficherLogFromDate(GestAcces.Date date);
+    public GestAcces.Log[] afficherLogsFromDate(GestAcces.Date date);
 
     /**
-     * Operation afficherLogfromDateToDate
+     * Operation afficherLogsfromDateToDate
      */
-    public GestAcces.Log afficherLogfromDateToDate(GestAcces.Date dated, GestAcces.Date datef);
+    public GestAcces.Log[] afficherLogsfromDateToDate(GestAcces.Date dated, GestAcces.Date datef);
 
 }

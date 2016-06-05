@@ -7,7 +7,6 @@ package GestAcces;
 */
 public final class Log implements org.omg.CORBA.portable.IDLEntity
 {
-    public int id;
     /**
      * Struct member date
      */
