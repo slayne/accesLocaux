@@ -6,6 +6,7 @@ import org.omg.CORBA.Object;
 import org.omg.CosNaming.NameComponent;
 import org.omg.CosNaming.NamingContext;
 import org.omg.CosNaming.NamingContextHelper;
+import utils.AccesUtils;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -31,10 +32,10 @@ public class ClientAcces {
 
 
             // Saisie du nom de l'objet (si utilisation du service de nommage)
-            System.out.println("Quel objet Corba voulez-vous contacter ?");
-            BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
-            String idObj = in.readLine();
-
+           // System.out.println("Quel objet Corba voulez-vous contacter ?");
+            //BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
+            //String idObj = in.readLine();
+            String idObj = AccesUtils.ACCES_SERVER;
             // Recuperation du naming service
             NamingContext nameRoot =
                     NamingContextHelper.narrow(orb.resolve_initial_references("NameService"));
@@ -42,6 +43,7 @@ public class ClientAcces {
             // Construction du nom a rechercher
             NameComponent[] nameToFind = new NameComponent[1];
             nameToFind[0] = new NameComponent(idObj,"");
+
 
             // Recherche aupres du naming service
             Object distantAcces = nameRoot.resolve(nameToFind);
