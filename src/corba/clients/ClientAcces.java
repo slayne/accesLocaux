@@ -30,7 +30,6 @@ public class ClientAcces {
 
 
 
-
             // Saisie du nom de l'objet (si utilisation du service de nommage)
            // System.out.println("Quel objet Corba voulez-vous contacter ?");
             //BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
