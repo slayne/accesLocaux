@@ -10,7 +10,7 @@ public interface ServeurEmpreinteOperations
     /**
      * Operation enregistrerEmpreinte
      */
-    public void enregistrerEmpreinte(GestAcces.Empreinte e)
+    public void enregistrerEmpreinte(short idCollaborateur, String empreinte)
         throws GestAcces.ServeurEmpreintePackage.EmpreintePresente;
 
     /**

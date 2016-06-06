@@ -51,11 +51,12 @@ public abstract class ServeurEmpreintePOA extends org.omg.PortableServer.Servant
             final org.omg.CORBA.portable.InputStream _is,
             final org.omg.CORBA.portable.ResponseHandler handler) {
         org.omg.CORBA.portable.OutputStream _output;
-        GestAcces.Empreinte arg0_in = GestAcces.EmpreinteHelper.read(_is);
+        short arg0_in = _is.read_short();
+        String arg1_in = _is.read_string();
 
         try
         {
-            enregistrerEmpreinte(arg0_in);
+            enregistrerEmpreinte(arg0_in, arg1_in);
 
             _output = handler.createReply();
 

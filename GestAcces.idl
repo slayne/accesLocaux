@@ -26,11 +26,6 @@ module GestAcces {
 	    string log;
 	};
 
-	struct Empreinte {
-	    string empreinte;
-	    short idCollaborateur;
-	};
-
 	struct CollaborateurCorba {
             string nom;
             string prenom;
@@ -40,7 +35,7 @@ module GestAcces {
             string mdp;
             Photo photo;
             Date dateEntree;
-            Empreinte e;
+            string empreinte;
     };
 
 	interface ServeurAnnuaire {
@@ -58,7 +53,7 @@ module GestAcces {
 		exception EmpreintePresente{};
 		exception EmpreinteInvalide{};
 
-		void enregistrerEmpreinte(in Empreinte e) raises(EmpreintePresente);
+		void enregistrerEmpreinte(in short idCollaborateur, in string empreinte) raises(EmpreintePresente);
 		void modifierEmpreinte(in short idCollaborateur, in string nouvelleEmpreinte) raises (EmpreinteInexistante);
 		void supprimerEmpreinte(in short idCollaborateur) raises (EmpreinteInexistante);
 		void verifierEmpreinte(in short idCollaborateur,in string mdp) raises (EmpreinteInvalide);

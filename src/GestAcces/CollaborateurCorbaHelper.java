@@ -100,8 +100,8 @@ public class CollaborateurCorbaHelper
                 _members[7].name = "dateEntree";
                 _members[7].type = GestAcces.DateHelper.type();
                 _members[8] = new org.omg.CORBA.StructMember();
-                _members[8].name = "e";
-                _members[8].type = GestAcces.EmpreinteHelper.type();
+                _members[8].name = "empreinte";
+                _members[8].type = orb.get_primitive_tc(org.omg.CORBA.TCKind.tk_string);
                 _tc = orb.create_struct_tc(id(),"CollaborateurCorba",_members);
                 _working = false;
             }
@@ -137,7 +137,7 @@ public class CollaborateurCorbaHelper
         new_one.mdp = istream.read_string();
         new_one.photo = GestAcces.PhotoHelper.read(istream);
         new_one.dateEntree = GestAcces.DateHelper.read(istream);
-        new_one.e = GestAcces.EmpreinteHelper.read(istream);
+        new_one.empreinte = istream.read_string();
 
         return new_one;
     }
@@ -157,7 +157,7 @@ public class CollaborateurCorbaHelper
         ostream.write_string(value.mdp);
         GestAcces.PhotoHelper.write(ostream,value.photo);
         GestAcces.DateHelper.write(ostream,value.dateEntree);
-        GestAcces.EmpreinteHelper.write(ostream,value.e);
+        ostream.write_string(value.empreinte);
     }
 
 }

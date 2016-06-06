@@ -1,10 +1,8 @@
 package bdd.objetDao;
 
-import GestAcces.Empreinte;
-import GestAcces.Log;
 import bdd.DAO;
 import bdd.connectionJDBC.ConnectionBDD;
-import utils.AccesUtils;
+import bdd.objetsMetier.Empreinte;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

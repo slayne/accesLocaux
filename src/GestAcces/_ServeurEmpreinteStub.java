@@ -23,7 +23,7 @@ public class _ServeurEmpreinteStub extends org.omg.CORBA.portable.ObjectImpl
     /**
      * Operation enregistrerEmpreinte
      */
-    public void enregistrerEmpreinte(GestAcces.Empreinte e)
+    public void enregistrerEmpreinte(short idCollaborateur, String empreinte)
         throws GestAcces.ServeurEmpreintePackage.EmpreintePresente
     {
         while(true)
@@ -34,7 +34,8 @@ public class _ServeurEmpreinteStub extends org.omg.CORBA.portable.ObjectImpl
                 try
                 {
                     org.omg.CORBA.portable.OutputStream _output = this._request("enregistrerEmpreinte",true);
-                    GestAcces.EmpreinteHelper.write(_output,e);
+                    _output.write_short(idCollaborateur);
+                    _output.write_string(empreinte);
                     _input = this._invoke(_output);
                     return;
                 }
@@ -65,7 +66,7 @@ public class _ServeurEmpreinteStub extends org.omg.CORBA.portable.ObjectImpl
                 GestAcces.ServeurEmpreinteOperations _self = (GestAcces.ServeurEmpreinteOperations) _so.servant;
                 try
                 {
-                    _self.enregistrerEmpreinte( e);
+                    _self.enregistrerEmpreinte( idCollaborateur,  empreinte);
                     return;
                 }
                 finally

@@ -1,11 +1,11 @@
 package corba.serveur.empreinte;
 
-import GestAcces.Empreinte;
 import GestAcces.ServeurEmpreintePOA;
 import GestAcces.ServeurEmpreintePackage.EmpreinteInexistante;
 import GestAcces.ServeurEmpreintePackage.EmpreinteInvalide;
 import GestAcces.ServeurEmpreintePackage.EmpreintePresente;
 import bdd.objetDao.EmpreinteDAO;
+import bdd.objetsMetier.Empreinte;
 
 /**
  * Created by yoan on 04/06/16.
@@ -14,8 +14,8 @@ public class ServeurEmpreinteImpl extends ServeurEmpreintePOA {
     private static EmpreinteDAO empreinteDAO = new EmpreinteDAO();
 
     @Override
-    public void enregistrerEmpreinte(Empreinte e) throws EmpreintePresente {
-        Empreinte empreinteCree = empreinteDAO.create(e);
+    public void enregistrerEmpreinte(short idCollaborateur, String empreinte) throws EmpreintePresente {
+        Empreinte empreinteCree = empreinteDAO.create(new Empreinte(empreinte,(int)idCollaborateur));
         if (empreinteCree == null) throw new EmpreintePresente();
     }
 

@@ -8,9 +8,15 @@ package GestAcces;
 public interface ServeurAnnuaireOperations
 {
     /**
-     * Operation enregisterCollaborateur
+     * Operation enregisterCollaborateurPermanent
      */
-    public void enregisterCollaborateur(String nom, String prenom, String p, GestAcces.Empreinte e)
+    public void enregisterCollaborateurPermanent(String nom, String prenom, String p, String empreinte)
+        throws GestAcces.ServeurAnnuairePackage.CollaborateurDejaExistant;
+
+    /**
+     * Operation enregisterCollaborateurTemporaire
+     */
+    public void enregisterCollaborateurTemporaire(String nom, String prenom, String p, String empreinte, GestAcces.Date df)
         throws GestAcces.ServeurAnnuairePackage.CollaborateurDejaExistant;
 
     /**

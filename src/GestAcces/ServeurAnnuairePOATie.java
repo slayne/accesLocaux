@@ -63,12 +63,21 @@ public class ServeurAnnuairePOATie extends ServeurAnnuairePOA
     }
 
     /**
-     * Operation enregisterCollaborateur
+     * Operation enregisterCollaborateurPermanent
      */
-    public void enregisterCollaborateur(String nom, String prenom, String p, GestAcces.Empreinte e)
+    public void enregisterCollaborateurPermanent(String nom, String prenom, String p, String empreinte)
         throws GestAcces.ServeurAnnuairePackage.CollaborateurDejaExistant
     {
-        _tie.enregisterCollaborateur( nom,  prenom,  p,  e);
+        _tie.enregisterCollaborateurPermanent( nom,  prenom,  p,  empreinte);
+    }
+
+    /**
+     * Operation enregisterCollaborateurTemporaire
+     */
+    public void enregisterCollaborateurTemporaire(String nom, String prenom, String p, String empreinte, GestAcces.Date df)
+        throws GestAcces.ServeurAnnuairePackage.CollaborateurDejaExistant
+    {
+        _tie.enregisterCollaborateurTemporaire( nom,  prenom,  p,  empreinte,  df);
     }
 
     /**

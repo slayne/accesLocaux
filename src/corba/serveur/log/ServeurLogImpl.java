@@ -19,8 +19,7 @@ public class ServeurLogImpl extends ServeurLogPOA {
     @Override
     public void envoyerLog(String log) {
         System.out.println("Création log :" + log);
-        Log l = new Log(AccesUtils.timestampToCorbaDate(
-                            new Timestamp(System.currentTimeMillis())), log);
+        Log l = new Log(AccesUtils.timestampToCorbaDate(new Timestamp(System.currentTimeMillis())), log);
         logDAO.create(l);
     }
 

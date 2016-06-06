@@ -65,10 +65,10 @@ public class ServeurEmpreintePOATie extends ServeurEmpreintePOA
     /**
      * Operation enregistrerEmpreinte
      */
-    public void enregistrerEmpreinte(GestAcces.Empreinte e)
+    public void enregistrerEmpreinte(short idCollaborateur, String empreinte)
         throws GestAcces.ServeurEmpreintePackage.EmpreintePresente
     {
-        _tie.enregistrerEmpreinte( e);
+        _tie.enregistrerEmpreinte( idCollaborateur,  empreinte);
     }
 
     /**

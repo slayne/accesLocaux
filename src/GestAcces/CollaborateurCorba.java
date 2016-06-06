@@ -48,9 +48,9 @@ public final class CollaborateurCorba implements org.omg.CORBA.portable.IDLEntit
     public GestAcces.Date dateEntree;
 
     /**
-     * Struct member e
+     * Struct member empreinte
      */
-    public GestAcces.Empreinte e;
+    public String empreinte;
 
     /**
      * Default constructor
@@ -68,9 +68,9 @@ public final class CollaborateurCorba implements org.omg.CORBA.portable.IDLEntit
      * @param mdp mdp struct member
      * @param photo photo struct member
      * @param dateEntree dateEntree struct member
-     * @param e e struct member
+     * @param empreinte empreinte struct member
      */
-    public CollaborateurCorba(String nom, String prenom, String adresse, String statut, String login, String mdp, String photo, GestAcces.Date dateEntree, GestAcces.Empreinte e)
+    public CollaborateurCorba(String nom, String prenom, String adresse, String statut, String login, String mdp, String photo, GestAcces.Date dateEntree, String empreinte)
     {
         this.nom = nom;
         this.prenom = prenom;
@@ -80,7 +80,7 @@ public final class CollaborateurCorba implements org.omg.CORBA.portable.IDLEntit
         this.mdp = mdp;
         this.photo = photo;
         this.dateEntree = dateEntree;
-        this.e = e;
+        this.empreinte = empreinte;
     }
 
 }
