@@ -107,10 +107,9 @@ public abstract class ServeurAccesPOA extends org.omg.PortableServer.Servant
             final org.omg.CORBA.portable.InputStream _is,
             final org.omg.CORBA.portable.ResponseHandler handler) {
         org.omg.CORBA.portable.OutputStream _output;
-        String arg0_in = GestAcces.PhotoHelper.read(_is);
-        String arg1_in = GestAcces.EmpreinteHelper.read(_is);
+        GestAcces.Empreinte arg0_in = GestAcces.EmpreinteHelper.read(_is);
 
-        short _arg_result = demanderAcces(arg0_in, arg1_in);
+        short _arg_result = demanderAcces(arg0_in);
 
         _output = handler.createReply();
         _output.write_short(_arg_result);

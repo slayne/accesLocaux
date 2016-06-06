@@ -143,7 +143,7 @@ public class _ServeurAccesStub extends org.omg.CORBA.portable.ObjectImpl
     /**
      * Operation demanderAcces
      */
-    public short demanderAcces(String id, String mdp)
+    public short demanderAcces(GestAcces.Empreinte mdp)
     {
         while(true)
         {
@@ -153,7 +153,6 @@ public class _ServeurAccesStub extends org.omg.CORBA.portable.ObjectImpl
                 try
                 {
                     org.omg.CORBA.portable.OutputStream _output = this._request("demanderAcces",true);
-                    GestAcces.PhotoHelper.write(_output,id);
                     GestAcces.EmpreinteHelper.write(_output,mdp);
                     _input = this._invoke(_output);
                     short _arg_ret = _input.read_short();
@@ -181,7 +180,7 @@ public class _ServeurAccesStub extends org.omg.CORBA.portable.ObjectImpl
                 GestAcces.ServeurAccesOperations _self = (GestAcces.ServeurAccesOperations) _so.servant;
                 try
                 {
-                    return _self.demanderAcces( id,  mdp);
+                    return _self.demanderAcces( mdp);
                 }
                 finally
                 {

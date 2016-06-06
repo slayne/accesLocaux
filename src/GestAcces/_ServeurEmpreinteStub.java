@@ -23,7 +23,7 @@ public class _ServeurEmpreinteStub extends org.omg.CORBA.portable.ObjectImpl
     /**
      * Operation enregistrerEmpreinte
      */
-    public void enregistrerEmpreinte(String e, short id)
+    public void enregistrerEmpreinte(GestAcces.Empreinte e)
         throws GestAcces.ServeurEmpreintePackage.EmpreintePresente
     {
         while(true)
@@ -35,7 +35,6 @@ public class _ServeurEmpreinteStub extends org.omg.CORBA.portable.ObjectImpl
                 {
                     org.omg.CORBA.portable.OutputStream _output = this._request("enregistrerEmpreinte",true);
                     GestAcces.EmpreinteHelper.write(_output,e);
-                    _output.write_short(id);
                     _input = this._invoke(_output);
                     return;
                 }
@@ -66,7 +65,7 @@ public class _ServeurEmpreinteStub extends org.omg.CORBA.portable.ObjectImpl
                 GestAcces.ServeurEmpreinteOperations _self = (GestAcces.ServeurEmpreinteOperations) _so.servant;
                 try
                 {
-                    _self.enregistrerEmpreinte( e,  id);
+                    _self.enregistrerEmpreinte( e);
                     return;
                 }
                 finally
@@ -80,7 +79,7 @@ public class _ServeurEmpreinteStub extends org.omg.CORBA.portable.ObjectImpl
     /**
      * Operation modifierEmpreinte
      */
-    public void modifierEmpreinte(String ancienneEmpreinte, String nouvelleEmpreinte)
+    public void modifierEmpreinte(short idCollaborateur, String nouvelleEmpreinte)
         throws GestAcces.ServeurEmpreintePackage.EmpreinteInexistante
     {
         while(true)
@@ -91,8 +90,8 @@ public class _ServeurEmpreinteStub extends org.omg.CORBA.portable.ObjectImpl
                 try
                 {
                     org.omg.CORBA.portable.OutputStream _output = this._request("modifierEmpreinte",true);
-                    GestAcces.EmpreinteHelper.write(_output,ancienneEmpreinte);
-                    GestAcces.EmpreinteHelper.write(_output,nouvelleEmpreinte);
+                    _output.write_short(idCollaborateur);
+                    _output.write_string(nouvelleEmpreinte);
                     _input = this._invoke(_output);
                     return;
                 }
@@ -123,7 +122,7 @@ public class _ServeurEmpreinteStub extends org.omg.CORBA.portable.ObjectImpl
                 GestAcces.ServeurEmpreinteOperations _self = (GestAcces.ServeurEmpreinteOperations) _so.servant;
                 try
                 {
-                    _self.modifierEmpreinte( ancienneEmpreinte,  nouvelleEmpreinte);
+                    _self.modifierEmpreinte( idCollaborateur,  nouvelleEmpreinte);
                     return;
                 }
                 finally
@@ -137,7 +136,8 @@ public class _ServeurEmpreinteStub extends org.omg.CORBA.portable.ObjectImpl
     /**
      * Operation supprimerEmpreinte
      */
-    public void supprimerEmpreinte(short id)
+    public void supprimerEmpreinte(short idCollaborateur)
+        throws GestAcces.ServeurEmpreintePackage.EmpreinteInexistante
     {
         while(true)
         {
@@ -147,7 +147,7 @@ public class _ServeurEmpreinteStub extends org.omg.CORBA.portable.ObjectImpl
                 try
                 {
                     org.omg.CORBA.portable.OutputStream _output = this._request("supprimerEmpreinte",true);
-                    _output.write_short(id);
+                    _output.write_short(idCollaborateur);
                     _input = this._invoke(_output);
                     return;
                 }
@@ -158,6 +158,11 @@ public class _ServeurEmpreinteStub extends org.omg.CORBA.portable.ObjectImpl
                 catch(org.omg.CORBA.portable.ApplicationException _exception)
                 {
                     String _exception_id = _exception.getId();
+                    if (_exception_id.equals(GestAcces.ServeurEmpreintePackage.EmpreinteInexistanteHelper.id()))
+                    {
+                        throw GestAcces.ServeurEmpreintePackage.EmpreinteInexistanteHelper.read(_exception.getInputStream());
+                    }
+
                     throw new org.omg.CORBA.UNKNOWN("Unexpected User Exception: "+ _exception_id);
                 }
                 finally
@@ -173,7 +178,7 @@ public class _ServeurEmpreinteStub extends org.omg.CORBA.portable.ObjectImpl
                 GestAcces.ServeurEmpreinteOperations _self = (GestAcces.ServeurEmpreinteOperations) _so.servant;
                 try
                 {
-                    _self.supprimerEmpreinte( id);
+                    _self.supprimerEmpreinte( idCollaborateur);
                     return;
                 }
                 finally
@@ -187,7 +192,8 @@ public class _ServeurEmpreinteStub extends org.omg.CORBA.portable.ObjectImpl
     /**
      * Operation verifierEmpreinte
      */
-    public void verifierEmpreinte(String id, String mdp)
+    public void verifierEmpreinte(short idCollaborateur, String mdp)
+        throws GestAcces.ServeurEmpreintePackage.EmpreinteInvalide
     {
         while(true)
         {
@@ -197,8 +203,8 @@ public class _ServeurEmpreinteStub extends org.omg.CORBA.portable.ObjectImpl
                 try
                 {
                     org.omg.CORBA.portable.OutputStream _output = this._request("verifierEmpreinte",true);
-                    GestAcces.PhotoHelper.write(_output,id);
-                    GestAcces.EmpreinteHelper.write(_output,mdp);
+                    _output.write_short(idCollaborateur);
+                    _output.write_string(mdp);
                     _input = this._invoke(_output);
                     return;
                 }
@@ -209,6 +215,11 @@ public class _ServeurEmpreinteStub extends org.omg.CORBA.portable.ObjectImpl
                 catch(org.omg.CORBA.portable.ApplicationException _exception)
                 {
                     String _exception_id = _exception.getId();
+                    if (_exception_id.equals(GestAcces.ServeurEmpreintePackage.EmpreinteInvalideHelper.id()))
+                    {
+                        throw GestAcces.ServeurEmpreintePackage.EmpreinteInvalideHelper.read(_exception.getInputStream());
+                    }
+
                     throw new org.omg.CORBA.UNKNOWN("Unexpected User Exception: "+ _exception_id);
                 }
                 finally
@@ -224,7 +235,7 @@ public class _ServeurEmpreinteStub extends org.omg.CORBA.portable.ObjectImpl
                 GestAcces.ServeurEmpreinteOperations _self = (GestAcces.ServeurEmpreinteOperations) _so.servant;
                 try
                 {
-                    _self.verifierEmpreinte( id,  mdp);
+                    _self.verifierEmpreinte( idCollaborateur,  mdp);
                     return;
                 }
                 finally

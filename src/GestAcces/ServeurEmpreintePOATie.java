@@ -65,35 +65,37 @@ public class ServeurEmpreintePOATie extends ServeurEmpreintePOA
     /**
      * Operation enregistrerEmpreinte
      */
-    public void enregistrerEmpreinte(String e, short id)
+    public void enregistrerEmpreinte(GestAcces.Empreinte e)
         throws GestAcces.ServeurEmpreintePackage.EmpreintePresente
     {
-        _tie.enregistrerEmpreinte( e,  id);
+        _tie.enregistrerEmpreinte( e);
     }
 
     /**
      * Operation modifierEmpreinte
      */
-    public void modifierEmpreinte(String ancienneEmpreinte, String nouvelleEmpreinte)
+    public void modifierEmpreinte(short idCollaborateur, String nouvelleEmpreinte)
         throws GestAcces.ServeurEmpreintePackage.EmpreinteInexistante
     {
-        _tie.modifierEmpreinte( ancienneEmpreinte,  nouvelleEmpreinte);
+        _tie.modifierEmpreinte( idCollaborateur,  nouvelleEmpreinte);
     }
 
     /**
      * Operation supprimerEmpreinte
      */
-    public void supprimerEmpreinte(short id)
+    public void supprimerEmpreinte(short idCollaborateur)
+        throws GestAcces.ServeurEmpreintePackage.EmpreinteInexistante
     {
-        _tie.supprimerEmpreinte( id);
+        _tie.supprimerEmpreinte( idCollaborateur);
     }
 
     /**
      * Operation verifierEmpreinte
      */
-    public void verifierEmpreinte(String id, String mdp)
+    public void verifierEmpreinte(short idCollaborateur, String mdp)
+        throws GestAcces.ServeurEmpreintePackage.EmpreinteInvalide
     {
-        _tie.verifierEmpreinte( id,  mdp);
+        _tie.verifierEmpreinte( idCollaborateur,  mdp);
     }
 
 }

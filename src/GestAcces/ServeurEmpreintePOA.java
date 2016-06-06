@@ -51,12 +51,11 @@ public abstract class ServeurEmpreintePOA extends org.omg.PortableServer.Servant
             final org.omg.CORBA.portable.InputStream _is,
             final org.omg.CORBA.portable.ResponseHandler handler) {
         org.omg.CORBA.portable.OutputStream _output;
-        String arg0_in = GestAcces.EmpreinteHelper.read(_is);
-        short arg1_in = _is.read_short();
+        GestAcces.Empreinte arg0_in = GestAcces.EmpreinteHelper.read(_is);
 
         try
         {
-            enregistrerEmpreinte(arg0_in, arg1_in);
+            enregistrerEmpreinte(arg0_in);
 
             _output = handler.createReply();
 
@@ -73,8 +72,8 @@ public abstract class ServeurEmpreintePOA extends org.omg.PortableServer.Servant
             final org.omg.CORBA.portable.InputStream _is,
             final org.omg.CORBA.portable.ResponseHandler handler) {
         org.omg.CORBA.portable.OutputStream _output;
-        String arg0_in = GestAcces.EmpreinteHelper.read(_is);
-        String arg1_in = GestAcces.EmpreinteHelper.read(_is);
+        short arg0_in = _is.read_short();
+        String arg1_in = _is.read_string();
 
         try
         {
@@ -97,10 +96,18 @@ public abstract class ServeurEmpreintePOA extends org.omg.PortableServer.Servant
         org.omg.CORBA.portable.OutputStream _output;
         short arg0_in = _is.read_short();
 
-        supprimerEmpreinte(arg0_in);
+        try
+        {
+            supprimerEmpreinte(arg0_in);
 
-        _output = handler.createReply();
+            _output = handler.createReply();
 
+        }
+        catch (GestAcces.ServeurEmpreintePackage.EmpreinteInexistante _exception)
+        {
+            _output = handler.createExceptionReply();
+            GestAcces.ServeurEmpreintePackage.EmpreinteInexistanteHelper.write(_output,_exception);
+        }
         return _output;
     }
 
@@ -108,13 +115,21 @@ public abstract class ServeurEmpreintePOA extends org.omg.PortableServer.Servant
             final org.omg.CORBA.portable.InputStream _is,
             final org.omg.CORBA.portable.ResponseHandler handler) {
         org.omg.CORBA.portable.OutputStream _output;
-        String arg0_in = GestAcces.PhotoHelper.read(_is);
-        String arg1_in = GestAcces.EmpreinteHelper.read(_is);
+        short arg0_in = _is.read_short();
+        String arg1_in = _is.read_string();
 
-        verifierEmpreinte(arg0_in, arg1_in);
+        try
+        {
+            verifierEmpreinte(arg0_in, arg1_in);
 
-        _output = handler.createReply();
+            _output = handler.createReply();
 
+        }
+        catch (GestAcces.ServeurEmpreintePackage.EmpreinteInvalide _exception)
+        {
+            _output = handler.createExceptionReply();
+            GestAcces.ServeurEmpreintePackage.EmpreinteInvalideHelper.write(_output,_exception);
+        }
         return _output;
     }
 

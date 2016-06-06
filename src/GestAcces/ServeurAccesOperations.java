@@ -22,7 +22,7 @@ public interface ServeurAccesOperations
     /**
      * Operation demanderAcces
      */
-    public short demanderAcces(String id, String mdp);
+    public short demanderAcces(GestAcces.Empreinte mdp);
 
     /**
      * Operation supprimerAcces

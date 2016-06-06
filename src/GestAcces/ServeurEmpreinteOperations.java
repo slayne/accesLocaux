@@ -10,23 +10,25 @@ public interface ServeurEmpreinteOperations
     /**
      * Operation enregistrerEmpreinte
      */
-    public void enregistrerEmpreinte(String e, short id)
+    public void enregistrerEmpreinte(GestAcces.Empreinte e)
         throws GestAcces.ServeurEmpreintePackage.EmpreintePresente;
 
     /**
      * Operation modifierEmpreinte
      */
-    public void modifierEmpreinte(String ancienneEmpreinte, String nouvelleEmpreinte)
+    public void modifierEmpreinte(short idCollaborateur, String nouvelleEmpreinte)
         throws GestAcces.ServeurEmpreintePackage.EmpreinteInexistante;
 
     /**
      * Operation supprimerEmpreinte
      */
-    public void supprimerEmpreinte(short id);
+    public void supprimerEmpreinte(short idCollaborateur)
+        throws GestAcces.ServeurEmpreintePackage.EmpreinteInexistante;
 
     /**
      * Operation verifierEmpreinte
      */
-    public void verifierEmpreinte(String id, String mdp);
+    public void verifierEmpreinte(short idCollaborateur, String mdp)
+        throws GestAcces.ServeurEmpreintePackage.EmpreinteInvalide;
 
 }
