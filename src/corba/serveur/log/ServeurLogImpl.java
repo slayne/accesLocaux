@@ -31,9 +31,9 @@ public class ServeurLogImpl extends ServeurLogPOA {
         logs = logsList.toArray(logs);
 
         for (Log l: logs) {
-            System.out.println(l.log);
+                System.out.println("log : " + l.log + " / " + l.date.h + ":" + l.date.m);
         }
-        return null;
+        return logs;
     }
 
     @Override

@@ -3,6 +3,7 @@ package bdd.objetDao;
 import GestAcces.Empreinte;
 import GestAcces.Log;
 import bdd.DAO;
+import bdd.connectionJDBC.ConnectionBDD;
 import utils.AccesUtils;
 
 import java.sql.PreparedStatement;
@@ -15,6 +16,11 @@ import java.util.ArrayList;
  * Created by yoan on 06/06/16.
  */
 public class EmpreinteDAO extends DAO<Empreinte> {
+
+    public EmpreinteDAO() {
+        super(ConnectionBDD.url_empreinte);
+    }
+
     @Override
     public ArrayList<Empreinte> getInstances() {
         ArrayList<Empreinte> empreintes = new ArrayList<Empreinte>();
@@ -75,7 +81,7 @@ public class EmpreinteDAO extends DAO<Empreinte> {
             // récupération des valeurs de l'insert
             ResultSet rs = prepare.getGeneratedKeys();
             rs.next();
-            return find(rs.getInt(1));
+            return find(rs.getInt(2));
         }
         catch (SQLException e) {
             e.printStackTrace();
@@ -113,7 +119,7 @@ public class EmpreinteDAO extends DAO<Empreinte> {
                             ResultSet.TYPE_SCROLL_INSENSITIVE,
                             ResultSet.CONCUR_UPDATABLE
                     ).executeUpdate(
-                    "DELETE empreinte WHERE idCollaborateur = " + obj.idCollaborateur + " AND empreinte=" + obj.empreinte
+                    "DELETE FROM empreinte WHERE idCollaborateur = " + obj.idCollaborateur
             );
         } catch (SQLException e) {
             // TODO Auto-generated catch block

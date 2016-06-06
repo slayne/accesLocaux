@@ -71,9 +71,9 @@ module GestAcces {
 
 	interface ServeurLog {
 		oneway void envoyerLog(in string log);
-		oneway lLog afficherLogs();
-		oneway lLog afficherLogsFromDate(in Date date);
-		oneway lLog afficherLogsfromDateToDate(in Date dated, in Date datef);
+		lLog afficherLogs();
+		lLog afficherLogsFromDate(in Date date);
+		lLog afficherLogsfromDateToDate(in Date dated, in Date datef);
 
 	};
 

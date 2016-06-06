@@ -8,7 +8,10 @@ import java.sql.SQLException;
  * Created by Stéfan on 08/11/2015.
  */
 public class ConnectionBDD {
-    private static String url = "jdbc:postgresql://localhost:5432/acces";
+    public static String url_acces = "jdbc:postgresql://localhost:5432/acces";
+    public static String url_empreinte = "jdbc:postgresql://localhost:5432/empreinte";
+    public static String url_annuaire = "jdbc:postgresql://localhost:5432/annuaire";
+    public static String url_log = "jdbc:postgresql://localhost:5432/log";
 
     private static String user = "postgres";
 
@@ -20,7 +23,7 @@ public class ConnectionBDD {
      * Returns database respConnection instance (and creates it if it doesn't exist)
      * 	 * @return Database respConnection link
      */
-    public static Connection getInstance(){
+    public static Connection getInstance(String url){
         if(connect == null){
             try {
                 connect = DriverManager.getConnection(url, user, passwd);

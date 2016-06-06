@@ -10,7 +10,11 @@ import java.util.ArrayList;
  * Created by Stéfan on 08/11/2015.
  */
 public abstract class DAO<T> {
-    public Connection connect = ConnectionBDD.getInstance();
+    public Connection connect;
+
+    public DAO(String url) {
+        connect = ConnectionBDD.getInstance(url);
+    }
 
     public abstract ArrayList<T> getInstances();
     /**

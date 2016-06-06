@@ -1,6 +1,7 @@
 package bdd.objetDao;
 
 import bdd.DAO;
+import bdd.connectionJDBC.ConnectionBDD;
 import bdd.objetsMetier.Personnel;
 
 import java.sql.PreparedStatement;
@@ -13,6 +14,11 @@ import java.util.ArrayList;
  * Created by yoan on 29/05/16.
  */
 public class PersonnelDAO extends DAO<Personnel> {
+
+    public PersonnelDAO() {
+        super(ConnectionBDD.url_acces);
+    }
+
     @Override
     public ArrayList<Personnel> getInstances() {
         ArrayList<Personnel> personnels = new ArrayList<Personnel>();

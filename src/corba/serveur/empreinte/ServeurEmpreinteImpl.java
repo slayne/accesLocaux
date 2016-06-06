@@ -45,8 +45,9 @@ public class ServeurEmpreinteImpl extends ServeurEmpreintePOA {
      */
     public void verifierEmpreinte(short idCollaborateur, String mdp) throws EmpreinteInvalide{
         Empreinte e = empreinteDAO.find(idCollaborateur);
+        System.out.println(e.empreinte);
 
-        if (e.empreinte != mdp) throw new EmpreinteInvalide();
+        if (!e.empreinte.equals(mdp)) throw new EmpreinteInvalide();
     }
 
 }

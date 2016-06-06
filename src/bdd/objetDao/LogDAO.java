@@ -1,21 +1,24 @@
 package bdd.objetDao;
 
 import GestAcces.Date;
+import GestAcces.Empreinte;
 import GestAcces.Log;
 import bdd.DAO;
+import bdd.connectionJDBC.ConnectionBDD;
 import bdd.objetsMetier.Acces;
 import utils.AccesUtils;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 
 /**
  * Created by yoan on 05/06/16.
  */
 public class LogDAO extends DAO<Log> {
+
+    public LogDAO() {
+        super(ConnectionBDD.url_log);
+    }
 
     @Override
     public ArrayList<Log> getInstances() {
@@ -78,6 +81,21 @@ public class LogDAO extends DAO<Log> {
     @Override
     public Log find(long id) {
         Log log = null;
+        try {
+            ResultSet result = this .connect
+                    .createStatement(
+                            ResultSet.TYPE_SCROLL_INSENSITIVE,
+                            ResultSet.CONCUR_UPDATABLE
+                    ).executeQuery(
+                            "SELECT * FROM logs WHERE id = " + id
+                    );
+            if(result.first()) {
+                log = new Log(AccesUtils.timestampToCorbaDate(result.getTimestamp("date")),result.getString("log"));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         return log;
     }
 

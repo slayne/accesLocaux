@@ -1,9 +1,6 @@
 package corba.clients;
 
-import GestAcces.Empreinte;
-import GestAcces.Log;
-import GestAcces.ServeurAccesHelper;
-import GestAcces.ServeurLogHelper;
+import GestAcces.*;
 import org.omg.CORBA.ORB;
 import org.omg.CORBA.Object;
 import org.omg.CosNaming.NameComponent;
@@ -12,10 +9,10 @@ import org.omg.CosNaming.NamingContextHelper;
 import utils.AccesUtils;
 
 /**
- * Created by yoan on 05/06/16.
+ * Created by yoan on 06/06/16.
  */
-public class ClientLog {
-    public static GestAcces.ServeurLog myLog;
+public class ClientEmpreinte {
+    public static GestAcces.ServeurEmpreinte myEmpreinte;
 
     public static void main(String args[]) {
         try {
@@ -26,7 +23,7 @@ public class ClientLog {
             // System.out.println("Quel objet Corba voulez-vous contacter ?");
             //BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
             //String idObj = in.readLine();
-            String idObj = AccesUtils.LOG_SERVER;
+            String idObj = AccesUtils.EMPREINTE_SERVER;
             // Recuperation du naming service
             NamingContext nameRoot =
                     NamingContextHelper.narrow(orb.resolve_initial_references("NameService"));
@@ -44,14 +41,12 @@ public class ClientLog {
             // Utilisation directe de l'IOR (SAUF utilisation du service de nommage)
             // org.omg.CORBA.Object distantEuro = orb.string_to_object("IOR:000000000000001b49444c3a436f6e766572746973736575722f4575726f3a312e30000000000001000000000000008a00010200000000103133302e3132302e3230392e31353500db7f000000000031afabcb0000000020dc306ed400000001000000000000000100000008526f6f74504f410000000008000000010000000014000000000000020000000100000020000000000001000100000002050100010001002000010109000000010001010000000026000000020002");
             // Casting de l'objet CORBA au type talk
-            myLog = ServeurLogHelper.narrow(distantAcces);
+            myEmpreinte = ServeurEmpreinteHelper.narrow(distantAcces);
 
 
             System.out.println("Test méthode distante");
-            Log[] ls = myLog.afficherLogs();
-            for (Log l : ls) {
-                System.out.println("log : " + l.log + " / " + l.date.h + ":" + l.date.m);
-            }
+            myEmpreinte.supprimerEmpreinte((short)1);
+
         }
         catch (Exception e) {
             e.printStackTrace();

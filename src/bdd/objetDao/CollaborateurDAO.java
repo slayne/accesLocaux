@@ -11,6 +11,7 @@ import java.util.ArrayList;
 /**
  * Created by yoan on 29/05/16.
  */
+/*
 public class CollaborateurDAO extends DAO<Collaborateur> {
     @Override
     public ArrayList<Collaborateur> getInstances() {
@@ -152,4 +153,4 @@ public class CollaborateurDAO extends DAO<Collaborateur> {
     public void delete(Collaborateur obj) {
 
     }
-}
+}*/
