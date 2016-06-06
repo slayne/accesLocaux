@@ -1,20 +1,20 @@
-package corba.serveur.empreinte;
+package corba.serveur.log;
 
-import corba.serveur.log.ServeurLogImpl;
+import corba.serveur.acces.ServeurAccesImpl;
 import org.omg.CosNaming.NamingContext;
 import org.omg.PortableServer.POA;
 import org.omg.PortableServer.POAHelper;
 import utils.AccesUtils;
 
 /**
- * Created by yoan on 06/06/16.
+ * Created by yoan on 05/06/16.
  */
-public class ServeurEmpreinte {
+public class ServeurLogMain {
 
 
     public static void main(String[] args) {
         try {
-            System.out.println("CE GENRE DE SERVEUR D'EMPREINTE MAMENE QDS QDS");
+            System.out.println("CE GENRE DE SERVEUR DE LOG MAMENE DU SALE");
             // Intialisation de l'ORB
             //************************
             org.omg.CORBA.ORB orb = org.omg.CORBA.ORB.init(args,null);
@@ -26,10 +26,10 @@ public class ServeurEmpreinte {
 
             // Creation du servant
             //*********************
-            ServeurEmpreinteImpl empreinteImpl = new ServeurEmpreinteImpl();
+            ServeurLogImpl logImpl = new ServeurLogImpl();
 
             // Activer le servant au sein du POA et recuperer son ID
-            byte[] empreinteId = rootPOA.activate_object(empreinteImpl);
+            byte[] logId = rootPOA.activate_object(logImpl);
 
             // Activer le POA manager
             rootPOA.the_POAManager().activate();
@@ -43,13 +43,13 @@ public class ServeurEmpreinte {
             // Construction du nom a enregistrer
             org.omg.CosNaming.NameComponent[] nameToRegister = new org.omg.CosNaming.NameComponent[1];
 
-            nameToRegister[0] = new org.omg.CosNaming.NameComponent(AccesUtils.EMPREINTE_SERVER,"");
+            nameToRegister[0] = new org.omg.CosNaming.NameComponent(AccesUtils.LOG_SERVER,"");
 
             // Enregistrement de l'objet CORBA dans le service de noms
-            nameRoot.rebind(nameToRegister,rootPOA.servant_to_reference(empreinteImpl));
-            System.out.println("==> Nom '"+ AccesUtils.EMPREINTE_SERVER + "' est enregistre dans le service de noms.");
+            nameRoot.rebind(nameToRegister,rootPOA.servant_to_reference(logImpl));
+            System.out.println("==> Nom '"+ AccesUtils.LOG_SERVER + "' est enregistre dans le service de noms.");
 
-            String IORServant = orb.object_to_string(rootPOA.servant_to_reference(empreinteImpl));
+            String IORServant = orb.object_to_string(rootPOA.servant_to_reference(logImpl));
             System.out.println("L'objet possede la reference suivante :");
             System.out.println(IORServant);
 

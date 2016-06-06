@@ -83,9 +83,9 @@ public class ServeurAccesPOATie extends ServeurAccesPOA
     /**
      * Operation demanderAcces
      */
-    public short demanderAcces(GestAcces.Empreinte mdp)
+    public short demanderAcces(String Photo, String mdp)
     {
-        return _tie.demanderAcces( mdp);
+        return _tie.demanderAcces( Photo,  mdp);
     }
 
     /**

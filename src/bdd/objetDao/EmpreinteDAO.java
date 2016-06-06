@@ -69,6 +69,9 @@ public class EmpreinteDAO extends DAO<Empreinte> {
                     );
             prepare.setString(1, obj.empreinte);
             prepare.setInt(2, obj.idCollaborateur);
+
+            prepare.executeUpdate();
+
             // récupération des valeurs de l'insert
             ResultSet rs = prepare.getGeneratedKeys();
             rs.next();

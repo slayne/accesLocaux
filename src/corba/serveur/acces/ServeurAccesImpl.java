@@ -10,9 +10,6 @@ import GestAcces.Zone;
 
 public class ServeurAccesImpl extends ServeurAccesPOA {
 
-    public ServeurAccesImpl(){
-        //s
-    }
 
     @Override
     public short ajoutPerm(short id, short heureDebut, short heureFin, Zone z) throws ZoneInexistante {

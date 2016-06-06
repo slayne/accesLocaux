@@ -25,7 +25,7 @@ public class LogDAO extends DAO<Log> {
             ResultSet result = this.connect.createStatement(
                     ResultSet.TYPE_SCROLL_INSENSITIVE,
                     ResultSet.CONCUR_UPDATABLE).executeQuery(
-                    "SELECT * FROM log");
+                    "SELECT * FROM logs");
             while (result.next()) {
                 Log s = this.find(result.getInt(1));
                 logs.add(s);
@@ -43,7 +43,7 @@ public class LogDAO extends DAO<Log> {
             ResultSet result = this.connect.createStatement(
                     ResultSet.TYPE_SCROLL_INSENSITIVE,
                     ResultSet.CONCUR_UPDATABLE).executeQuery(
-                    "SELECT * FROM log WHERE date > " + AccesUtils.corbaDateToTimeStamp(from));
+                    "SELECT * FROM logs WHERE date > " + AccesUtils.corbaDateToTimeStamp(from));
             while (result.next()) {
                 Log s = this.find(result.getInt(1));
                 logs.add(s);
@@ -62,7 +62,7 @@ public class LogDAO extends DAO<Log> {
             ResultSet result = this.connect.createStatement(
                     ResultSet.TYPE_SCROLL_INSENSITIVE,
                     ResultSet.CONCUR_UPDATABLE).executeQuery(
-                    "SELECT * FROM log WHERE date BETWEEN " + AccesUtils.corbaDateToTimeStamp(from)
+                    "SELECT * FROM logs WHERE date BETWEEN " + AccesUtils.corbaDateToTimeStamp(from)
                             + " AND " + AccesUtils.corbaDateToTimeStamp(to));
             while (result.next()) {
                 Log s = this.find(result.getInt(1));
@@ -84,7 +84,7 @@ public class LogDAO extends DAO<Log> {
                             ResultSet.TYPE_SCROLL_INSENSITIVE,
                             ResultSet.CONCUR_UPDATABLE
                     ).executeQuery(
-                            "SELECT * FROM log WHERE id = " + id
+                            "SELECT * FROM logs WHERE id = " + id
                     );
             if(result.first()) {
                 log = new Log(AccesUtils.timestampToCorbaDate(result.getTimestamp("date")),result.getString("log"));
@@ -103,15 +103,17 @@ public class LogDAO extends DAO<Log> {
             // insertion de l'objet
             PreparedStatement prepare =
                     this.connect.prepareStatement(
-                            "INSERT INTO log(log,date) VALUES (?, ?)",
+                            "INSERT INTO logs(log,date) VALUES (?, ?)",
                             Statement.RETURN_GENERATED_KEYS
                     );
             prepare.setString(1, obj.log);
             prepare.setTimestamp(2, AccesUtils.corbaDateToTimeStamp(obj.date));
+            prepare.executeUpdate();
+
             // récupération des valeurs de l'insert
             ResultSet rs = prepare.getGeneratedKeys();
             rs.next();
-            return find(rs.getInt(1));
+            return find(rs.getInt("id"));
         }
         catch (SQLException e) {
             e.printStackTrace();
@@ -128,7 +130,7 @@ public class LogDAO extends DAO<Log> {
                             ResultSet.TYPE_SCROLL_INSENSITIVE,
                             ResultSet.CONCUR_UPDATABLE
                     ).executeUpdate(
-                    "UPDATE log SET log = '" + obj.log + "',"+
+                    "UPDATE logs SET log = '" + obj.log + "',"+
                             " date = '" + AccesUtils.corbaDateToTimeStamp(obj.date)+ "'" +
                             " WHERE id = " + obj.id
             );

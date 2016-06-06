@@ -4,6 +4,10 @@ import GestAcces.Date;
 import GestAcces.Log;
 import GestAcces.ServeurLogPOA;
 import bdd.objetDao.LogDAO;
+import utils.AccesUtils;
+
+import java.sql.Timestamp;
+import java.util.ArrayList;
 
 /**
  * Created by yoan on 04/06/16.
@@ -13,22 +17,40 @@ public class ServeurLogImpl extends ServeurLogPOA {
 
     @Override
     public void envoyerLog(String log) {
-        Log l = new Log();
+        System.out.println("Création log :" + log);
+        Log l = new Log(AccesUtils.timestampToCorbaDate(
+                            new Timestamp(System.currentTimeMillis())), log);
         logDAO.create(l);
     }
 
     @Override
     public Log[] afficherLogs() {
-        return (Log[])logDAO.getInstances().toArray();
+        ArrayList<Log> logsList = logDAO.getInstances();
+        Log[] logs = new Log[logsList.size()];
+        logs = logsList.toArray(logs);
+
+        for (Log l: logs
+             ) {
+            System.out.println(l.log);
+        }
+        return logs;
     }
 
     @Override
     public Log[] afficherLogsFromDate(Date date) {
-        return (Log[])logDAO.getInstancesFrom(date).toArray();
+        ArrayList<Log> logsList = logDAO.getInstancesFrom(date);
+        Log[] logs = new Log[logsList.size()];
+        logs = logsList.toArray(logs);
+
+        return logs;
     }
 
     @Override
     public Log[] afficherLogsfromDateToDate(Date dated, Date datef) {
-        return (Log[])logDAO.getInstancesByDate(dated,datef).toArray();
+        ArrayList<Log> logsList = logDAO.getInstancesByDate(dated,datef);
+        Log[] logs = new Log[logsList.size()];
+        logs = logsList.toArray(logs);
+
+        return logs;
     }
 }
