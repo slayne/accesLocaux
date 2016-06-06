@@ -57,7 +57,7 @@ public class ClientAcces {
 
 
             System.out.println("Test méthode distante");
-            myAcces.demanderAcces(new Empreinte("",(short)1));
+            myAcces.demanderAcces("photo","empreinte");
         }
         catch (Exception e) {
             e.printStackTrace();

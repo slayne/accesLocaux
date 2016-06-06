@@ -1,6 +1,7 @@
 package corba.serveur.log;
 
 import GestAcces.Date;
+import GestAcces.Jour;
 import GestAcces.Log;
 import GestAcces.ServeurLogPOA;
 import bdd.objetDao.LogDAO;
@@ -29,11 +30,10 @@ public class ServeurLogImpl extends ServeurLogPOA {
         Log[] logs = new Log[logsList.size()];
         logs = logsList.toArray(logs);
 
-        for (Log l: logs
-             ) {
+        for (Log l: logs) {
             System.out.println(l.log);
         }
-        return logs;
+        return null;
     }
 
     @Override

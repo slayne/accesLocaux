@@ -22,8 +22,7 @@ public class ServeurAccesImpl extends ServeurAccesPOA {
     }
 
     @Override
-    public short demanderAcces(Empreinte mdp) {
-        System.out.println("Test méthode");
+    public short demanderAcces(String Photo, String mdp) {
         return 0;
     }
 
@@ -31,7 +30,6 @@ public class ServeurAccesImpl extends ServeurAccesPOA {
     public void supprimerAcces(short idCollaborateur, short idZone) throws CollaborateurInexistant {
 
     }
-
 
     @Override
     public short verifierAcces(short idCollaborateur, short idZone) {

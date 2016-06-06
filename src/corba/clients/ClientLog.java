@@ -48,7 +48,10 @@ public class ClientLog {
 
 
             System.out.println("Test méthode distante");
-            System.out.println(myLog.afficherLogs());
+            myLog.envoyerLog("Jul 2k15");
+            for (Log l : myLog.afficherLogs()) {
+                System.out.println("log : " + l.log + " / " + l.date.h + ":" + l.date.m);
+            }
         }
         catch (Exception e) {
             e.printStackTrace();

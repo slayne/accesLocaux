@@ -78,22 +78,6 @@ public class LogDAO extends DAO<Log> {
     @Override
     public Log find(long id) {
         Log log = null;
-        try {
-            ResultSet result = this .connect
-                    .createStatement(
-                            ResultSet.TYPE_SCROLL_INSENSITIVE,
-                            ResultSet.CONCUR_UPDATABLE
-                    ).executeQuery(
-                            "SELECT * FROM logs WHERE id = " + id
-                    );
-            if(result.first()) {
-                log = new Log(AccesUtils.timestampToCorbaDate(result.getTimestamp("date")),result.getString("log"));
-                log.id = (result.getInt("id"));
-            }
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
         return log;
     }
 
@@ -124,21 +108,7 @@ public class LogDAO extends DAO<Log> {
 
     @Override
     public Log update(Log obj) {
-        try {
-            this.connect
-                    .createStatement(
-                            ResultSet.TYPE_SCROLL_INSENSITIVE,
-                            ResultSet.CONCUR_UPDATABLE
-                    ).executeUpdate(
-                    "UPDATE logs SET log = '" + obj.log + "',"+
-                            " date = '" + AccesUtils.corbaDateToTimeStamp(obj.date)+ "'" +
-                            " WHERE id = " + obj.id
-            );
-        } catch (SQLException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        return find(obj.id);
+        return null;
     }
 
     @Override

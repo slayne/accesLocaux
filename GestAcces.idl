@@ -40,9 +40,7 @@ module GestAcces {
 		void enregisterCollaborateur(in string nom, in string prenom, in Photo p) raises(CollaborateurDejaExistant);
 		void rechercherCollaborateur(in string nom, in string prenom);
 		void supprimerCollaborateur(in short id) raises(CollaborateurInnexistant);
-
 	};
-
 
 
 	interface ServeurEmpreinte {
@@ -55,7 +53,6 @@ module GestAcces {
 		void supprimerEmpreinte(in short idCollaborateur) raises (EmpreinteInexistante);
 		void verifierEmpreinte(in short idCollaborateur,in string mdp) raises (EmpreinteInvalide);
 	};
-
 
     typedef sequence<Log> lLog;
 
@@ -82,5 +79,4 @@ module GestAcces {
 		lZone getListeZone();
 
 	};
-
 };
