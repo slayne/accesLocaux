@@ -1,5 +1,6 @@
 package corba.clients;
 
+import GestAcces.Empreinte;
 import GestAcces.ServeurAccesHelper;
 import org.omg.CORBA.*;
 import org.omg.CORBA.Object;
@@ -56,7 +57,7 @@ public class ClientAcces {
 
 
             System.out.println("Test méthode distante");
-            myAcces.demanderAcces("","");
+            myAcces.demanderAcces(new Empreinte("",(short)1));
         }
         catch (Exception e) {
             e.printStackTrace();

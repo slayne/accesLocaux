@@ -1,5 +1,6 @@
 package corba.serveur.acces;
 
+import GestAcces.Empreinte;
 import GestAcces.Jour;
 import GestAcces.ServeurAccesPOA;
 import GestAcces.ServeurAccesPackage.CollaborateurInexistant;
@@ -24,7 +25,7 @@ public class ServeurAccesImpl extends ServeurAccesPOA {
     }
 
     @Override
-    public short demanderAcces(String id, String mdp) {
+    public short demanderAcces(Empreinte mdp) {
         System.out.println("Test méthode");
         return 0;
     }
