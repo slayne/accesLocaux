@@ -25,14 +25,11 @@ public class ClientAcces {
     public static void main(String args[]) {
 
         try {
-
             // Intialisation de l'orb
             ORB orb = ORB.init(args,null);
 
-
-
             // Saisie du nom de l'objet (si utilisation du service de nommage)
-           // System.out.println("Quel objet Corba voulez-vous contacter ?");
+            // System.out.println("Quel objet Corba voulez-vous contacter ?");
             //BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
             //String idObj = in.readLine();
             String idObj = AccesUtils.ACCES_SERVER;
@@ -43,7 +40,6 @@ public class ClientAcces {
             // Construction du nom a rechercher
             NameComponent[] nameToFind = new NameComponent[1];
             nameToFind[0] = new NameComponent(idObj,"");
-
 
             // Recherche aupres du naming service
             Object distantAcces = nameRoot.resolve(nameToFind);
@@ -62,6 +58,5 @@ public class ClientAcces {
         catch (Exception e) {
             e.printStackTrace();
         }
-
     } // main
 }

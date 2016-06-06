@@ -1,13 +1,5 @@
 package bdd.objetDao;
 
-import bdd.DAO;
-import bdd.objetsMetier.Identifiant;
-import bdd.objetsMetier.Personnel;
-import bdd.objetsMetier.personnel.Collaborateur;
-
-import java.sql.*;
-import java.util.ArrayList;
-
 /**
  * Created by yoan on 29/05/16.
  */

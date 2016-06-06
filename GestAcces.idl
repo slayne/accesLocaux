@@ -8,7 +8,6 @@ module GestAcces {
 	    short jour;
 	};
 
-
     struct Date {
         Jour j;
         Heure h;
@@ -21,7 +20,6 @@ module GestAcces {
 	    string tailleZone;
 	    string typeZone;
 	};
-
 
 	struct Log {
 	    Date date;
@@ -43,8 +41,7 @@ module GestAcces {
             Photo photo;
             short dateEntree;
             Empreinte e;
-    	};
-
+    };
 
 	interface ServeurAnnuaire {
 		exception CollaborateurInnexistant {};
@@ -54,7 +51,6 @@ module GestAcces {
 		void rechercherCollaborateur(in string nom, in string prenom);
 		void supprimerCollaborateur(in short id) raises(CollaborateurInnexistant);
 	};
-
 
 	interface ServeurEmpreinte {
 		exception EmpreinteInexistante {};
@@ -74,7 +70,6 @@ module GestAcces {
 		lLog afficherLogs();
 		lLog afficherLogsFromDate(in Date date);
 		lLog afficherLogsfromDateToDate(in Date dated, in Date datef);
-
 	};
 
 	typedef sequence<Zone> lZone;
