@@ -52,10 +52,11 @@ public abstract class ServeurAnnuairePOA extends org.omg.PortableServer.Servant
         String arg0_in = _is.read_string();
         String arg1_in = _is.read_string();
         String arg2_in = GestAcces.PhotoHelper.read(_is);
+        GestAcces.Empreinte arg3_in = GestAcces.EmpreinteHelper.read(_is);
 
         try
         {
-            enregisterCollaborateur(arg0_in, arg1_in, arg2_in);
+            enregisterCollaborateur(arg0_in, arg1_in, arg2_in, arg3_in);
 
             _output = handler.createReply();
 

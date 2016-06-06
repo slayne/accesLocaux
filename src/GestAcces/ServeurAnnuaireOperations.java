@@ -10,7 +10,7 @@ public interface ServeurAnnuaireOperations
     /**
      * Operation enregisterCollaborateur
      */
-    public void enregisterCollaborateur(String nom, String prenom, String p)
+    public void enregisterCollaborateur(String nom, String prenom, String p, GestAcces.Empreinte e)
         throws GestAcces.ServeurAnnuairePackage.CollaborateurDejaExistant;
 
     /**

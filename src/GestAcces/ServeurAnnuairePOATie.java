@@ -65,10 +65,10 @@ public class ServeurAnnuairePOATie extends ServeurAnnuairePOA
     /**
      * Operation enregisterCollaborateur
      */
-    public void enregisterCollaborateur(String nom, String prenom, String p)
+    public void enregisterCollaborateur(String nom, String prenom, String p, GestAcces.Empreinte e)
         throws GestAcces.ServeurAnnuairePackage.CollaborateurDejaExistant
     {
-        _tie.enregisterCollaborateur( nom,  prenom,  p);
+        _tie.enregisterCollaborateur( nom,  prenom,  p,  e);
     }
 
     /**

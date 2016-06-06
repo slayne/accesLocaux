@@ -131,7 +131,7 @@ public class _ServeurLogStub extends org.omg.CORBA.portable.ObjectImpl
                 org.omg.CORBA.portable.InputStream _input = null;
                 try
                 {
-                    org.omg.CORBA.portable.OutputStream _output = this._request("afficherLogsFromDate",false);
+                    org.omg.CORBA.portable.OutputStream _output = this._request("afficherLogsFromDate",true);
                     GestAcces.DateHelper.write(_output,date);
                     _input = this._invoke(_output);
                     GestAcces.Log[] _arg_ret = GestAcces.lLogHelper.read(_input);
@@ -181,7 +181,7 @@ public class _ServeurLogStub extends org.omg.CORBA.portable.ObjectImpl
                 org.omg.CORBA.portable.InputStream _input = null;
                 try
                 {
-                    org.omg.CORBA.portable.OutputStream _output = this._request("afficherLogsfromDateToDate",false);
+                    org.omg.CORBA.portable.OutputStream _output = this._request("afficherLogsfromDateToDate",true);
                     GestAcces.DateHelper.write(_output,dated);
                     GestAcces.DateHelper.write(_output,datef);
                     _input = this._invoke(_output);

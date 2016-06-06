@@ -23,7 +23,7 @@ public class _ServeurAnnuaireStub extends org.omg.CORBA.portable.ObjectImpl
     /**
      * Operation enregisterCollaborateur
      */
-    public void enregisterCollaborateur(String nom, String prenom, String p)
+    public void enregisterCollaborateur(String nom, String prenom, String p, GestAcces.Empreinte e)
         throws GestAcces.ServeurAnnuairePackage.CollaborateurDejaExistant
     {
         while(true)
@@ -37,6 +37,7 @@ public class _ServeurAnnuaireStub extends org.omg.CORBA.portable.ObjectImpl
                     _output.write_string(nom);
                     _output.write_string(prenom);
                     GestAcces.PhotoHelper.write(_output,p);
+                    GestAcces.EmpreinteHelper.write(_output,e);
                     _input = this._invoke(_output);
                     return;
                 }
@@ -67,7 +68,7 @@ public class _ServeurAnnuaireStub extends org.omg.CORBA.portable.ObjectImpl
                 GestAcces.ServeurAnnuaireOperations _self = (GestAcces.ServeurAnnuaireOperations) _so.servant;
                 try
                 {
-                    _self.enregisterCollaborateur( nom,  prenom,  p);
+                    _self.enregisterCollaborateur( nom,  prenom,  p,  e);
                     return;
                 }
                 finally
