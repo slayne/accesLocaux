@@ -1,6 +1,5 @@
 package bdd.objetsMetier.personnel;
 
-import GestAcces.Empreinte;
 import bdd.objetsMetier.Personnel;
 import bdd.objetsMetier.acces.AccesTemporaire;
 

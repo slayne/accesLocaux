@@ -1,6 +1,5 @@
 package corba.clients;
 
-import GestAcces.Empreinte;
 import GestAcces.Log;
 import GestAcces.ServeurAccesHelper;
 import GestAcces.ServeurLogHelper;

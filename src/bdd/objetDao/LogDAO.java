@@ -1,7 +1,6 @@
 package bdd.objetDao;
 
 import GestAcces.Date;
-import GestAcces.Empreinte;
 import GestAcces.Log;
 import bdd.DAO;
 import bdd.connectionJDBC.ConnectionBDD;
