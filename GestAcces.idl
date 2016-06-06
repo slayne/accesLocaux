@@ -8,6 +8,7 @@ module GestAcces {
 	    short jour;
 	};
 
+
     struct Date {
         Jour j;
         Heure h;
@@ -31,6 +32,18 @@ module GestAcces {
 	    string empreinte;
 	    short idCollaborateur;
 	};
+
+	struct Collaborateur {
+            string nom;
+            string prenom;
+            string adresse;
+            string statut;
+            string login;
+            string mdp;
+            Photo photo;
+            short dateEntree;
+            Empreinte e;
+    	};
 
 
 	interface ServeurAnnuaire {
