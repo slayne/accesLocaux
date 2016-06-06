@@ -13,13 +13,14 @@ import java.util.ArrayList;
 public abstract class Collaborateur {
     private String photo;
     private Timestamp dateEntree;
-    private Empreinte empreinte;
+    private String empreinte;
     private ArrayList<AccesTemporaire> accesTemporaires;
 
     public Collaborateur(String photo, Timestamp dateEntree, String empreinte) {
         this.photo = photo;
         this.dateEntree = dateEntree;
         accesTemporaires = new ArrayList<>();
+        this.empreinte = empreinte;
     }
 }
 
