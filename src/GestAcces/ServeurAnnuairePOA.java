@@ -52,9 +52,9 @@ public abstract class ServeurAnnuairePOA extends org.omg.PortableServer.Servant
             final org.omg.CORBA.portable.ResponseHandler handler) {
         org.omg.CORBA.portable.OutputStream _output;
         String arg0_in = _is.read_string();
-        String arg1_in = _is.read_string();
-        String arg2_in = GestAcces.PhotoHelper.read(_is);
-        String arg3_in = _is.read_string();
+        String arg1_in = GestAcces.PhotoHelper.read(_is);
+        String arg2_in = _is.read_string();
+        GestAcces.Date arg3_in = GestAcces.DateHelper.read(_is);
 
         try
         {
@@ -76,9 +76,9 @@ public abstract class ServeurAnnuairePOA extends org.omg.PortableServer.Servant
             final org.omg.CORBA.portable.ResponseHandler handler) {
         org.omg.CORBA.portable.OutputStream _output;
         String arg0_in = _is.read_string();
-        String arg1_in = _is.read_string();
-        String arg2_in = GestAcces.PhotoHelper.read(_is);
-        String arg3_in = _is.read_string();
+        String arg1_in = GestAcces.PhotoHelper.read(_is);
+        String arg2_in = _is.read_string();
+        GestAcces.Date arg3_in = GestAcces.DateHelper.read(_is);
         GestAcces.Date arg4_in = GestAcces.DateHelper.read(_is);
 
         try

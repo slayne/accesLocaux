@@ -9,10 +9,15 @@ import java.util.Date;
  * Created by igloo on 27/05/2016.
  */
 public class CollaborateurTemporaire extends Collaborateur {
-    private Date dateSortiePrevue;
+    private Timestamp dateSortiePrevue;
 
 
-    public CollaborateurTemporaire(String photo, Timestamp dateEntree, String empreinte) {
-        super(photo, dateEntree, empreinte);
+    public CollaborateurTemporaire(String nom,String photo, Timestamp dateEntree, String empreinte, Timestamp dateSortiePrevue) {
+        super(nom,photo, dateEntree, empreinte);
+        this.dateSortiePrevue=dateSortiePrevue;
+    }
+
+    public Timestamp getDateSortiePrevue() {
+        return dateSortiePrevue;
     }
 }

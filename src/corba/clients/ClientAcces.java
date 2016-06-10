@@ -1,7 +1,6 @@
 package corba.clients;
 
-import GestAcces.Empreinte;
-import GestAcces.ServeurAccesHelper;
+import  GestAcces.ServeurAccesHelper;
 import org.omg.CORBA.*;
 import org.omg.CORBA.Object;
 import org.omg.CosNaming.NameComponent;

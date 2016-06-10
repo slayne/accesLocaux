@@ -12,8 +12,9 @@ import java.util.ArrayList;
 public class CollaborateurPermanent extends Collaborateur {
     private ArrayList<AccesPermanent> accesPermanents;
 
-    public CollaborateurPermanent(String photo, Timestamp dateEntree, String empreinte) {
-        super(photo, dateEntree, empreinte);
+
+    public CollaborateurPermanent(String nom,String photo, Timestamp dateEntree, String empreinte) {
+        super(nom,photo, dateEntree, empreinte);
         accesPermanents = new ArrayList<>();
     }
 }

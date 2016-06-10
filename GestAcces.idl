@@ -42,8 +42,8 @@ module GestAcces {
 		exception CollaborateurInnexistant {};
 		exception CollaborateurDejaExistant {};
 
-		void enregisterCollaborateurPermanent(in string nom, in string prenom, in Photo p, in string empreinte) raises(CollaborateurDejaExistant);
-		void enregisterCollaborateurTemporaire(in string nom, in string prenom, in Photo p, in string empreinte, in Date df) raises(CollaborateurDejaExistant);
+		void enregisterCollaborateurPermanent(in string nom, in Photo p, in string empreinte, in Date de) raises(CollaborateurDejaExistant);
+		void enregisterCollaborateurTemporaire(in string nom, in Photo p, in string empreinte, in Date de, in Date df) raises(CollaborateurDejaExistant);
 		void rechercherCollaborateur(in string nom, in string prenom);
 		void supprimerCollaborateur(in short id) raises(CollaborateurInnexistant);
 	};

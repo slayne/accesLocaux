@@ -44,10 +44,12 @@ SET default_with_oids = false;
 --
 
 CREATE TABLE collabo (
-    id integer NOT NULL,
-    idperso integer NOT NULL,
-    photo text,
-    dateentree timestamp without time zone
+    idcollabo integer NOT NULL,
+    nom text NOT NULL,
+    photo text NOT NULL,
+    dateentree timestamp without time zone,
+    istemp boolean NOT NULL,
+    datef timestamp without time zone
 );
 
 

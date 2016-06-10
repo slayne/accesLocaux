@@ -23,7 +23,7 @@ public class _ServeurAnnuaireStub extends org.omg.CORBA.portable.ObjectImpl
     /**
      * Operation enregisterCollaborateurPermanent
      */
-    public void enregisterCollaborateurPermanent(String nom, String prenom, String p, String empreinte)
+    public void enregisterCollaborateurPermanent(String nom, String p, String empreinte, GestAcces.Date de)
         throws GestAcces.ServeurAnnuairePackage.CollaborateurDejaExistant
     {
         while(true)
@@ -35,9 +35,9 @@ public class _ServeurAnnuaireStub extends org.omg.CORBA.portable.ObjectImpl
                 {
                     org.omg.CORBA.portable.OutputStream _output = this._request("enregisterCollaborateurPermanent",true);
                     _output.write_string(nom);
-                    _output.write_string(prenom);
                     GestAcces.PhotoHelper.write(_output,p);
                     _output.write_string(empreinte);
+                    GestAcces.DateHelper.write(_output,de);
                     _input = this._invoke(_output);
                     return;
                 }
@@ -68,7 +68,7 @@ public class _ServeurAnnuaireStub extends org.omg.CORBA.portable.ObjectImpl
                 GestAcces.ServeurAnnuaireOperations _self = (GestAcces.ServeurAnnuaireOperations) _so.servant;
                 try
                 {
-                    _self.enregisterCollaborateurPermanent( nom,  prenom,  p,  empreinte);
+                    _self.enregisterCollaborateurPermanent( nom,  p,  empreinte,  de);
                     return;
                 }
                 finally
@@ -82,7 +82,7 @@ public class _ServeurAnnuaireStub extends org.omg.CORBA.portable.ObjectImpl
     /**
      * Operation enregisterCollaborateurTemporaire
      */
-    public void enregisterCollaborateurTemporaire(String nom, String prenom, String p, String empreinte, GestAcces.Date df)
+    public void enregisterCollaborateurTemporaire(String nom, String p, String empreinte, GestAcces.Date de, GestAcces.Date df)
         throws GestAcces.ServeurAnnuairePackage.CollaborateurDejaExistant
     {
         while(true)
@@ -94,9 +94,9 @@ public class _ServeurAnnuaireStub extends org.omg.CORBA.portable.ObjectImpl
                 {
                     org.omg.CORBA.portable.OutputStream _output = this._request("enregisterCollaborateurTemporaire",true);
                     _output.write_string(nom);
-                    _output.write_string(prenom);
                     GestAcces.PhotoHelper.write(_output,p);
                     _output.write_string(empreinte);
+                    GestAcces.DateHelper.write(_output,de);
                     GestAcces.DateHelper.write(_output,df);
                     _input = this._invoke(_output);
                     return;
@@ -128,7 +128,7 @@ public class _ServeurAnnuaireStub extends org.omg.CORBA.portable.ObjectImpl
                 GestAcces.ServeurAnnuaireOperations _self = (GestAcces.ServeurAnnuaireOperations) _so.servant;
                 try
                 {
-                    _self.enregisterCollaborateurTemporaire( nom,  prenom,  p,  empreinte,  df);
+                    _self.enregisterCollaborateurTemporaire( nom,  p,  empreinte,  de,  df);
                     return;
                 }
                 finally
