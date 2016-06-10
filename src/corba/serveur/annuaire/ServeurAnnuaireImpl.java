@@ -23,7 +23,7 @@ import static utils.AccesUtils.corbaDateToTimeStamp;
  */
 public class ServeurAnnuaireImpl extends GestAcces.ServeurAnnuairePOA {
 
-    private static CollaborateurDAO collabDAO;
+    private static CollaborateurDAO collabDAO= new CollaborateurDAO();
     public ServeurEmpreinte servEmpreinte;
 
     public void setEmpreinte(ServeurEmpreinte s){
@@ -35,10 +35,11 @@ public class ServeurAnnuaireImpl extends GestAcces.ServeurAnnuairePOA {
         CollaborateurPermanent c = new CollaborateurPermanent(nom,p,new Timestamp(System.currentTimeMillis()),empreinte);
         c=(CollaborateurPermanent) collabDAO.create(c);
 
+
         try {
             servEmpreinte.enregistrerEmpreinte((short)c.getIdbd(),empreinte);
         } catch (EmpreintePresente empreintePresente) {
-            empreintePresente.printStackTrace();
+           throw new CollaborateurDejaExistant();
         }
 
 

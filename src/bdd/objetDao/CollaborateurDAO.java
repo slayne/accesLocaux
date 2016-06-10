@@ -17,7 +17,7 @@ import java.util.ArrayList;
  */
 
 public class CollaborateurDAO extends DAO<Collaborateur> {
-    public CollaborateurDAO(String url) {
+    public CollaborateurDAO() {
         super(ConnectionBDD.url_annuaire);
     }
 
