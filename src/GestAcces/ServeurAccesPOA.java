@@ -41,6 +41,8 @@ public abstract class ServeurAccesPOA extends org.omg.PortableServer.Servant
                 return _invoke_demanderAcces(_is, handler);
         } else if (opName.equals("getListeZone")) {
                 return _invoke_getListeZone(_is, handler);
+        } else if (opName.equals("getZonesPorte")) {
+                return _invoke_getZonesPorte(_is, handler);
         } else if (opName.equals("supprimerAcces")) {
                 return _invoke_supprimerAcces(_is, handler);
         } else if (opName.equals("verifierAcces")) {
@@ -58,7 +60,7 @@ public abstract class ServeurAccesPOA extends org.omg.PortableServer.Servant
         short arg0_in = _is.read_short();
         short arg1_in = GestAcces.HeureHelper.read(_is);
         short arg2_in = GestAcces.HeureHelper.read(_is);
-        GestAcces.Zone arg3_in = GestAcces.ZoneHelper.read(_is);
+        short arg3_in = _is.read_short();
 
         try
         {
@@ -85,7 +87,7 @@ public abstract class ServeurAccesPOA extends org.omg.PortableServer.Servant
         GestAcces.Jour arg2_in = GestAcces.JourHelper.read(_is);
         short arg3_in = GestAcces.HeureHelper.read(_is);
         short arg4_in = GestAcces.HeureHelper.read(_is);
-        GestAcces.Zone arg5_in = GestAcces.ZoneHelper.read(_is);
+        short arg5_in = _is.read_short();
 
         try
         {
@@ -165,6 +167,28 @@ public abstract class ServeurAccesPOA extends org.omg.PortableServer.Servant
         _output = handler.createReply();
         GestAcces.lZoneHelper.write(_output,_arg_result);
 
+        return _output;
+    }
+
+    private org.omg.CORBA.portable.OutputStream _invoke_getZonesPorte(
+            final org.omg.CORBA.portable.InputStream _is,
+            final org.omg.CORBA.portable.ResponseHandler handler) {
+        org.omg.CORBA.portable.OutputStream _output;
+        short arg0_in = _is.read_short();
+
+        try
+        {
+            GestAcces.Zone[] _arg_result = getZonesPorte(arg0_in);
+
+            _output = handler.createReply();
+            GestAcces.lZoneHelper.write(_output,_arg_result);
+
+        }
+        catch (GestAcces.ServeurAccesPackage.PorteInexistante _exception)
+        {
+            _output = handler.createExceptionReply();
+            GestAcces.ServeurAccesPackage.PorteInexistanteHelper.write(_output,_exception);
+        }
         return _output;
     }
 

@@ -17,8 +17,6 @@ module GestAcces {
 	struct Zone {
 	    short idZone;
 	    string nomZone;
-	    string tailleZone;
-	    string typeZone;
 	};
 
 	struct Log {
@@ -73,14 +71,18 @@ module GestAcces {
 	interface ServeurAcces {
 		exception CollaborateurDejaExistant {};
 		exception CollaborateurInexistant {};
+		exception PorteInexistante {};
 		exception ZoneInexistante {};
 
-		short ajoutPerm(in short id, in Heure heureDebut, in Heure heureFin, in Zone z) raises (ZoneInexistante);
-		short ajoutTemp(in short id, in Jour jourDeb, in Jour jourFin,in Heure heureDebut, in Heure heureFin, in Zone z) raises (ZoneInexistante);
+		short ajoutPerm(in short id, in Heure heureDebut, in Heure heureFin, in short idZone) raises (ZoneInexistante);
+		short ajoutTemp(in short id, in Jour jourDeb, in Jour jourFin,in Heure heureDebut, in Heure heureFin, in short idZone) raises (ZoneInexistante);
 		short demanderAcces(in string Photo, in string mdp);
 		void supprimerAcces (in short idCollaborateur, in short idZone) raises (CollaborateurInexistant);
 		short verifierAcces (in short idCollaborateur,in short idZone);
 		lZone getListeZone();
+
+		// renvoie les zones liées à une porte
+		lZone getZonesPorte(in short idPorte) raises (PorteInexistante);
 
 	};
 };

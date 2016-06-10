@@ -23,7 +23,7 @@ public class _ServeurAccesStub extends org.omg.CORBA.portable.ObjectImpl
     /**
      * Operation ajoutPerm
      */
-    public short ajoutPerm(short id, short heureDebut, short heureFin, GestAcces.Zone z)
+    public short ajoutPerm(short id, short heureDebut, short heureFin, short idZone)
         throws GestAcces.ServeurAccesPackage.ZoneInexistante
     {
         while(true)
@@ -37,7 +37,7 @@ public class _ServeurAccesStub extends org.omg.CORBA.portable.ObjectImpl
                     _output.write_short(id);
                     GestAcces.HeureHelper.write(_output,heureDebut);
                     GestAcces.HeureHelper.write(_output,heureFin);
-                    GestAcces.ZoneHelper.write(_output,z);
+                    _output.write_short(idZone);
                     _input = this._invoke(_output);
                     short _arg_ret = _input.read_short();
                     return _arg_ret;
@@ -69,7 +69,7 @@ public class _ServeurAccesStub extends org.omg.CORBA.portable.ObjectImpl
                 GestAcces.ServeurAccesOperations _self = (GestAcces.ServeurAccesOperations) _so.servant;
                 try
                 {
-                    return _self.ajoutPerm( id,  heureDebut,  heureFin,  z);
+                    return _self.ajoutPerm( id,  heureDebut,  heureFin,  idZone);
                 }
                 finally
                 {
@@ -82,7 +82,7 @@ public class _ServeurAccesStub extends org.omg.CORBA.portable.ObjectImpl
     /**
      * Operation ajoutTemp
      */
-    public short ajoutTemp(short id, GestAcces.Jour jourDeb, GestAcces.Jour jourFin, short heureDebut, short heureFin, GestAcces.Zone z)
+    public short ajoutTemp(short id, GestAcces.Jour jourDeb, GestAcces.Jour jourFin, short heureDebut, short heureFin, short idZone)
         throws GestAcces.ServeurAccesPackage.ZoneInexistante
     {
         while(true)
@@ -98,7 +98,7 @@ public class _ServeurAccesStub extends org.omg.CORBA.portable.ObjectImpl
                     GestAcces.JourHelper.write(_output,jourFin);
                     GestAcces.HeureHelper.write(_output,heureDebut);
                     GestAcces.HeureHelper.write(_output,heureFin);
-                    GestAcces.ZoneHelper.write(_output,z);
+                    _output.write_short(idZone);
                     _input = this._invoke(_output);
                     short _arg_ret = _input.read_short();
                     return _arg_ret;
@@ -130,7 +130,7 @@ public class _ServeurAccesStub extends org.omg.CORBA.portable.ObjectImpl
                 GestAcces.ServeurAccesOperations _self = (GestAcces.ServeurAccesOperations) _so.servant;
                 try
                 {
-                    return _self.ajoutTemp( id,  jourDeb,  jourFin,  heureDebut,  heureFin,  z);
+                    return _self.ajoutTemp( id,  jourDeb,  jourFin,  heureDebut,  heureFin,  idZone);
                 }
                 finally
                 {
@@ -339,6 +339,62 @@ public class _ServeurAccesStub extends org.omg.CORBA.portable.ObjectImpl
                 try
                 {
                     return _self.getListeZone();
+                }
+                finally
+                {
+                    _servant_postinvoke(_so);
+                }
+            }
+        }
+    }
+
+    /**
+     * Operation getZonesPorte
+     */
+    public GestAcces.Zone[] getZonesPorte(short idPorte)
+        throws GestAcces.ServeurAccesPackage.PorteInexistante
+    {
+        while(true)
+        {
+            if (!this._is_local())
+            {
+                org.omg.CORBA.portable.InputStream _input = null;
+                try
+                {
+                    org.omg.CORBA.portable.OutputStream _output = this._request("getZonesPorte",true);
+                    _output.write_short(idPorte);
+                    _input = this._invoke(_output);
+                    GestAcces.Zone[] _arg_ret = GestAcces.lZoneHelper.read(_input);
+                    return _arg_ret;
+                }
+                catch(org.omg.CORBA.portable.RemarshalException _exception)
+                {
+                    continue;
+                }
+                catch(org.omg.CORBA.portable.ApplicationException _exception)
+                {
+                    String _exception_id = _exception.getId();
+                    if (_exception_id.equals(GestAcces.ServeurAccesPackage.PorteInexistanteHelper.id()))
+                    {
+                        throw GestAcces.ServeurAccesPackage.PorteInexistanteHelper.read(_exception.getInputStream());
+                    }
+
+                    throw new org.omg.CORBA.UNKNOWN("Unexpected User Exception: "+ _exception_id);
+                }
+                finally
+                {
+                    this._releaseReply(_input);
+                }
+            }
+            else
+            {
+                org.omg.CORBA.portable.ServantObject _so = _servant_preinvoke("getZonesPorte",_opsClass);
+                if (_so == null)
+                   continue;
+                GestAcces.ServeurAccesOperations _self = (GestAcces.ServeurAccesOperations) _so.servant;
+                try
+                {
+                    return _self.getZonesPorte( idPorte);
                 }
                 finally
                 {

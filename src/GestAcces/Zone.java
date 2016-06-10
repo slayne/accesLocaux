@@ -18,16 +18,6 @@ public final class Zone implements org.omg.CORBA.portable.IDLEntity
     public String nomZone;
 
     /**
-     * Struct member tailleZone
-     */
-    public String tailleZone;
-
-    /**
-     * Struct member typeZone
-     */
-    public String typeZone;
-
-    /**
      * Default constructor
      */
     public Zone()
@@ -37,15 +27,11 @@ public final class Zone implements org.omg.CORBA.portable.IDLEntity
      * Constructor with fields initialization
      * @param idZone idZone struct member
      * @param nomZone nomZone struct member
-     * @param tailleZone tailleZone struct member
-     * @param typeZone typeZone struct member
      */
-    public Zone(short idZone, String nomZone, String tailleZone, String typeZone)
+    public Zone(short idZone, String nomZone)
     {
         this.idZone = idZone;
         this.nomZone = nomZone;
-        this.tailleZone = tailleZone;
-        this.typeZone = typeZone;
     }
 
 }

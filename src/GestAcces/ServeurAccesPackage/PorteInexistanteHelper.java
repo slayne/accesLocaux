@@ -1,11 +1,11 @@
-package GestAcces;
+package GestAcces.ServeurAccesPackage;
 
 /** 
- * Helper class for : Zone
+ * Helper class for : PorteInexistante
  *  
  * @author OpenORB Compiler
  */ 
-public class ZoneHelper
+public class PorteInexistanteHelper
 {
     private static final boolean HAS_OPENORB;
     static {
@@ -19,21 +19,21 @@ public class ZoneHelper
         HAS_OPENORB = hasOpenORB;
     }
     /**
-     * Insert Zone into an any
+     * Insert PorteInexistante into an any
      * @param a an any
-     * @param t Zone value
+     * @param t PorteInexistante value
      */
-    public static void insert(org.omg.CORBA.Any a, GestAcces.Zone t)
+    public static void insert(org.omg.CORBA.Any a, GestAcces.ServeurAccesPackage.PorteInexistante t)
     {
-        a.insert_Streamable(new GestAcces.ZoneHolder(t));
+        a.insert_Streamable(new GestAcces.ServeurAccesPackage.PorteInexistanteHolder(t));
     }
 
     /**
-     * Extract Zone from an any
+     * Extract PorteInexistante from an any
      * @param a an any
-     * @return the extracted Zone value
+     * @return the extracted PorteInexistante value
      */
-    public static GestAcces.Zone extract(org.omg.CORBA.Any a)
+    public static GestAcces.ServeurAccesPackage.PorteInexistante extract(org.omg.CORBA.Any a)
     {
         if (!a.type().equal(type()))
             throw new org.omg.CORBA.MARSHAL();
@@ -42,11 +42,11 @@ public class ZoneHelper
             org.openorb.CORBA.Any any = (org.openorb.CORBA.Any)a;
             try {
                 org.omg.CORBA.portable.Streamable s = any.extract_Streamable();
-                if(s instanceof GestAcces.ZoneHolder)
-                    return ((GestAcces.ZoneHolder)s).value;
+                if(s instanceof GestAcces.ServeurAccesPackage.PorteInexistanteHolder)
+                    return ((GestAcces.ServeurAccesPackage.PorteInexistanteHolder)s).value;
             } catch (org.omg.CORBA.BAD_INV_ORDER ex) {
             }
-            GestAcces.ZoneHolder h = new GestAcces.ZoneHolder(read(a.create_input_stream()));
+            GestAcces.ServeurAccesPackage.PorteInexistanteHolder h = new GestAcces.ServeurAccesPackage.PorteInexistanteHolder(read(a.create_input_stream()));
             a.insert_Streamable(h);
             return h.value;
         }
@@ -60,7 +60,7 @@ public class ZoneHelper
     private static boolean _working = false;
 
     /**
-     * Return the Zone TypeCode
+     * Return the PorteInexistante TypeCode
      * @return a TypeCode
      */
     public static org.omg.CORBA.TypeCode type()
@@ -73,15 +73,9 @@ public class ZoneHelper
                     return org.omg.CORBA.ORB.init().create_recursive_tc(id());
                 _working = true;
                 org.omg.CORBA.ORB orb = org.omg.CORBA.ORB.init();
-                org.omg.CORBA.StructMember []_members = new org.omg.CORBA.StructMember[2];
+                org.omg.CORBA.StructMember []_members = new org.omg.CORBA.StructMember[0];
 
-                _members[0] = new org.omg.CORBA.StructMember();
-                _members[0].name = "idZone";
-                _members[0].type = orb.get_primitive_tc(org.omg.CORBA.TCKind.tk_short);
-                _members[1] = new org.omg.CORBA.StructMember();
-                _members[1].name = "nomZone";
-                _members[1].type = orb.get_primitive_tc(org.omg.CORBA.TCKind.tk_string);
-                _tc = orb.create_struct_tc(id(),"Zone",_members);
+                _tc = orb.create_exception_tc(id(),"PorteInexistante",_members);
                 _working = false;
             }
         }
@@ -89,7 +83,7 @@ public class ZoneHelper
     }
 
     /**
-     * Return the Zone IDL ID
+     * Return the PorteInexistante IDL ID
      * @return an ID
      */
     public static String id()
@@ -97,32 +91,31 @@ public class ZoneHelper
         return _id;
     }
 
-    private final static String _id = "IDL:GestAcces/Zone:1.0";
+    private final static String _id = "IDL:GestAcces/ServeurAcces/PorteInexistante:1.0";
 
     /**
-     * Read Zone from a marshalled stream
+     * Read PorteInexistante from a marshalled stream
      * @param istream the input stream
-     * @return the readed Zone value
+     * @return the readed PorteInexistante value
      */
-    public static GestAcces.Zone read(org.omg.CORBA.portable.InputStream istream)
+    public static GestAcces.ServeurAccesPackage.PorteInexistante read(org.omg.CORBA.portable.InputStream istream)
     {
-        GestAcces.Zone new_one = new GestAcces.Zone();
+        GestAcces.ServeurAccesPackage.PorteInexistante new_one = new GestAcces.ServeurAccesPackage.PorteInexistante();
 
-        new_one.idZone = istream.read_short();
-        new_one.nomZone = istream.read_string();
+        if (!istream.read_string().equals(id()))
+         throw new org.omg.CORBA.MARSHAL();
 
         return new_one;
     }
 
     /**
-     * Write Zone into a marshalled stream
+     * Write PorteInexistante into a marshalled stream
      * @param ostream the output stream
-     * @param value Zone value
+     * @param value PorteInexistante value
      */
-    public static void write(org.omg.CORBA.portable.OutputStream ostream, GestAcces.Zone value)
+    public static void write(org.omg.CORBA.portable.OutputStream ostream, GestAcces.ServeurAccesPackage.PorteInexistante value)
     {
-        ostream.write_short(value.idZone);
-        ostream.write_string(value.nomZone);
+        ostream.write_string(id());
     }
 
 }
