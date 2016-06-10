@@ -1,7 +1,9 @@
 package bdd.objetDao;
 
+import GestAcces.Log;
 import GestAcces.Zone;
 import bdd.DAO;
+import utils.AccesUtils;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -33,7 +35,7 @@ public class ZoneDAO extends DAO<Zone> {
             ResultSet result = this.connect.createStatement(
                     ResultSet.TYPE_SCROLL_INSENSITIVE,
                     ResultSet.CONCUR_UPDATABLE).executeQuery(
-                    "SELECT * FROM zone,porte where zone.id = porte.idZone and porte.id=" + porteId);
+                    "SELECT zone.id FROM zone,porte where zone.id = porte.idzone and porte.id=" + porteId);
             while (result.next()) {
                 Zone s = this.find(result.getInt(1));
                 zonesPorte.add(s);
@@ -47,7 +49,24 @@ public class ZoneDAO extends DAO<Zone> {
 
     @Override
     public Zone find(long id) {
-        return null;
+        Zone z = null;
+        try {
+            ResultSet result = this .connect
+                    .createStatement(
+                            ResultSet.TYPE_SCROLL_INSENSITIVE,
+                            ResultSet.CONCUR_UPDATABLE
+                    ).executeQuery(
+                            "SELECT * FROM zone WHERE id = " + id
+                    );
+            if(result.first()) {
+                z= new Zone((short)result.getInt("id"),result.getString("nom"));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return z;
+
     }
 
     @Override
