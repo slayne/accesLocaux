@@ -44,6 +44,8 @@ module GestAcces {
 		void enregisterCollaborateurTemporaire(in string nom, in Photo p, in string empreinte, in Date de, in Date df) raises(CollaborateurDejaExistant);
 		void rechercherCollaborateur(in string nom, in string prenom);
 		void supprimerCollaborateur(in short id) raises(CollaborateurInnexistant);
+
+		boolean demanderAcces(in string Photo, in string mdp, in short idZone) raises (CollaborateurInexistant);
 	};
 
 	interface ServeurEmpreinte {
@@ -76,7 +78,6 @@ module GestAcces {
 
 		short ajoutPerm(in short id, in Heure heureDebut, in Heure heureFin, in short idZone) raises (ZoneInexistante);
 		short ajoutTemp(in short id, in Jour jourDeb, in Jour jourFin,in Heure heureDebut, in Heure heureFin, in short idZone) raises (ZoneInexistante);
-		short demanderAcces(in string Photo, in string mdp);
 		void supprimerAcces (in short idCollaborateur, in short idZone) raises (CollaborateurInexistant);
 		short verifierAcces (in short idCollaborateur,in short idZone);
 		lZone getListeZone();
