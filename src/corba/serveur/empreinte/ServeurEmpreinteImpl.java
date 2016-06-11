@@ -50,4 +50,10 @@ public class ServeurEmpreinteImpl extends ServeurEmpreintePOA {
         if (!e.empreinte.equals(mdp)) throw new EmpreinteInvalide();
     }
 
+    @Override
+    public String getEmpreinte(short idCollaborateur) throws EmpreinteInvalide {
+        Empreinte e = empreinteDAO.find(idCollaborateur);
+        return e.empreinte;
+    }
+
 }

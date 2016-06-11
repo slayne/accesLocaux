@@ -6,6 +6,8 @@ import GestAcces.ServeurAnnuairePackage.CollaborateurDejaExistant;
 import GestAcces.ServeurAnnuairePackage.CollaborateurInexistant;
 import GestAcces.ServeurAnnuairePackage.CollaborateurInnexistant;
 import GestAcces.ServeurEmpreinte;
+import GestAcces.ServeurEmpreintePackage.EmpreinteInexistante;
+import GestAcces.ServeurEmpreintePackage.EmpreinteInvalide;
 import GestAcces.ServeurEmpreintePackage.EmpreintePresente;
 import bdd.objetDao.CollaborateurDAO;
 import bdd.objetDao.EmpreinteDAO;
@@ -59,22 +61,58 @@ public class ServeurAnnuaireImpl extends GestAcces.ServeurAnnuairePOA {
         try {
             servEmpreinte.enregistrerEmpreinte((short)c.getIdbd(),empreinte);
         } catch (EmpreintePresente empreintePresente) {
-            empreintePresente.printStackTrace();
+            throw new CollaborateurDejaExistant();
         }
     }
 
-    public CollaborateurPermanent getPermanent(int id){
-        CollaborateurPermanent c = (CollaborateurPermanent)collabDAO.find(id);
-        c.setEmpreinte(servEmpreinte.getEmpreinte(id));
+    @Override
+    public CollaborateurCorba[] rechercherCollaborateur(String nom, String prenom) {
+        return new CollaborateurCorba[0];
     }
 
-    @Override
-    public void rechercherCollaborateur(String nom, String prenom) {
+    public CollaborateurPermanent getPermanent(int id) throws EmpreinteInvalide {
+        CollaborateurPermanent c = (CollaborateurPermanent)collabDAO.find(id);
+
+        c.setEmpreinte(servEmpreinte.getEmpreinte((short) id));
+
+
+        return c;
+    }
+
+    public CollaborateurTemporaire getTemporaire(int id) throws EmpreinteInvalide {
+        CollaborateurTemporaire c = (CollaborateurTemporaire)collabDAO.find(id);
+
+        c.setEmpreinte(servEmpreinte.getEmpreinte((short)id));
+
+        return c;
+    }
+
+    public CollaborateurPermanent updatePermanent(CollaborateurPermanent co) throws EmpreinteInvalide, EmpreinteInexistante {
+
+
+        CollaborateurPermanent c = (CollaborateurPermanent) collabDAO.update(co);
+        servEmpreinte.modifierEmpreinte((short) c.getIdbd(), co.getEmpreinte());
+
+        c.setEmpreinte(servEmpreinte.getEmpreinte((short) c.getIdbd()));
+
+        return c;
+
+    }
+
+    public CollaborateurTemporaire updateTeporaire(CollaborateurTemporaire co) throws EmpreinteInvalide, EmpreinteInexistante {
+
+
+        CollaborateurTemporaire c = (CollaborateurTemporaire) collabDAO.update(co);
+        servEmpreinte.modifierEmpreinte((short) c.getIdbd(), co.getEmpreinte());
+
+        c.setEmpreinte(servEmpreinte.getEmpreinte((short) c.getIdbd()));
+
+        return c;
 
     }
 
     @Override
     public void supprimerCollaborateur(short id) throws CollaborateurInexistant {
-
+        collabDAO.delete(collabDAO.find(id));
     }
 }

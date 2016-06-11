@@ -36,6 +36,8 @@ module GestAcces {
             string empreinte;
     };
 
+    typedef sequence<CollaborateurCorba> lCollabo;
+
 	interface ServeurAnnuaire {
 		exception CollaborateurInexistant {};
 		exception CollaborateurDejaExistant {};
@@ -43,7 +45,7 @@ module GestAcces {
 		boolean demanderAcces(in string Photo, in string mdp, in short idZone) raises (CollaborateurInexistant);
 		void enregisterCollaborateurPermanent(in string nom, in Photo p, in string empreinte, in Date de) raises(CollaborateurDejaExistant);
 		void enregisterCollaborateurTemporaire(in string nom, in Photo p, in string empreinte, in Date de, in Date df) raises(CollaborateurDejaExistant);
-		void rechercherCollaborateur(in string nom, in string prenom);
+		lCollabo rechercherCollaborateur(in string nom, in string prenom);
 		void supprimerCollaborateur(in short id) raises(CollaborateurInexistant);
 
 	};
@@ -57,6 +59,7 @@ module GestAcces {
 		void modifierEmpreinte(in short idCollaborateur, in string nouvelleEmpreinte) raises (EmpreinteInexistante);
 		void supprimerEmpreinte(in short idCollaborateur) raises (EmpreinteInexistante);
 		void verifierEmpreinte(in short idCollaborateur,in string mdp) raises (EmpreinteInvalide);
+		string getEmpreinte(in short idCollaborateur) raises (EmpreinteInvalide);
 	};
 
     typedef sequence<Log> lLog;

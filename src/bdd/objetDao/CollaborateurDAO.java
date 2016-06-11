@@ -49,8 +49,7 @@ public class CollaborateurDAO extends DAO<Collaborateur> {
                             ResultSet.TYPE_SCROLL_INSENSITIVE,
                             ResultSet.CONCUR_UPDATABLE
                     ).executeQuery(
-                            "select * from collaborateur,empreinte where collaborateur.idcollabo=empreinte.idcollaborateur" +
-                                    "and collaborateur.idcollabo="+id+";"
+                            "select * from collaborateur where collaborateur.idcollabo="+id+";"
                     );
             if(result.first()) {
                /* Identifiant identifiant = new Identifiant(
@@ -61,13 +60,13 @@ public class CollaborateurDAO extends DAO<Collaborateur> {
                     collaborateur = new CollaborateurTemporaire(result.getString("nom"),
                                                                 result.getString("photo"),
                                                                 result.getTimestamp("dateentree"),
-                                                                result.getString("empreinte"),
+                                                                null,
                                                                 result.getTimestamp("datefin"));
                 }else{
                     collaborateur = new CollaborateurPermanent(result.getString("nom"),
                             result.getString("photo"),
                             result.getTimestamp("dateentree"),
-                            result.getString("empreinte"));
+                            null);
                 }
 
 
@@ -119,11 +118,56 @@ public class CollaborateurDAO extends DAO<Collaborateur> {
 
     @Override
     public Collaborateur update(Collaborateur obj) {
-        return null;
+
+
+        try {
+
+            if(obj instanceof CollaborateurTemporaire){
+                this.connect
+                        .createStatement(
+                                ResultSet.TYPE_SCROLL_INSENSITIVE,
+                                ResultSet.CONCUR_UPDATABLE
+                        ).executeUpdate(
+                        "UPDATE collaborateur SET nom ='"+obj.getNom()+"' ," +
+                                "photo='"+obj.getPhoto()+"'," +
+                                "dateentree='"+obj.getDateEntree()+"'," +
+                                "datef = '" + ((CollaborateurTemporaire)obj).getDateSortiePrevue() + "' "+
+                                " WHERE idCollaborateur = " + obj.getIdbd()
+                );
+            }else{
+                this.connect
+                        .createStatement(
+                                ResultSet.TYPE_SCROLL_INSENSITIVE,
+                                ResultSet.CONCUR_UPDATABLE
+                        ).executeUpdate(
+                        "UPDATE collaborateur SET nom ='"+obj.getNom()+"' ," +
+                                "photo='"+obj.getPhoto()+"'," +
+                                "dateentree='"+obj.getDateEntree()+
+                                " WHERE idCollaborateur = " + obj.getIdbd()
+                );
+            }
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return find(obj.getIdbd());
+
     }
 
     @Override
     public void delete(Collaborateur obj) {
+        try {
+            this.connect
+                    .createStatement(
+                            ResultSet.TYPE_SCROLL_INSENSITIVE,
+                            ResultSet.CONCUR_UPDATABLE
+                    ).executeUpdate(
+                    "DELETE FROM collaborateur WHERE idCollaborateur = " + obj.getIdbd()
+            );
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
 
     }
 }

@@ -28,7 +28,7 @@ public interface ServeurAnnuaireOperations
     /**
      * Operation rechercherCollaborateur
      */
-    public void rechercherCollaborateur(String nom, String prenom);
+    public GestAcces.CollaborateurCorba[] rechercherCollaborateur(String nom, String prenom);
 
     /**
      * Operation supprimerCollaborateur

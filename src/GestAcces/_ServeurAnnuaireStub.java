@@ -200,7 +200,7 @@ public class _ServeurAnnuaireStub extends org.omg.CORBA.portable.ObjectImpl
     /**
      * Operation rechercherCollaborateur
      */
-    public void rechercherCollaborateur(String nom, String prenom)
+    public GestAcces.CollaborateurCorba[] rechercherCollaborateur(String nom, String prenom)
     {
         while(true)
         {
@@ -213,7 +213,8 @@ public class _ServeurAnnuaireStub extends org.omg.CORBA.portable.ObjectImpl
                     _output.write_string(nom);
                     _output.write_string(prenom);
                     _input = this._invoke(_output);
-                    return;
+                    GestAcces.CollaborateurCorba[] _arg_ret = GestAcces.lCollaboHelper.read(_input);
+                    return _arg_ret;
                 }
                 catch(org.omg.CORBA.portable.RemarshalException _exception)
                 {
@@ -237,8 +238,7 @@ public class _ServeurAnnuaireStub extends org.omg.CORBA.portable.ObjectImpl
                 GestAcces.ServeurAnnuaireOperations _self = (GestAcces.ServeurAnnuaireOperations) _so.servant;
                 try
                 {
-                    _self.rechercherCollaborateur( nom,  prenom);
-                    return;
+                    return _self.rechercherCollaborateur( nom,  prenom);
                 }
                 finally
                 {

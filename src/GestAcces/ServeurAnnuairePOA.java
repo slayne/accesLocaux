@@ -129,9 +129,10 @@ public abstract class ServeurAnnuairePOA extends org.omg.PortableServer.Servant
         String arg0_in = _is.read_string();
         String arg1_in = _is.read_string();
 
-        rechercherCollaborateur(arg0_in, arg1_in);
+        GestAcces.CollaborateurCorba[] _arg_result = rechercherCollaborateur(arg0_in, arg1_in);
 
         _output = handler.createReply();
+        GestAcces.lCollaboHelper.write(_output,_arg_result);
 
         return _output;
     }

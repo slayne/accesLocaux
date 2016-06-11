@@ -35,6 +35,8 @@ public abstract class ServeurEmpreintePOA extends org.omg.PortableServer.Servant
 
         if (opName.equals("enregistrerEmpreinte")) {
                 return _invoke_enregistrerEmpreinte(_is, handler);
+        } else if (opName.equals("getEmpreinte")) {
+                return _invoke_getEmpreinte(_is, handler);
         } else if (opName.equals("modifierEmpreinte")) {
                 return _invoke_modifierEmpreinte(_is, handler);
         } else if (opName.equals("supprimerEmpreinte")) {
@@ -124,6 +126,28 @@ public abstract class ServeurEmpreintePOA extends org.omg.PortableServer.Servant
             verifierEmpreinte(arg0_in, arg1_in);
 
             _output = handler.createReply();
+
+        }
+        catch (GestAcces.ServeurEmpreintePackage.EmpreinteInvalide _exception)
+        {
+            _output = handler.createExceptionReply();
+            GestAcces.ServeurEmpreintePackage.EmpreinteInvalideHelper.write(_output,_exception);
+        }
+        return _output;
+    }
+
+    private org.omg.CORBA.portable.OutputStream _invoke_getEmpreinte(
+            final org.omg.CORBA.portable.InputStream _is,
+            final org.omg.CORBA.portable.ResponseHandler handler) {
+        org.omg.CORBA.portable.OutputStream _output;
+        short arg0_in = _is.read_short();
+
+        try
+        {
+            String _arg_result = getEmpreinte(arg0_in);
+
+            _output = handler.createReply();
+            _output.write_string(_arg_result);
 
         }
         catch (GestAcces.ServeurEmpreintePackage.EmpreinteInvalide _exception)

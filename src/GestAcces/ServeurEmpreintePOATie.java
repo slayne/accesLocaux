@@ -98,4 +98,13 @@ public class ServeurEmpreintePOATie extends ServeurEmpreintePOA
         _tie.verifierEmpreinte( idCollaborateur,  mdp);
     }
 
+    /**
+     * Operation getEmpreinte
+     */
+    public String getEmpreinte(short idCollaborateur)
+        throws GestAcces.ServeurEmpreintePackage.EmpreinteInvalide
+    {
+        return _tie.getEmpreinte( idCollaborateur);
+    }
+
 }

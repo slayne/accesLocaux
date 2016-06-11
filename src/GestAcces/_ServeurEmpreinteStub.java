@@ -247,4 +247,60 @@ public class _ServeurEmpreinteStub extends org.omg.CORBA.portable.ObjectImpl
         }
     }
 
+    /**
+     * Operation getEmpreinte
+     */
+    public String getEmpreinte(short idCollaborateur)
+        throws GestAcces.ServeurEmpreintePackage.EmpreinteInvalide
+    {
+        while(true)
+        {
+            if (!this._is_local())
+            {
+                org.omg.CORBA.portable.InputStream _input = null;
+                try
+                {
+                    org.omg.CORBA.portable.OutputStream _output = this._request("getEmpreinte",true);
+                    _output.write_short(idCollaborateur);
+                    _input = this._invoke(_output);
+                    String _arg_ret = _input.read_string();
+                    return _arg_ret;
+                }
+                catch(org.omg.CORBA.portable.RemarshalException _exception)
+                {
+                    continue;
+                }
+                catch(org.omg.CORBA.portable.ApplicationException _exception)
+                {
+                    String _exception_id = _exception.getId();
+                    if (_exception_id.equals(GestAcces.ServeurEmpreintePackage.EmpreinteInvalideHelper.id()))
+                    {
+                        throw GestAcces.ServeurEmpreintePackage.EmpreinteInvalideHelper.read(_exception.getInputStream());
+                    }
+
+                    throw new org.omg.CORBA.UNKNOWN("Unexpected User Exception: "+ _exception_id);
+                }
+                finally
+                {
+                    this._releaseReply(_input);
+                }
+            }
+            else
+            {
+                org.omg.CORBA.portable.ServantObject _so = _servant_preinvoke("getEmpreinte",_opsClass);
+                if (_so == null)
+                   continue;
+                GestAcces.ServeurEmpreinteOperations _self = (GestAcces.ServeurEmpreinteOperations) _so.servant;
+                try
+                {
+                    return _self.getEmpreinte( idCollaborateur);
+                }
+                finally
+                {
+                    _servant_postinvoke(_so);
+                }
+            }
+        }
+    }
+
 }

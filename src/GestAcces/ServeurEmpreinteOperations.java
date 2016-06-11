@@ -31,4 +31,10 @@ public interface ServeurEmpreinteOperations
     public void verifierEmpreinte(short idCollaborateur, String mdp)
         throws GestAcces.ServeurEmpreintePackage.EmpreinteInvalide;
 
+    /**
+     * Operation getEmpreinte
+     */
+    public String getEmpreinte(short idCollaborateur)
+        throws GestAcces.ServeurEmpreintePackage.EmpreinteInvalide;
+
 }
