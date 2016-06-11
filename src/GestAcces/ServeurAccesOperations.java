@@ -20,11 +20,6 @@ public interface ServeurAccesOperations
         throws GestAcces.ServeurAccesPackage.ZoneInexistante;
 
     /**
-     * Operation demanderAcces
-     */
-    public short demanderAcces(String Photo, String mdp);
-
-    /**
      * Operation supprimerAcces
      */
     public void supprimerAcces(short idCollaborateur, short idZone)

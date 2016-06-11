@@ -21,6 +21,64 @@ public class _ServeurAnnuaireStub extends org.omg.CORBA.portable.ObjectImpl
     private final static Class _opsClass = GestAcces.ServeurAnnuaireOperations.class;
 
     /**
+     * Operation demanderAcces
+     */
+    public boolean demanderAcces(String Photo, String mdp, short idZone)
+        throws GestAcces.ServeurAnnuairePackage.CollaborateurInexistant
+    {
+        while(true)
+        {
+            if (!this._is_local())
+            {
+                org.omg.CORBA.portable.InputStream _input = null;
+                try
+                {
+                    org.omg.CORBA.portable.OutputStream _output = this._request("demanderAcces",true);
+                    _output.write_string(Photo);
+                    _output.write_string(mdp);
+                    _output.write_short(idZone);
+                    _input = this._invoke(_output);
+                    boolean _arg_ret = _input.read_boolean();
+                    return _arg_ret;
+                }
+                catch(org.omg.CORBA.portable.RemarshalException _exception)
+                {
+                    continue;
+                }
+                catch(org.omg.CORBA.portable.ApplicationException _exception)
+                {
+                    String _exception_id = _exception.getId();
+                    if (_exception_id.equals(GestAcces.ServeurAnnuairePackage.CollaborateurInexistantHelper.id()))
+                    {
+                        throw GestAcces.ServeurAnnuairePackage.CollaborateurInexistantHelper.read(_exception.getInputStream());
+                    }
+
+                    throw new org.omg.CORBA.UNKNOWN("Unexpected User Exception: "+ _exception_id);
+                }
+                finally
+                {
+                    this._releaseReply(_input);
+                }
+            }
+            else
+            {
+                org.omg.CORBA.portable.ServantObject _so = _servant_preinvoke("demanderAcces",_opsClass);
+                if (_so == null)
+                   continue;
+                GestAcces.ServeurAnnuaireOperations _self = (GestAcces.ServeurAnnuaireOperations) _so.servant;
+                try
+                {
+                    return _self.demanderAcces( Photo,  mdp,  idZone);
+                }
+                finally
+                {
+                    _servant_postinvoke(_so);
+                }
+            }
+        }
+    }
+
+    /**
      * Operation enregisterCollaborateurPermanent
      */
     public void enregisterCollaborateurPermanent(String nom, String p, String empreinte, GestAcces.Date de)
@@ -194,7 +252,7 @@ public class _ServeurAnnuaireStub extends org.omg.CORBA.portable.ObjectImpl
      * Operation supprimerCollaborateur
      */
     public void supprimerCollaborateur(short id)
-        throws GestAcces.ServeurAnnuairePackage.CollaborateurInnexistant
+        throws GestAcces.ServeurAnnuairePackage.CollaborateurInexistant
     {
         while(true)
         {
@@ -215,9 +273,9 @@ public class _ServeurAnnuaireStub extends org.omg.CORBA.portable.ObjectImpl
                 catch(org.omg.CORBA.portable.ApplicationException _exception)
                 {
                     String _exception_id = _exception.getId();
-                    if (_exception_id.equals(GestAcces.ServeurAnnuairePackage.CollaborateurInnexistantHelper.id()))
+                    if (_exception_id.equals(GestAcces.ServeurAnnuairePackage.CollaborateurInexistantHelper.id()))
                     {
-                        throw GestAcces.ServeurAnnuairePackage.CollaborateurInnexistantHelper.read(_exception.getInputStream());
+                        throw GestAcces.ServeurAnnuairePackage.CollaborateurInexistantHelper.read(_exception.getInputStream());
                     }
 
                     throw new org.omg.CORBA.UNKNOWN("Unexpected User Exception: "+ _exception_id);

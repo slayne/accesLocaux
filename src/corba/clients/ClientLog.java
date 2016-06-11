@@ -46,7 +46,7 @@ public class ClientLog {
             myLog = ServeurLogHelper.narrow(distantAcces);
 
 
-            System.out.println("Test méthode distante");
+            System.out.println("Serveur Log - que voulez vous faire ?");
             Log[] ls = myLog.afficherLogs();
             for (Log l : ls) {
                 System.out.println("log : " + l.log + " / " + l.date.h + ":" + l.date.m);
