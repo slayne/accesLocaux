@@ -8,6 +8,12 @@ package GestAcces;
 public interface ServeurAnnuaireOperations
 {
     /**
+     * Operation demanderAcces
+     */
+    public boolean demanderAcces(String Photo, String mdp, short idZone)
+        throws GestAcces.ServeurAnnuairePackage.CollaborateurInexistant;
+
+    /**
      * Operation enregisterCollaborateurPermanent
      */
     public void enregisterCollaborateurPermanent(String nom, String p, String empreinte, GestAcces.Date de)
@@ -28,6 +34,6 @@ public interface ServeurAnnuaireOperations
      * Operation supprimerCollaborateur
      */
     public void supprimerCollaborateur(short id)
-        throws GestAcces.ServeurAnnuairePackage.CollaborateurInnexistant;
+        throws GestAcces.ServeurAnnuairePackage.CollaborateurInexistant;
 
 }

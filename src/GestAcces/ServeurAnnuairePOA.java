@@ -33,7 +33,9 @@ public abstract class ServeurAnnuairePOA extends org.omg.PortableServer.Servant
             final org.omg.CORBA.portable.ResponseHandler handler)
     {
 
-        if (opName.equals("enregisterCollaborateurPermanent")) {
+        if (opName.equals("demanderAcces")) {
+                return _invoke_demanderAcces(_is, handler);
+        } else if (opName.equals("enregisterCollaborateurPermanent")) {
                 return _invoke_enregisterCollaborateurPermanent(_is, handler);
         } else if (opName.equals("enregisterCollaborateurTemporaire")) {
                 return _invoke_enregisterCollaborateurTemporaire(_is, handler);
@@ -47,6 +49,30 @@ public abstract class ServeurAnnuairePOA extends org.omg.PortableServer.Servant
     }
 
     // helper methods
+    private org.omg.CORBA.portable.OutputStream _invoke_demanderAcces(
+            final org.omg.CORBA.portable.InputStream _is,
+            final org.omg.CORBA.portable.ResponseHandler handler) {
+        org.omg.CORBA.portable.OutputStream _output;
+        String arg0_in = _is.read_string();
+        String arg1_in = _is.read_string();
+        short arg2_in = _is.read_short();
+
+        try
+        {
+            boolean _arg_result = demanderAcces(arg0_in, arg1_in, arg2_in);
+
+            _output = handler.createReply();
+            _output.write_boolean(_arg_result);
+
+        }
+        catch (GestAcces.ServeurAnnuairePackage.CollaborateurInexistant _exception)
+        {
+            _output = handler.createExceptionReply();
+            GestAcces.ServeurAnnuairePackage.CollaborateurInexistantHelper.write(_output,_exception);
+        }
+        return _output;
+    }
+
     private org.omg.CORBA.portable.OutputStream _invoke_enregisterCollaborateurPermanent(
             final org.omg.CORBA.portable.InputStream _is,
             final org.omg.CORBA.portable.ResponseHandler handler) {
@@ -123,10 +149,10 @@ public abstract class ServeurAnnuairePOA extends org.omg.PortableServer.Servant
             _output = handler.createReply();
 
         }
-        catch (GestAcces.ServeurAnnuairePackage.CollaborateurInnexistant _exception)
+        catch (GestAcces.ServeurAnnuairePackage.CollaborateurInexistant _exception)
         {
             _output = handler.createExceptionReply();
-            GestAcces.ServeurAnnuairePackage.CollaborateurInnexistantHelper.write(_output,_exception);
+            GestAcces.ServeurAnnuairePackage.CollaborateurInexistantHelper.write(_output,_exception);
         }
         return _output;
     }

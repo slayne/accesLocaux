@@ -3,6 +3,7 @@ package corba.serveur.annuaire;
 import GestAcces.CollaborateurCorba;
 import GestAcces.Date;
 import GestAcces.ServeurAnnuairePackage.CollaborateurDejaExistant;
+import GestAcces.ServeurAnnuairePackage.CollaborateurInexistant;
 import GestAcces.ServeurAnnuairePackage.CollaborateurInnexistant;
 import GestAcces.ServeurEmpreinte;
 import GestAcces.ServeurEmpreintePackage.EmpreintePresente;
@@ -28,6 +29,11 @@ public class ServeurAnnuaireImpl extends GestAcces.ServeurAnnuairePOA {
 
     public void setEmpreinte(ServeurEmpreinte s){
         servEmpreinte=s;
+    }
+
+    @Override
+    public boolean demanderAcces(String Photo, String mdp, short idZone) throws CollaborateurInexistant {
+        return false;
     }
 
     @Override
@@ -68,7 +74,7 @@ public class ServeurAnnuaireImpl extends GestAcces.ServeurAnnuairePOA {
     }
 
     @Override
-    public void supprimerCollaborateur(short id) throws CollaborateurInnexistant {
+    public void supprimerCollaborateur(short id) throws CollaborateurInexistant {
 
     }
 }
