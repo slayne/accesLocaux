@@ -57,6 +57,11 @@ public class ServeurAnnuaireImpl extends GestAcces.ServeurAnnuairePOA {
         }
     }
 
+    public CollaborateurPermanent getPermanent(int id){
+        CollaborateurPermanent c = (CollaborateurPermanent)collabDAO.find(id);
+        c.setEmpreinte(servEmpreinte.getEmpreinte(id));
+    }
+
     @Override
     public void rechercherCollaborateur(String nom, String prenom) {
 

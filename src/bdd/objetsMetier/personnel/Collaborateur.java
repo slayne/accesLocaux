@@ -46,6 +46,10 @@ public abstract class Collaborateur {
         this.idbd = idbd;
     }
 
+    public void setEmpreinte(String e) {
+        this.empreinte = e;
+    }
+
     public int getIdbd() {
         return idbd;
     }
