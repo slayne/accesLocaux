@@ -65,19 +65,19 @@ public class ServeurAccesPOATie extends ServeurAccesPOA
     /**
      * Operation ajoutPerm
      */
-    public short ajoutPerm(short id, short heureDebut, short heureFin, short idZone)
+    public void ajoutPerm(short id, short heureDebut, short heureFin, short idZone)
         throws GestAcces.ServeurAccesPackage.ZoneInexistante
     {
-        return _tie.ajoutPerm( id,  heureDebut,  heureFin,  idZone);
+        _tie.ajoutPerm( id,  heureDebut,  heureFin,  idZone);
     }
 
     /**
      * Operation ajoutTemp
      */
-    public short ajoutTemp(short id, GestAcces.Jour jourDeb, GestAcces.Jour jourFin, short heureDebut, short heureFin, short idZone)
+    public void ajoutTemp(short id, GestAcces.Jour jourDeb, GestAcces.Jour jourFin, short heureDebut, short heureFin, short idZone)
         throws GestAcces.ServeurAccesPackage.ZoneInexistante
     {
-        return _tie.ajoutTemp( id,  jourDeb,  jourFin,  heureDebut,  heureFin,  idZone);
+        _tie.ajoutTemp( id,  jourDeb,  jourFin,  heureDebut,  heureFin,  idZone);
     }
 
     /**
@@ -92,7 +92,7 @@ public class ServeurAccesPOATie extends ServeurAccesPOA
     /**
      * Operation verifierAcces
      */
-    public short verifierAcces(short idCollaborateur, short idZone)
+    public boolean verifierAcces(short idCollaborateur, short idZone)
     {
         return _tie.verifierAcces( idCollaborateur,  idZone);
     }

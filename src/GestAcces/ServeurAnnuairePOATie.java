@@ -90,11 +90,11 @@ public class ServeurAnnuairePOATie extends ServeurAnnuairePOA
     }
 
     /**
-     * Operation rechercherCollaborateur
+     * Operation rechercherCollaborateurs
      */
-    public GestAcces.CollaborateurCorba[] rechercherCollaborateur(String nom, String prenom)
+    public GestAcces.CollaborateurCorba[] rechercherCollaborateurs()
     {
-        return _tie.rechercherCollaborateur( nom,  prenom);
+        return _tie.rechercherCollaborateurs();
     }
 
     /**

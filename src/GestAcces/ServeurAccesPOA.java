@@ -62,10 +62,9 @@ public abstract class ServeurAccesPOA extends org.omg.PortableServer.Servant
 
         try
         {
-            short _arg_result = ajoutPerm(arg0_in, arg1_in, arg2_in, arg3_in);
+            ajoutPerm(arg0_in, arg1_in, arg2_in, arg3_in);
 
             _output = handler.createReply();
-            _output.write_short(_arg_result);
 
         }
         catch (GestAcces.ServeurAccesPackage.ZoneInexistante _exception)
@@ -89,10 +88,9 @@ public abstract class ServeurAccesPOA extends org.omg.PortableServer.Servant
 
         try
         {
-            short _arg_result = ajoutTemp(arg0_in, arg1_in, arg2_in, arg3_in, arg4_in, arg5_in);
+            ajoutTemp(arg0_in, arg1_in, arg2_in, arg3_in, arg4_in, arg5_in);
 
             _output = handler.createReply();
-            _output.write_short(_arg_result);
 
         }
         catch (GestAcces.ServeurAccesPackage.ZoneInexistante _exception)
@@ -132,10 +130,10 @@ public abstract class ServeurAccesPOA extends org.omg.PortableServer.Servant
         short arg0_in = _is.read_short();
         short arg1_in = _is.read_short();
 
-        short _arg_result = verifierAcces(arg0_in, arg1_in);
+        boolean _arg_result = verifierAcces(arg0_in, arg1_in);
 
         _output = handler.createReply();
-        _output.write_short(_arg_result);
+        _output.write_boolean(_arg_result);
 
         return _output;
     }

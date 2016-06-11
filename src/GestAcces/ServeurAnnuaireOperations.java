@@ -26,9 +26,9 @@ public interface ServeurAnnuaireOperations
         throws GestAcces.ServeurAnnuairePackage.CollaborateurDejaExistant;
 
     /**
-     * Operation rechercherCollaborateur
+     * Operation rechercherCollaborateurs
      */
-    public GestAcces.CollaborateurCorba[] rechercherCollaborateur(String nom, String prenom);
+    public GestAcces.CollaborateurCorba[] rechercherCollaborateurs();
 
     /**
      * Operation supprimerCollaborateur

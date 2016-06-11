@@ -43,7 +43,7 @@ public class ServeurEmpreinteImpl extends ServeurEmpreintePOA {
      * Note : on passe le string de l'empreinte en paramètre, car l'objet empreinte n'est pas encore crée
      * DSE : Porte --> Serveur RH ---> Serveur Empreinte
      */
-    public void verifierEmpreinte(short idCollaborateur, String mdp) throws EmpreinteInvalide{
+    public void verifierEmpreinte(short idCollaborateur, String mdp) throws EmpreinteInvalide {
         Empreinte e = empreinteDAO.find(idCollaborateur);
         System.out.println(e.empreinte);
 

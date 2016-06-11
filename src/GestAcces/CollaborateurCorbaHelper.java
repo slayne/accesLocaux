@@ -73,35 +73,26 @@ public class CollaborateurCorbaHelper
                     return org.omg.CORBA.ORB.init().create_recursive_tc(id());
                 _working = true;
                 org.omg.CORBA.ORB orb = org.omg.CORBA.ORB.init();
-                org.omg.CORBA.StructMember []_members = new org.omg.CORBA.StructMember[9];
+                org.omg.CORBA.StructMember []_members = new org.omg.CORBA.StructMember[6];
 
                 _members[0] = new org.omg.CORBA.StructMember();
-                _members[0].name = "nom";
-                _members[0].type = orb.get_primitive_tc(org.omg.CORBA.TCKind.tk_string);
+                _members[0].name = "id";
+                _members[0].type = orb.get_primitive_tc(org.omg.CORBA.TCKind.tk_short);
                 _members[1] = new org.omg.CORBA.StructMember();
-                _members[1].name = "prenom";
+                _members[1].name = "nom";
                 _members[1].type = orb.get_primitive_tc(org.omg.CORBA.TCKind.tk_string);
                 _members[2] = new org.omg.CORBA.StructMember();
-                _members[2].name = "adresse";
-                _members[2].type = orb.get_primitive_tc(org.omg.CORBA.TCKind.tk_string);
+                _members[2].name = "photo";
+                _members[2].type = GestAcces.PhotoHelper.type();
                 _members[3] = new org.omg.CORBA.StructMember();
-                _members[3].name = "statut";
-                _members[3].type = orb.get_primitive_tc(org.omg.CORBA.TCKind.tk_string);
+                _members[3].name = "dateEntree";
+                _members[3].type = GestAcces.DateHelper.type();
                 _members[4] = new org.omg.CORBA.StructMember();
-                _members[4].name = "login";
+                _members[4].name = "empreinte";
                 _members[4].type = orb.get_primitive_tc(org.omg.CORBA.TCKind.tk_string);
                 _members[5] = new org.omg.CORBA.StructMember();
-                _members[5].name = "mdp";
-                _members[5].type = orb.get_primitive_tc(org.omg.CORBA.TCKind.tk_string);
-                _members[6] = new org.omg.CORBA.StructMember();
-                _members[6].name = "photo";
-                _members[6].type = GestAcces.PhotoHelper.type();
-                _members[7] = new org.omg.CORBA.StructMember();
-                _members[7].name = "dateEntree";
-                _members[7].type = GestAcces.DateHelper.type();
-                _members[8] = new org.omg.CORBA.StructMember();
-                _members[8].name = "empreinte";
-                _members[8].type = orb.get_primitive_tc(org.omg.CORBA.TCKind.tk_string);
+                _members[5].name = "isTemp";
+                _members[5].type = orb.get_primitive_tc(org.omg.CORBA.TCKind.tk_boolean);
                 _tc = orb.create_struct_tc(id(),"CollaborateurCorba",_members);
                 _working = false;
             }
@@ -129,15 +120,12 @@ public class CollaborateurCorbaHelper
     {
         GestAcces.CollaborateurCorba new_one = new GestAcces.CollaborateurCorba();
 
+        new_one.id = istream.read_short();
         new_one.nom = istream.read_string();
-        new_one.prenom = istream.read_string();
-        new_one.adresse = istream.read_string();
-        new_one.statut = istream.read_string();
-        new_one.login = istream.read_string();
-        new_one.mdp = istream.read_string();
         new_one.photo = GestAcces.PhotoHelper.read(istream);
         new_one.dateEntree = GestAcces.DateHelper.read(istream);
         new_one.empreinte = istream.read_string();
+        new_one.isTemp = istream.read_boolean();
 
         return new_one;
     }
@@ -149,15 +137,12 @@ public class CollaborateurCorbaHelper
      */
     public static void write(org.omg.CORBA.portable.OutputStream ostream, GestAcces.CollaborateurCorba value)
     {
+        ostream.write_short(value.id);
         ostream.write_string(value.nom);
-        ostream.write_string(value.prenom);
-        ostream.write_string(value.adresse);
-        ostream.write_string(value.statut);
-        ostream.write_string(value.login);
-        ostream.write_string(value.mdp);
         GestAcces.PhotoHelper.write(ostream,value.photo);
         GestAcces.DateHelper.write(ostream,value.dateEntree);
         ostream.write_string(value.empreinte);
+        ostream.write_boolean(value.isTemp);
     }
 
 }

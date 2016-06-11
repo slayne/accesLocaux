@@ -23,19 +23,17 @@ public class ServeurAccesImpl extends ServeurAccesPOA {
     private static AccesDAO accesDAO = new AccesDAO();
 
     @Override
-    public short ajoutPerm(short id, short heureDebut, short heureFin, short idZone) throws ZoneInexistante {
+    public void ajoutPerm(short id, short heureDebut, short heureFin, short idZone) throws ZoneInexistante {
         Zone z = zoneDAO.find(idZone);
         AccesPermanent ap = new AccesPermanent(z, id, heureDebut, heureFin);
         accesDAO.create(ap);
-        return 0;
     }
 
     @Override
-    public short ajoutTemp(short id, Jour jourDeb, Jour jourFin, short heureDebut, short heureFin, short idZone) throws ZoneInexistante {
+    public void ajoutTemp(short id, Jour jourDeb, Jour jourFin, short heureDebut, short heureFin, short idZone) throws ZoneInexistante {
         Zone z = zoneDAO.find(idZone);
         AccesTemporaire at = new AccesTemporaire(z, id, heureDebut, heureFin, JourToTimestamp.convert(jourDeb), JourToTimestamp.convert(jourFin));
         accesDAO.create(at);
-        return 0;
     }
 
     @Override
@@ -49,19 +47,18 @@ public class ServeurAccesImpl extends ServeurAccesPOA {
         {
             accesDAO.delete(a);
         }
-
     }
 
     @Override
-    public short verifierAcces(short idCollaborateur, short idZone) {
+    public boolean verifierAcces(short idCollaborateur, short idZone) {
         Acces a = accesDAO.find(idCollaborateur, idZone);
         if (a == null)
         {
-            return -1; // à savoir les codes de retour ?
+            return false; // à savoir les codes de retour ?
         }
         else
         {
-            return 0;
+            return true;
         }
     }
 

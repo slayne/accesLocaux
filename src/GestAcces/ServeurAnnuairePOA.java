@@ -39,8 +39,8 @@ public abstract class ServeurAnnuairePOA extends org.omg.PortableServer.Servant
                 return _invoke_enregisterCollaborateurPermanent(_is, handler);
         } else if (opName.equals("enregisterCollaborateurTemporaire")) {
                 return _invoke_enregisterCollaborateurTemporaire(_is, handler);
-        } else if (opName.equals("rechercherCollaborateur")) {
-                return _invoke_rechercherCollaborateur(_is, handler);
+        } else if (opName.equals("rechercherCollaborateurs")) {
+                return _invoke_rechercherCollaborateurs(_is, handler);
         } else if (opName.equals("supprimerCollaborateur")) {
                 return _invoke_supprimerCollaborateur(_is, handler);
         } else {
@@ -122,14 +122,12 @@ public abstract class ServeurAnnuairePOA extends org.omg.PortableServer.Servant
         return _output;
     }
 
-    private org.omg.CORBA.portable.OutputStream _invoke_rechercherCollaborateur(
+    private org.omg.CORBA.portable.OutputStream _invoke_rechercherCollaborateurs(
             final org.omg.CORBA.portable.InputStream _is,
             final org.omg.CORBA.portable.ResponseHandler handler) {
         org.omg.CORBA.portable.OutputStream _output;
-        String arg0_in = _is.read_string();
-        String arg1_in = _is.read_string();
 
-        GestAcces.CollaborateurCorba[] _arg_result = rechercherCollaborateur(arg0_in, arg1_in);
+        GestAcces.CollaborateurCorba[] _arg_result = rechercherCollaborateurs();
 
         _output = handler.createReply();
         GestAcces.lCollaboHelper.write(_output,_arg_result);

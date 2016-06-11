@@ -23,7 +23,7 @@ public class _ServeurAccesStub extends org.omg.CORBA.portable.ObjectImpl
     /**
      * Operation ajoutPerm
      */
-    public short ajoutPerm(short id, short heureDebut, short heureFin, short idZone)
+    public void ajoutPerm(short id, short heureDebut, short heureFin, short idZone)
         throws GestAcces.ServeurAccesPackage.ZoneInexistante
     {
         while(true)
@@ -39,8 +39,7 @@ public class _ServeurAccesStub extends org.omg.CORBA.portable.ObjectImpl
                     GestAcces.HeureHelper.write(_output,heureFin);
                     _output.write_short(idZone);
                     _input = this._invoke(_output);
-                    short _arg_ret = _input.read_short();
-                    return _arg_ret;
+                    return;
                 }
                 catch(org.omg.CORBA.portable.RemarshalException _exception)
                 {
@@ -69,7 +68,8 @@ public class _ServeurAccesStub extends org.omg.CORBA.portable.ObjectImpl
                 GestAcces.ServeurAccesOperations _self = (GestAcces.ServeurAccesOperations) _so.servant;
                 try
                 {
-                    return _self.ajoutPerm( id,  heureDebut,  heureFin,  idZone);
+                    _self.ajoutPerm( id,  heureDebut,  heureFin,  idZone);
+                    return;
                 }
                 finally
                 {
@@ -82,7 +82,7 @@ public class _ServeurAccesStub extends org.omg.CORBA.portable.ObjectImpl
     /**
      * Operation ajoutTemp
      */
-    public short ajoutTemp(short id, GestAcces.Jour jourDeb, GestAcces.Jour jourFin, short heureDebut, short heureFin, short idZone)
+    public void ajoutTemp(short id, GestAcces.Jour jourDeb, GestAcces.Jour jourFin, short heureDebut, short heureFin, short idZone)
         throws GestAcces.ServeurAccesPackage.ZoneInexistante
     {
         while(true)
@@ -100,8 +100,7 @@ public class _ServeurAccesStub extends org.omg.CORBA.portable.ObjectImpl
                     GestAcces.HeureHelper.write(_output,heureFin);
                     _output.write_short(idZone);
                     _input = this._invoke(_output);
-                    short _arg_ret = _input.read_short();
-                    return _arg_ret;
+                    return;
                 }
                 catch(org.omg.CORBA.portable.RemarshalException _exception)
                 {
@@ -130,7 +129,8 @@ public class _ServeurAccesStub extends org.omg.CORBA.portable.ObjectImpl
                 GestAcces.ServeurAccesOperations _self = (GestAcces.ServeurAccesOperations) _so.servant;
                 try
                 {
-                    return _self.ajoutTemp( id,  jourDeb,  jourFin,  heureDebut,  heureFin,  idZone);
+                    _self.ajoutTemp( id,  jourDeb,  jourFin,  heureDebut,  heureFin,  idZone);
+                    return;
                 }
                 finally
                 {
@@ -200,7 +200,7 @@ public class _ServeurAccesStub extends org.omg.CORBA.portable.ObjectImpl
     /**
      * Operation verifierAcces
      */
-    public short verifierAcces(short idCollaborateur, short idZone)
+    public boolean verifierAcces(short idCollaborateur, short idZone)
     {
         while(true)
         {
@@ -213,7 +213,7 @@ public class _ServeurAccesStub extends org.omg.CORBA.portable.ObjectImpl
                     _output.write_short(idCollaborateur);
                     _output.write_short(idZone);
                     _input = this._invoke(_output);
-                    short _arg_ret = _input.read_short();
+                    boolean _arg_ret = _input.read_boolean();
                     return _arg_ret;
                 }
                 catch(org.omg.CORBA.portable.RemarshalException _exception)

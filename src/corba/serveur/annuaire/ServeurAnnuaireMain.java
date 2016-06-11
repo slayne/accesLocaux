@@ -19,7 +19,6 @@ public class ServeurAnnuaireMain {
 
     public static void main(String[] args) {
         try {
-            Portes.main(new String[0]);
             System.out.println("CE GENRE DE SERVEUR D'Annuaire MAMENE DU SALE");
             // Intialisation de l'ORB
             //************************

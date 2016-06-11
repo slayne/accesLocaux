@@ -20,6 +20,7 @@ public class ClientPorte {
 
     private ArrayList<Zone> zones;
     private int idPorte;
+    private ORB orb;
 
     public static GestAcces.ServeurAcces serveurAcces;
     public static GestAcces.ServeurAnnuaire serveurAnnuaire;
@@ -36,7 +37,7 @@ public class ClientPorte {
     private void connexionServeurAcces() {
         try {
             // Intialisation de l'orb
-            ORB orb = ORB.init(new String[0], null);
+            orb = ORB.init(new String[0], null);
 
             // Saisie du nom de l'objet (si utilisation du service de nommage)
             // System.out.println("Quel objet Corba voulez-vous contacter ?");
@@ -69,9 +70,6 @@ public class ClientPorte {
 
     private void connexionServeurRH() {
         try {
-            // Intialisation de l'orb
-            ORB orb = ORB.init(new String[0], null);
-
             // Saisie du nom de l'objet (si utilisation du service de nommage)
             // System.out.println("Quel objet Corba voulez-vous contacter ?");
             //BufferedReader in = new BufferedReader(new InputStreamReader(System.in));

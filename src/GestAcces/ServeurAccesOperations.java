@@ -10,13 +10,13 @@ public interface ServeurAccesOperations
     /**
      * Operation ajoutPerm
      */
-    public short ajoutPerm(short id, short heureDebut, short heureFin, short idZone)
+    public void ajoutPerm(short id, short heureDebut, short heureFin, short idZone)
         throws GestAcces.ServeurAccesPackage.ZoneInexistante;
 
     /**
      * Operation ajoutTemp
      */
-    public short ajoutTemp(short id, GestAcces.Jour jourDeb, GestAcces.Jour jourFin, short heureDebut, short heureFin, short idZone)
+    public void ajoutTemp(short id, GestAcces.Jour jourDeb, GestAcces.Jour jourFin, short heureDebut, short heureFin, short idZone)
         throws GestAcces.ServeurAccesPackage.ZoneInexistante;
 
     /**
@@ -28,7 +28,7 @@ public interface ServeurAccesOperations
     /**
      * Operation verifierAcces
      */
-    public short verifierAcces(short idCollaborateur, short idZone);
+    public boolean verifierAcces(short idCollaborateur, short idZone);
 
     /**
      * Operation getListeZone

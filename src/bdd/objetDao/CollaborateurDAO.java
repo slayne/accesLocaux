@@ -49,7 +49,7 @@ public class CollaborateurDAO extends DAO<Collaborateur> {
                             ResultSet.TYPE_SCROLL_INSENSITIVE,
                             ResultSet.CONCUR_UPDATABLE
                     ).executeQuery(
-                            "select * from collaborateur where collaborateur.idcollabo="+id+";"
+                            "select * from collaborateur where collaborateur.id="+id+";"
                     );
             if(result.first()) {
                /* Identifiant identifiant = new Identifiant(
@@ -132,7 +132,7 @@ public class CollaborateurDAO extends DAO<Collaborateur> {
                                 "photo='"+obj.getPhoto()+"'," +
                                 "dateentree='"+obj.getDateEntree()+"'," +
                                 "datef = '" + ((CollaborateurTemporaire)obj).getDateSortiePrevue() + "' "+
-                                " WHERE idCollaborateur = " + obj.getIdbd()
+                                " WHERE id = " + obj.getIdbd()
                 );
             }else{
                 this.connect
@@ -143,7 +143,7 @@ public class CollaborateurDAO extends DAO<Collaborateur> {
                         "UPDATE collaborateur SET nom ='"+obj.getNom()+"' ," +
                                 "photo='"+obj.getPhoto()+"'," +
                                 "dateentree='"+obj.getDateEntree()+
-                                " WHERE idCollaborateur = " + obj.getIdbd()
+                                " WHERE id = " + obj.getIdbd()
                 );
             }
         } catch (SQLException e) {
@@ -162,7 +162,7 @@ public class CollaborateurDAO extends DAO<Collaborateur> {
                             ResultSet.TYPE_SCROLL_INSENSITIVE,
                             ResultSet.CONCUR_UPDATABLE
                     ).executeUpdate(
-                    "DELETE FROM collaborateur WHERE idCollaborateur = " + obj.getIdbd()
+                    "DELETE FROM collaborateur WHERE id = " + obj.getIdbd()
             );
         } catch (SQLException e) {
             // TODO Auto-generated catch block

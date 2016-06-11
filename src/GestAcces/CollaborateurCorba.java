@@ -8,34 +8,14 @@ package GestAcces;
 public final class CollaborateurCorba implements org.omg.CORBA.portable.IDLEntity
 {
     /**
+     * Struct member id
+     */
+    public short id;
+
+    /**
      * Struct member nom
      */
     public String nom;
-
-    /**
-     * Struct member prenom
-     */
-    public String prenom;
-
-    /**
-     * Struct member adresse
-     */
-    public String adresse;
-
-    /**
-     * Struct member statut
-     */
-    public String statut;
-
-    /**
-     * Struct member login
-     */
-    public String login;
-
-    /**
-     * Struct member mdp
-     */
-    public String mdp;
 
     /**
      * Struct member photo
@@ -53,6 +33,11 @@ public final class CollaborateurCorba implements org.omg.CORBA.portable.IDLEntit
     public String empreinte;
 
     /**
+     * Struct member isTemp
+     */
+    public boolean isTemp;
+
+    /**
      * Default constructor
      */
     public CollaborateurCorba()
@@ -60,27 +45,21 @@ public final class CollaborateurCorba implements org.omg.CORBA.portable.IDLEntit
 
     /**
      * Constructor with fields initialization
+     * @param id id struct member
      * @param nom nom struct member
-     * @param prenom prenom struct member
-     * @param adresse adresse struct member
-     * @param statut statut struct member
-     * @param login login struct member
-     * @param mdp mdp struct member
      * @param photo photo struct member
      * @param dateEntree dateEntree struct member
      * @param empreinte empreinte struct member
+     * @param isTemp isTemp struct member
      */
-    public CollaborateurCorba(String nom, String prenom, String adresse, String statut, String login, String mdp, String photo, GestAcces.Date dateEntree, String empreinte)
+    public CollaborateurCorba(short id, String nom, String photo, GestAcces.Date dateEntree, String empreinte, boolean isTemp)
     {
+        this.id = id;
         this.nom = nom;
-        this.prenom = prenom;
-        this.adresse = adresse;
-        this.statut = statut;
-        this.login = login;
-        this.mdp = mdp;
         this.photo = photo;
         this.dateEntree = dateEntree;
         this.empreinte = empreinte;
+        this.isTemp = isTemp;
     }
 
 }

@@ -10,6 +10,8 @@ import org.omg.CosNaming.NamingContext;
 import org.omg.CosNaming.NamingContextHelper;
 import utils.AccesUtils;
 
+import java.util.Scanner;
+
 /**
  * Created by yoan on 05/06/16.
  */
@@ -46,10 +48,24 @@ public class ClientLog {
             myLog = ServeurLogHelper.narrow(distantAcces);
 
 
-            System.out.println("Serveur Log - que voulez vous faire ?");
-            Log[] ls = myLog.afficherLogs();
-            for (Log l : ls) {
-                System.out.println("log : " + l.log + " / " + l.date.h + ":" + l.date.m);
+            boolean userInput = true;
+            while (userInput) {
+                System.out.println("que voulez vous faire ?");
+                System.out.println("--- 0 : quitter");
+                System.out.println("--- 1 : lire tous les logs");
+                Scanner reader = new Scanner(System.in);  // Reading from System.in
+                int n = reader.nextInt(); // Scans the next token of the input as an int.
+                switch (n) {
+                    case 0: userInput = false;
+                        break;
+                    case 1:
+                        Log[] ls = myLog.afficherLogs();
+                        for (Log l : ls) {
+                            System.out.println("log : " + l.log + " / " + l.date.h + ":" + l.date.m);
+                        }
+                        break;
+                    default: break;
+                }
             }
         }
         catch (Exception e) {

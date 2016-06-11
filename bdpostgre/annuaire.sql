@@ -5,7 +5,7 @@
 -- Dumped from database version 9.5.3
 -- Dumped by pg_dump version 9.5.3
 
--- Started on 2016-06-06 20:00:26 CEST
+-- Started on 2016-06-11 21:50:22 CEST
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -40,20 +40,21 @@ SET default_with_oids = false;
 
 --
 -- TOC entry 185 (class 1259 OID 16410)
--- Name: collabo; Type: TABLE; Schema: public; Owner: postgres
+-- Name: collaborateur; Type: TABLE; Schema: public; Owner: postgres
 --
 
-CREATE TABLE collabo (
-    idcollabo integer NOT NULL,
-    nom text NOT NULL,
-    photo text NOT NULL,
+CREATE TABLE collaborateur (
+    id integer NOT NULL,
+    idperso integer NOT NULL,
+    photo text,
     dateentree timestamp without time zone,
-    istemp boolean NOT NULL,
+    nom text,
+    istemp boolean,
     datef timestamp without time zone
 );
 
 
-ALTER TABLE collabo OWNER TO postgres;
+ALTER TABLE collaborateur OWNER TO postgres;
 
 --
 -- TOC entry 183 (class 1259 OID 16406)
@@ -76,7 +77,7 @@ ALTER TABLE collabo_id_seq OWNER TO postgres;
 -- Name: collabo_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
-ALTER SEQUENCE collabo_id_seq OWNED BY collabo.id;
+ALTER SEQUENCE collabo_id_seq OWNED BY collaborateur.id;
 
 
 --
@@ -100,7 +101,7 @@ ALTER TABLE collabo_idperso_seq OWNER TO postgres;
 -- Name: collabo_idperso_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
-ALTER SEQUENCE collabo_idperso_seq OWNED BY collabo.idperso;
+ALTER SEQUENCE collabo_idperso_seq OWNED BY collaborateur.idperso;
 
 
 --
@@ -150,7 +151,7 @@ ALTER SEQUENCE personnel_id_seq OWNED BY personnel.id;
 -- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY collabo ALTER COLUMN id SET DEFAULT nextval('collabo_id_seq'::regclass);
+ALTER TABLE ONLY collaborateur ALTER COLUMN id SET DEFAULT nextval('collabo_id_seq'::regclass);
 
 
 --
@@ -158,7 +159,7 @@ ALTER TABLE ONLY collabo ALTER COLUMN id SET DEFAULT nextval('collabo_id_seq'::r
 -- Name: idperso; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY collabo ALTER COLUMN idperso SET DEFAULT nextval('collabo_idperso_seq'::regclass);
+ALTER TABLE ONLY collaborateur ALTER COLUMN idperso SET DEFAULT nextval('collabo_idperso_seq'::regclass);
 
 
 --
@@ -174,7 +175,7 @@ ALTER TABLE ONLY personnel ALTER COLUMN id SET DEFAULT nextval('personnel_id_seq
 -- Name: collabo_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY collabo
+ALTER TABLE ONLY collaborateur
     ADD CONSTRAINT collabo_pkey PRIMARY KEY (id);
 
 
@@ -192,7 +193,7 @@ ALTER TABLE ONLY personnel
 -- Name: fk_perso; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY collabo
+ALTER TABLE ONLY collaborateur
     ADD CONSTRAINT fk_perso FOREIGN KEY (idperso) REFERENCES personnel(id) ON UPDATE CASCADE ON DELETE CASCADE;
 
 
@@ -208,7 +209,7 @@ GRANT ALL ON SCHEMA public TO postgres;
 GRANT ALL ON SCHEMA public TO PUBLIC;
 
 
--- Completed on 2016-06-06 20:00:27 CEST
+-- Completed on 2016-06-11 21:50:22 CEST
 
 --
 -- PostgreSQL database dump complete

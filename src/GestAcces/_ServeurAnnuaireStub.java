@@ -198,9 +198,9 @@ public class _ServeurAnnuaireStub extends org.omg.CORBA.portable.ObjectImpl
     }
 
     /**
-     * Operation rechercherCollaborateur
+     * Operation rechercherCollaborateurs
      */
-    public GestAcces.CollaborateurCorba[] rechercherCollaborateur(String nom, String prenom)
+    public GestAcces.CollaborateurCorba[] rechercherCollaborateurs()
     {
         while(true)
         {
@@ -209,9 +209,7 @@ public class _ServeurAnnuaireStub extends org.omg.CORBA.portable.ObjectImpl
                 org.omg.CORBA.portable.InputStream _input = null;
                 try
                 {
-                    org.omg.CORBA.portable.OutputStream _output = this._request("rechercherCollaborateur",true);
-                    _output.write_string(nom);
-                    _output.write_string(prenom);
+                    org.omg.CORBA.portable.OutputStream _output = this._request("rechercherCollaborateurs",true);
                     _input = this._invoke(_output);
                     GestAcces.CollaborateurCorba[] _arg_ret = GestAcces.lCollaboHelper.read(_input);
                     return _arg_ret;
@@ -232,13 +230,13 @@ public class _ServeurAnnuaireStub extends org.omg.CORBA.portable.ObjectImpl
             }
             else
             {
-                org.omg.CORBA.portable.ServantObject _so = _servant_preinvoke("rechercherCollaborateur",_opsClass);
+                org.omg.CORBA.portable.ServantObject _so = _servant_preinvoke("rechercherCollaborateurs",_opsClass);
                 if (_so == null)
                    continue;
                 GestAcces.ServeurAnnuaireOperations _self = (GestAcces.ServeurAnnuaireOperations) _so.servant;
                 try
                 {
-                    return _self.rechercherCollaborateur( nom,  prenom);
+                    return _self.rechercherCollaborateurs();
                 }
                 finally
                 {

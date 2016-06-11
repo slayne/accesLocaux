@@ -43,14 +43,11 @@ public class ServeurAnnuaireImpl extends GestAcces.ServeurAnnuairePOA {
         CollaborateurPermanent c = new CollaborateurPermanent(nom,p,new Timestamp(System.currentTimeMillis()),empreinte);
         c=(CollaborateurPermanent) collabDAO.create(c);
 
-
         try {
             servEmpreinte.enregistrerEmpreinte((short)c.getIdbd(),empreinte);
         } catch (EmpreintePresente empreintePresente) {
            throw new CollaborateurDejaExistant();
         }
-
-
     }
 
     @Override
@@ -66,13 +63,12 @@ public class ServeurAnnuaireImpl extends GestAcces.ServeurAnnuairePOA {
     }
 
     @Override
-    public CollaborateurCorba[] rechercherCollaborateur(String nom, String prenom) {
+    public CollaborateurCorba[] rechercherCollaborateurs() {
         return new CollaborateurCorba[0];
     }
 
     public CollaborateurPermanent getPermanent(int id) throws EmpreinteInvalide {
         CollaborateurPermanent c = (CollaborateurPermanent)collabDAO.find(id);
-
         c.setEmpreinte(servEmpreinte.getEmpreinte((short) id));
 
 
@@ -81,34 +77,25 @@ public class ServeurAnnuaireImpl extends GestAcces.ServeurAnnuairePOA {
 
     public CollaborateurTemporaire getTemporaire(int id) throws EmpreinteInvalide {
         CollaborateurTemporaire c = (CollaborateurTemporaire)collabDAO.find(id);
-
         c.setEmpreinte(servEmpreinte.getEmpreinte((short)id));
 
         return c;
     }
 
     public CollaborateurPermanent updatePermanent(CollaborateurPermanent co) throws EmpreinteInvalide, EmpreinteInexistante {
-
-
         CollaborateurPermanent c = (CollaborateurPermanent) collabDAO.update(co);
         servEmpreinte.modifierEmpreinte((short) c.getIdbd(), co.getEmpreinte());
-
         c.setEmpreinte(servEmpreinte.getEmpreinte((short) c.getIdbd()));
 
         return c;
-
     }
 
     public CollaborateurTemporaire updateTeporaire(CollaborateurTemporaire co) throws EmpreinteInvalide, EmpreinteInexistante {
-
-
         CollaborateurTemporaire c = (CollaborateurTemporaire) collabDAO.update(co);
         servEmpreinte.modifierEmpreinte((short) c.getIdbd(), co.getEmpreinte());
-
         c.setEmpreinte(servEmpreinte.getEmpreinte((short) c.getIdbd()));
 
         return c;
-
     }
 
     @Override
