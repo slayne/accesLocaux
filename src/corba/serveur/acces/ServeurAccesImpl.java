@@ -27,11 +27,6 @@ public class ServeurAccesImpl extends ServeurAccesPOA {
     }
 
     @Override
-    public short demanderAcces(String Photo, String mdp) {
-        return 0;
-    }
-
-    @Override
     public void supprimerAcces(short idCollaborateur, short idZone) throws CollaborateurInexistant {
 
     }
@@ -43,7 +38,12 @@ public class ServeurAccesImpl extends ServeurAccesPOA {
 
     @Override
     public Zone[] getListeZone() {
-        return new Zone[0];
+        ArrayList<Zone> zonesList = zoneDAO.getInstances();
+
+        Zone[] zones = new Zone[zonesList.size()];
+        zones = zonesList.toArray(zones);
+
+        return zones;
     }
 
     @Override
@@ -56,7 +56,7 @@ public class ServeurAccesImpl extends ServeurAccesPOA {
         Zone[] zones = new Zone[zonesList.size()];
         zones = zonesList.toArray(zones);
 
-
         return zones;
     }
+
 }

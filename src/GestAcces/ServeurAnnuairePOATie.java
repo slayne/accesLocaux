@@ -63,6 +63,15 @@ public class ServeurAnnuairePOATie extends ServeurAnnuairePOA
     }
 
     /**
+     * Operation demanderAcces
+     */
+    public boolean demanderAcces(String Photo, String mdp, short idZone)
+        throws GestAcces.ServeurAnnuairePackage.CollaborateurInexistant
+    {
+        return _tie.demanderAcces( Photo,  mdp,  idZone);
+    }
+
+    /**
      * Operation enregisterCollaborateurPermanent
      */
     public void enregisterCollaborateurPermanent(String nom, String p, String empreinte, GestAcces.Date de)
@@ -92,7 +101,7 @@ public class ServeurAnnuairePOATie extends ServeurAnnuairePOA
      * Operation supprimerCollaborateur
      */
     public void supprimerCollaborateur(short id)
-        throws GestAcces.ServeurAnnuairePackage.CollaborateurInnexistant
+        throws GestAcces.ServeurAnnuairePackage.CollaborateurInexistant
     {
         _tie.supprimerCollaborateur( id);
     }

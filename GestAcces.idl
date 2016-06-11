@@ -37,15 +37,15 @@ module GestAcces {
     };
 
 	interface ServeurAnnuaire {
-		exception CollaborateurInnexistant {};
+		exception CollaborateurInexistant {};
 		exception CollaborateurDejaExistant {};
 
+		boolean demanderAcces(in string Photo, in string mdp, in short idZone) raises (CollaborateurInexistant);
 		void enregisterCollaborateurPermanent(in string nom, in Photo p, in string empreinte, in Date de) raises(CollaborateurDejaExistant);
 		void enregisterCollaborateurTemporaire(in string nom, in Photo p, in string empreinte, in Date de, in Date df) raises(CollaborateurDejaExistant);
 		void rechercherCollaborateur(in string nom, in string prenom);
-		void supprimerCollaborateur(in short id) raises(CollaborateurInnexistant);
+		void supprimerCollaborateur(in short id) raises(CollaborateurInexistant);
 
-		boolean demanderAcces(in string Photo, in string mdp, in short idZone) raises (CollaborateurInexistant);
 	};
 
 	interface ServeurEmpreinte {

@@ -81,14 +81,6 @@ public class ServeurAccesPOATie extends ServeurAccesPOA
     }
 
     /**
-     * Operation demanderAcces
-     */
-    public short demanderAcces(String Photo, String mdp)
-    {
-        return _tie.demanderAcces( Photo,  mdp);
-    }
-
-    /**
      * Operation supprimerAcces
      */
     public void supprimerAcces(short idCollaborateur, short idZone)

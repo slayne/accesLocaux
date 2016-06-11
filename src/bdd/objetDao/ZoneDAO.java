@@ -22,7 +22,22 @@ public class ZoneDAO extends DAO<Zone> {
 
     @Override
     public ArrayList<Zone> getInstances() {
-        return null;
+        ArrayList<Zone> zonesPorte = new ArrayList<Zone>();
+        try {
+
+            ResultSet result = this.connect.createStatement(
+                    ResultSet.TYPE_SCROLL_INSENSITIVE,
+                    ResultSet.CONCUR_UPDATABLE).executeQuery(
+                    "SELECT zone.id FROM zone");
+            while (result.next()) {
+                Zone s = this.find(result.getInt(1));
+                zonesPorte.add(s);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return zonesPorte;
+
     }
 
     /**
@@ -35,7 +50,7 @@ public class ZoneDAO extends DAO<Zone> {
             ResultSet result = this.connect.createStatement(
                     ResultSet.TYPE_SCROLL_INSENSITIVE,
                     ResultSet.CONCUR_UPDATABLE).executeQuery(
-                    "SELECT zone.id FROM zone,porte where zone.id = porte.idzone and porte.id=" + porteId);
+                    "SELECT zone.id FROM zone,porte where (zone.id=porte.idzone or zone.id=porte.idzone2) and porte.id=" + porteId);
             while (result.next()) {
                 Zone s = this.find(result.getInt(1));
                 zonesPorte.add(s);

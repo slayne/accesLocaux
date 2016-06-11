@@ -37,8 +37,6 @@ public abstract class ServeurAccesPOA extends org.omg.PortableServer.Servant
                 return _invoke_ajoutPerm(_is, handler);
         } else if (opName.equals("ajoutTemp")) {
                 return _invoke_ajoutTemp(_is, handler);
-        } else if (opName.equals("demanderAcces")) {
-                return _invoke_demanderAcces(_is, handler);
         } else if (opName.equals("getListeZone")) {
                 return _invoke_getListeZone(_is, handler);
         } else if (opName.equals("getZonesPorte")) {
@@ -102,21 +100,6 @@ public abstract class ServeurAccesPOA extends org.omg.PortableServer.Servant
             _output = handler.createExceptionReply();
             GestAcces.ServeurAccesPackage.ZoneInexistanteHelper.write(_output,_exception);
         }
-        return _output;
-    }
-
-    private org.omg.CORBA.portable.OutputStream _invoke_demanderAcces(
-            final org.omg.CORBA.portable.InputStream _is,
-            final org.omg.CORBA.portable.ResponseHandler handler) {
-        org.omg.CORBA.portable.OutputStream _output;
-        String arg0_in = _is.read_string();
-        String arg1_in = _is.read_string();
-
-        short _arg_result = demanderAcces(arg0_in, arg1_in);
-
-        _output = handler.createReply();
-        _output.write_short(_arg_result);
-
         return _output;
     }
 
