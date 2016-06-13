@@ -69,6 +69,7 @@ module GestAcces {
 	};
 
 	typedef sequence<Zone> lZone;
+	typedef sequence<Acces> lAcces;
 
 
 	interface ServeurAcces {
@@ -86,5 +87,7 @@ module GestAcces {
 
 		// renvoie les zones liées à une porte
 		lZone getZonesPorte(in short idPorte) raises (PorteInexistante);
+
+		lAcces getAccesCollaborateur(in short idCollaborateur);
 	};
 };

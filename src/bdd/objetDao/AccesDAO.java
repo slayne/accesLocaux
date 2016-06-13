@@ -45,6 +45,24 @@ public class AccesDAO extends DAO<Acces> {
         return lesAcces;
     }
 
+    public ArrayList<Acces> getInstances(short idC) {
+        ArrayList<Acces> lesAcces = new ArrayList<Acces>();
+        try {
+
+            ResultSet result = this.connect.createStatement(
+                    ResultSet.TYPE_SCROLL_INSENSITIVE,
+                    ResultSet.CONCUR_UPDATABLE).executeQuery(
+                    "SELECT idAcces FROM acces WHERE idcollaborateur = " + idC);
+            while (result.next()) {
+                Acces s = this.find(result.getInt(1));
+                lesAcces.add(s);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return lesAcces;
+    }
+
     @Override
     public Acces find(long id) {
         ZoneDAO zoneDAO = new ZoneDAO();

@@ -12,8 +12,8 @@ import bdd.objetsMetier.Acces;
 import utils.AccesUtils;
 import bdd.objetsMetier.acces.AccesPermanent;
 import bdd.objetsMetier.acces.AccesTemporaire;
-
 import java.util.ArrayList;
+import java.util.Date;
 
 
 public class ServeurAccesImpl extends ServeurAccesPOA {
@@ -23,15 +23,27 @@ public class ServeurAccesImpl extends ServeurAccesPOA {
     @Override
     public void ajoutPerm(short id, short heureDebut, short heureFin, short idZone) throws ZoneInexistante {
         Zone z = zoneDAO.find(idZone);
-        AccesPermanent ap = new AccesPermanent(z, id, heureDebut, heureFin);
-        accesDAO.create(ap);
+        if (z == null)
+        {
+            throw new ZoneInexistante();
+        }
+        else {
+            AccesPermanent ap = new AccesPermanent(z, id, heureDebut, heureFin);
+            accesDAO.create(ap);
+        }
     }
 
     @Override
     public void ajoutTemp(short id, Jour jourDeb, Jour jourFin, short heureDebut, short heureFin, short idZone) throws ZoneInexistante {
         Zone z = zoneDAO.find(idZone);
-        AccesTemporaire at = new AccesTemporaire(z, id, heureDebut, heureFin, AccesUtils.corbaJourToTimestamp(jourDeb), AccesUtils.corbaJourToTimestamp(jourFin));
-        accesDAO.create(at);
+        if (z == null) {
+            throw new ZoneInexistante();
+        }
+        else
+        {
+            AccesTemporaire at = new AccesTemporaire(z, id, heureDebut, heureFin, AccesUtils.corbaJourToTimestamp(jourDeb), AccesUtils.corbaJourToTimestamp(jourFin));
+            accesDAO.create(at);
+        }
     }
 
     @Override
@@ -52,12 +64,46 @@ public class ServeurAccesImpl extends ServeurAccesPOA {
         Acces a = accesDAO.find(idCollaborateur, idZone);
         if (a == null)
         {
-            return false; // à savoir les codes de retour ?
+            return false;
         }
         else
         {
-            return true;
+            if (a instanceof AccesTemporaire)
+            {
+                AccesTemporaire aPer = (AccesTemporaire)  a;
+                Date d = new Date();
+                if (aPer.getHeureDebut() < d.getHours() && aPer.getHeureFin() > d.getHours() && aPer.getDateFin().getDate() > d.getDate()  )
+                {
+                     return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                AccesPermanent aPer = (AccesPermanent)  a;
+                Date d = new Date();
+                if (aPer.getHeureDebut() < d.getHours() && aPer.getHeureFin() > d.getHours())
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
         }
+    }
+
+    public Acces[] getAccesCollaborateur(short idCollaborateur)
+    {
+        ArrayList<Acces> accesList = accesDAO.getInstances(idCollaborateur);
+        Acces[] acces = new Acces[accesList.size()];
+        acces = accesList.toArray(acces);
+
+        return acces;
     }
 
     @Override
