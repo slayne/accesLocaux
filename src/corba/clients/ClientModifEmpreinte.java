@@ -1,8 +1,11 @@
 package corba.clients;
 
 import GestAcces.*;
+import GestAcces.ServeurAccesPackage.CollaborateurInexistant;
 import GestAcces.ServeurAccesPackage.ZoneInexistante;
-import bdd.objetsMetier.personnel.Collaborateur;
+import GestAcces.ServeurEmpreintePackage.EmpreinteInexistante;
+import bdd.objetsMetier.Acces;
+import com.sun.deploy.util.SessionState;
 import org.omg.CORBA.ORB;
 import org.omg.CORBA.ORBPackage.InvalidName;
 import org.omg.CORBA.Object;
@@ -16,19 +19,20 @@ import java.util.Scanner;
 /**
  * Created by yoan on 11/06/16.
  */
-public class ClientGestionnaireAcces {
-    public static ServeurAcces acces;
-    public static ServeurAnnuaire annuaire;
-    public static ServeurLog log;
-    public static ORB orb;
-    private static Scanner reader;  // Reading from System.in
-    private static NamingContext nameRoot;
+public class ClientModifEmpreinte {
+    private ServeurAnnuaire annuaire;
+    private ServeurEmpreinte myEmpreinte;
+    private ServeurLog log;
+    private ORB orb;
+    private Scanner reader;  // Reading from System.in
+    private NamingContext nameRoot;
 
 
-    public static void main(String args[]) {
+    public ClientModifEmpreinte() {
         try {
             // Intialisation de l'orb
-            orb = ORB.init(args, null);
+            orb = ORB.init(new String[0], null);
+            // Recuperation du naming service
             try {
                 nameRoot =
                         NamingContextHelper.narrow(orb.resolve_initial_references("NameService"));
@@ -36,11 +40,9 @@ public class ClientGestionnaireAcces {
                 invalidName.printStackTrace();
             }
 
-            acces = AccesUtils.connexionAcces(orb, nameRoot);
-            log = AccesUtils.connexionLog(orb, nameRoot);
-            annuaire = AccesUtils.connexionAnnuaire(orb, nameRoot);
-
-            gererCollabos();
+            AccesUtils.connexionEmpreinte(orb,nameRoot);
+            AccesUtils.connexionLog(orb,nameRoot);
+            AccesUtils.connexionAnnuaire(orb,nameRoot);
 
 
         } catch (Exception e) {
@@ -48,34 +50,39 @@ public class ClientGestionnaireAcces {
         }
     }
 
-    private static void gererCollabos() {
-        System.out.println("Gestion des accès collabos");
+    public void modifierEmpreinte(String photo, String empreinte) {
+        System.out.println("Modification des empreintes");
 
+        int collaboId = 0;
+
+        try {
+            collaboId = annuaire.rechercherCollaborateur(photo, empreinte);
+        } catch (CollaborateurInexistant e) {
+            System.out.println("Identifiants invalides !");
+            return;
+        }
+        reader = new Scanner(System.in);  // Reading from System.in
         boolean userInput = true;
         while (userInput) {
             System.out.print(" -> que voulez vous faire ?");
             System.out.println("--- 0 : quitter");
-            System.out.println("--- 1 : gérer un collabo");
-            reader = new Scanner(System.in);  // Reading from System.in
+            System.out.println("--- 1 : modifier mon empreinte");
             int n = reader.nextInt(); // Scans the next token of the input as an int.
             switch (n) {
-                case 0:
-                    userInput = false;
+                case 0: userInput = false;
                     break;
                 case 1:
-                    System.out.println("Collabos présents : ");
-                    CollaborateurCorba[] collabos = annuaire.rechercherCollaborateurs();
-
-                    for (CollaborateurCorba c : collabos) {
-                        System.out.println("Collabo n° " + c.id + " - " + getType(c.isTemp) + " : " + c.nom);
+                    System.out.println("Entre votre nouvelle empreinte :");
+                    String nouvelleEmpreinte =  reader.next();
+                    try {
+                        myEmpreinte.modifierEmpreinte((short)collaboId, nouvelleEmpreinte);
+                    } catch (EmpreinteInexistante empreinteInexistante) {
+                        System.out.println("Empreinte du collaborateur inexistante");
+                        return;
                     }
-
-                    System.out.println("Tapez l'ID d'un collabo : ");
-                    int collabo = reader.nextInt(); // Scans the next token of the input as an int.
-                    gererCollabo(collabo, collabos);
+                    System.out.println("Empreinte modifiée");
                     break;
-                default:
-                    break;
+                default: break;
             }
         }
     }
@@ -83,7 +90,7 @@ public class ClientGestionnaireAcces {
     private static void gererCollabo(int cId, CollaborateurCorba[] collabos) {
         CollaborateurCorba collabo = null;
         for (CollaborateurCorba c : collabos) {
-            if (c.id == (short) cId) {
+            if (c.id == (short)cId) {
                 collabo = c;
                 break;
             }
@@ -105,8 +112,7 @@ public class ClientGestionnaireAcces {
             case 2:
                 ajouterAcces(collabo);
                 break;
-            default:
-                break;
+            default: break;
         }
     }
 
@@ -116,7 +122,7 @@ public class ClientGestionnaireAcces {
             System.out.println(" - n°" + z.idZone + " : " + z.nomZone);
         }
 
-        System.out.println("Ajout de l'accès " + getType(collabo.isTemp) + ":");
+        System.out.println("Ajout de l'accès " + getType(collabo.isTemp) +":");
 
         if (collabo.isTemp) {
             System.out.println("Entrez : ");
@@ -142,14 +148,12 @@ public class ClientGestionnaireAcces {
 
             try {
                 acces.ajoutTemp(collabo.id,
-                        new Jour((short) aA, (short) mA, (short) jA),
-                        new Jour((short) aE, (short) mE, (short) jE),
+                        new Jour((short)aA,(short)mA,(short)jA),
+                        new Jour((short)aE,(short)mE,(short)jE),
                         (short) hD,
                         (short) hF,
                         (short) idZ);
-                log.envoyerLog("Serveur Accès : ajout accès temporaire vers zone" + idZ + " pour " + collabo.nom);
             } catch (ZoneInexistante zoneInexistante) {
-                log.envoyerLog("Serveur Accès : ajout accès temporaire vers zone" + idZ + " pour " + collabo.nom + "échoué : zone inexistante");
                 System.out.println("Erreur : zone inexistante");
             }
 
@@ -164,10 +168,9 @@ public class ClientGestionnaireAcces {
             int hF = reader.nextInt();
 
             try {
-                acces.ajoutPerm(collabo.id, (short) hD, (short) hF, (short) idZ);
-                log.envoyerLog("Serveur Accès : ajout accès permanent vers zone" + idZ + " pour " + collabo.nom);
+                acces.ajoutPerm(collabo.id,(short)hD,(short)hF,(short)idZ);
             } catch (ZoneInexistante zoneInexistante) {
-                log.envoyerLog("Serveur Accès : ajout accès permanent vers zone" + idZ + " pour " + collabo.nom + "échoué : zone inexistante");
+                System.out.println("Erreur : zone inexistante");
             }
         }
     }

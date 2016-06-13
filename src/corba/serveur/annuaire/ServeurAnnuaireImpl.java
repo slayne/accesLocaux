@@ -27,11 +27,12 @@ import static utils.AccesUtils.corbaDateToTimeStamp;
 public class ServeurAnnuaireImpl extends GestAcces.ServeurAnnuairePOA {
 
     private static CollaborateurDAO collabDAO= new CollaborateurDAO();
-    public ServeurEmpreinte servEmpreinte;
+    private static ServeurEmpreinte servEmpreinte;
 
-    public void setEmpreinte(ServeurEmpreinte s){
-        servEmpreinte=s;
+    public static void setServEmpreinte( ServeurEmpreinte s){
+        servEmpreinte = s ;
     }
+
 
     @Override
     public boolean demanderAcces(String Photo, String mdp, short idZone) throws CollaborateurInexistant {

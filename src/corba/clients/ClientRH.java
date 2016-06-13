@@ -3,7 +3,9 @@ package corba.clients;
 import GestAcces.*;
 import GestAcces.ServeurAnnuairePackage.CollaborateurDejaExistant;
 import GestAcces.ServeurAnnuairePackage.CollaborateurInexistant;
+import bdd.objetsMetier.Acces;
 import org.omg.CORBA.ORB;
+import org.omg.CORBA.ORBPackage.InvalidName;
 import org.omg.CORBA.Object;
 import org.omg.CosNaming.NameComponent;
 import org.omg.CosNaming.NamingContext;
@@ -18,7 +20,9 @@ import java.util.Scanner;
  */
 public class ClientRH {
     public static ServeurAnnuaire annuaire;
+    public static ServeurLog log;
     public static ORB orb;
+    private static NamingContext nameRoot;
     private static Scanner reader;  // Reading from System.in
 
 
@@ -26,7 +30,16 @@ public class ClientRH {
         try {
             // Intialisation de l'orb
             orb = ORB.init(args, null);
-            connexionAnnuaire();
+            // Recuperation du naming service
+            try {
+                nameRoot =
+                        NamingContextHelper.narrow(orb.resolve_initial_references("NameService"));
+            } catch (InvalidName invalidName) {
+                invalidName.printStackTrace();
+            }
+
+            annuaire = AccesUtils.connexionAnnuaire(orb,nameRoot);
+            log = AccesUtils.connexionLog(orb,nameRoot);
 
             gererCollabos();
 
@@ -40,12 +53,12 @@ public class ClientRH {
         System.out.print("Gestion des comptes collabos");
 
         boolean userInput = true;
+        reader = new Scanner(System.in);  // Reading from System.in
         while (userInput) {
             System.out.println(" -> que voulez vous faire ?");
             System.out.println("--- 0 : quitter");
             System.out.println("--- 1 : ajouter un collabo");
             System.out.println("--- 2 : supprimer un collabo");
-            reader = new Scanner(System.in);  // Reading from System.in
             int n = reader.nextInt(); // Scans the next token of the input as an int.
             switch (n) {
                 case 0: userInput = false;
@@ -95,19 +108,24 @@ public class ClientRH {
             System.out.println("- la minute d'expiration : ");
             int minE = reader.nextInt();
 
+
             try {
                 annuaire.enregisterCollaborateurTemporaire(nom,photo,empreinte,
                         AccesUtils.timestampToCorbaDate(new Timestamp(System.currentTimeMillis())),
                         new Date(new Jour((short)aE,(short)mE,(short)jE), (short) hE, (short) minE)
                         );
+                log.envoyerLog("Annuaire : ajout collaborateur temporaire" + nom + " -> succès");
             } catch (CollaborateurDejaExistant collaborateurDejaExistant) {
                 System.out.println("Collaborateur déjà existant");
+                log.envoyerLog("Annuaire : ajout collaborateur temporaire" + nom + " -> erreur");
             }
         } else {
             try {
+                log.envoyerLog("Annuaire : ajout collaborateur permanent" + nom + " -> succès");
                 annuaire.enregisterCollaborateurPermanent(nom,photo,empreinte,AccesUtils.timestampToCorbaDate(new Timestamp(System.currentTimeMillis())));
             } catch (CollaborateurDejaExistant collaborateurDejaExistant) {
                 System.out.println("Collaborateur déjà existant");
+                log.envoyerLog("Annuaire : ajout collaborateur permanent" + nom + " -> erreur");
             }
         }
         System.out.println("collaborateur " + nom + " ajouté");
@@ -119,8 +137,10 @@ public class ClientRH {
             if (c.id == (short)cId) {
                 try {
                     annuaire.supprimerCollaborateur(c.id);
+                    log.envoyerLog("Annuaire : suppression collaborateur " + c.nom + " -> succès");
                 } catch (CollaborateurInexistant collaborateurInexistant) {
                     System.out.println("Erreur - Collabo inexistant");
+                    log.envoyerLog("Annuaire : suppression collaborateur " + c.nom + " -> erreur");
                 }
                 return;
             }
@@ -139,8 +159,6 @@ public class ClientRH {
         try {
             String idObj = AccesUtils.ANNUAIRE_SERVER;
             // Recuperation du naming service
-            NamingContext nameRoot =
-                    NamingContextHelper.narrow(orb.resolve_initial_references("NameService"));
 
             // Construction du nom a rechercher
             NameComponent[] nameToFind = new NameComponent[1];

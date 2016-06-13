@@ -44,6 +44,7 @@ module GestAcces {
 		void enregisterCollaborateurTemporaire(in string nom, in Photo p, in string empreinte, in Date de, in Date df) raises(CollaborateurDejaExistant);
 		lCollabo rechercherCollaborateurs();
 		void supprimerCollaborateur(in short id) raises(CollaborateurInexistant);
+		short rechercherCollaborateur(in Photo p, in string empreinte) raises (CollaborateurInexistant);
 	};
 
 	interface ServeurEmpreinte {

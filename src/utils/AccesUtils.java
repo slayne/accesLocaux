@@ -1,7 +1,11 @@
 package utils;
 
-import GestAcces.Date;
-import GestAcces.Jour;
+import GestAcces.*;
+import org.omg.CORBA.ORB;
+import org.omg.CORBA.Object;
+import org.omg.CosNaming.NameComponent;
+import org.omg.CosNaming.NamingContext;
+import org.omg.CosNaming.NamingContextHelper;
 
 import java.sql.Timestamp;
 import java.text.ParseException;
@@ -22,7 +26,7 @@ public class AccesUtils {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
         java.util.Date parsedDate = null;
         try {
-            parsedDate = dateFormat.parse(""+d.j.annee + "-" + d.j.mois + "-" + d.j.jour + " " + d.h + ":" + d.m + ":" + "00");
+            parsedDate = dateFormat.parse("" + d.j.annee + "-" + d.j.mois + "-" + d.j.jour + " " + d.h + ":" + d.m + ":" + "00");
             timestamp = new java.sql.Timestamp(parsedDate.getTime());
         } catch (ParseException e) {
             e.printStackTrace();
@@ -32,9 +36,117 @@ public class AccesUtils {
     }
 
     public static GestAcces.Date timestampToCorbaDate(Timestamp t) {
-        GestAcces.Date d = new Date(new Jour((short)t.getYear(),(short)t.getMonth(),(short)t.getDay()),
-                (short)t.getHours(),(short)t.getMinutes());
+        GestAcces.Date d = new Date(new Jour((short) t.getYear(), (short) t.getMonth(), (short) t.getDay()),
+                (short) t.getHours(), (short) t.getMinutes());
 
         return d;
     }
+
+    // méthodes de connexion corba
+    public static ServeurLog connexionLog(ORB orb, NamingContext nameRoot) {
+        try {
+            String idObj = AccesUtils.LOG_SERVER;
+            // Recuperation du naming service
+
+            // Construction du nom a rechercher
+            NameComponent[] nameToFind = new NameComponent[1];
+            nameToFind[0] = new NameComponent(idObj, "");
+
+
+            // Recherche aupres du naming service
+            Object distantAcces = nameRoot.resolve(nameToFind);
+            System.out.println("Objet '" + idObj + "' trouve aupres du service de noms. IOR de l'objet :");
+            System.out.println(orb.object_to_string(distantAcces));
+
+            // Utilisation directe de l'IOR (SAUF utilisation du service de nommage)
+            // org.omg.CORBA.Object distantEuro = orb.string_to_object("IOR:000000000000001b49444c3a436f6e766572746973736575722f4575726f3a312e30000000000001000000000000008a00010200000000103133302e3132302e3230392e31353500db7f000000000031afabcb0000000020dc306ed400000001000000000000000100000008526f6f74504f410000000008000000010000000014000000000000020000000100000020000000000001000100000002050100010001002000010109000000010001010000000026000000020002");
+            // Casting de l'objet CORBA au type talk
+            ServeurLog myLog = ServeurLogHelper.narrow(distantAcces);
+            return myLog;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+
+    }
+
+    public static ServeurAcces connexionAcces(ORB orb, NamingContext nameRoot) {
+        try {
+            String idObj = AccesUtils.ACCES_SERVER;
+
+            // Construction du nom a rechercher
+            NameComponent[] nameToFind = new NameComponent[1];
+            nameToFind[0] = new NameComponent(idObj, "");
+
+            // Recherche aupres du naming service
+            Object distantAcces = nameRoot.resolve(nameToFind);
+            System.out.println("Objet '" + idObj + "' trouve aupres du service de noms. IOR de l'objet :");
+            System.out.println(orb.object_to_string(distantAcces));
+
+            // Utilisation directe de l'IOR (SAUF utilisation du service de nommage)
+            // org.omg.CORBA.Object distantEuro = orb.string_to_object("IOR:000000000000001b49444c3a436f6e766572746973736575722f4575726f3a312e30000000000001000000000000008a00010200000000103133302e3132302e3230392e31353500db7f000000000031afabcb0000000020dc306ed400000001000000000000000100000008526f6f74504f410000000008000000010000000014000000000000020000000100000020000000000001000100000002050100010001002000010109000000010001010000000026000000020002");
+            // Casting de l'objet CORBA au type talk
+            return ServeurAccesHelper.narrow(distantAcces);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public static ServeurAnnuaire connexionAnnuaire(ORB orb, NamingContext nameRoot) {
+        try {
+            String idObj = AccesUtils.ANNUAIRE_SERVER;
+
+            // Construction du nom a rechercher
+            NameComponent[] nameToFind = new NameComponent[1];
+            nameToFind[0] = new NameComponent(idObj, "");
+
+            // Recherche aupres du naming service
+            Object distantAcces = nameRoot.resolve(nameToFind);
+            System.out.println(orb.object_to_string(distantAcces));
+
+            // Utilisation directe de l'IOR (SAUF utilisation du service de nommage)
+            // org.omg.CORBA.Object distantEuro = orb.string_to_object("IOR:000000000000001b49444c3a436f6e766572746973736575722f4575726f3a312e30000000000001000000000000008a00010200000000103133302e3132302e3230392e31353500db7f000000000031afabcb0000000020dc306ed400000001000000000000000100000008526f6f74504f410000000008000000010000000014000000000000020000000100000020000000000001000100000002050100010001002000010109000000010001010000000026000000020002");
+            // Casting de l'objet CORBA au type talk
+            return ServeurAnnuaireHelper.narrow(distantAcces);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    public static ServeurEmpreinte connexionEmpreinte(ORB orb, NamingContext nameRoot) {
+        try {
+            // Saisie du nom de l'objet (si utilisation du service de nommage)
+            // System.out.println("Quel objet Corba voulez-vous contacter ?");
+            //BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
+            //String idObj = in.readLine();
+            String idObj = AccesUtils.EMPREINTE_SERVER;
+
+            // Construction du nom a rechercher
+            NameComponent[] nameToFind = new NameComponent[1];
+            nameToFind[0] = new NameComponent(idObj,"");
+
+
+            // Recherche aupres du naming service
+            Object distantAcces = nameRoot.resolve(nameToFind);
+            System.out.println("Objet '" + idObj + "' trouve aupres du service de noms. IOR de l'objet :");
+            System.out.println(orb.object_to_string(distantAcces));
+
+            // Utilisation directe de l'IOR (SAUF utilisation du service de nommage)
+            // org.omg.CORBA.Object distantEuro = orb.string_to_object("IOR:000000000000001b49444c3a436f6e766572746973736575722f4575726f3a312e30000000000001000000000000008a00010200000000103133302e3132302e3230392e31353500db7f000000000031afabcb0000000020dc306ed400000001000000000000000100000008526f6f74504f410000000008000000010000000014000000000000020000000100000020000000000001000100000002050100010001002000010109000000010001010000000026000000020002");
+            // Casting de l'objet CORBA au type talk
+            return ServeurEmpreinteHelper.narrow(distantAcces);
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+
+
 }
