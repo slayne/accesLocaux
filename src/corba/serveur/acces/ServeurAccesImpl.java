@@ -1,7 +1,6 @@
 package corba.serveur.acces;
 
 import GestAcces.Jour;
-import GestAcces.Log;
 import GestAcces.ServeurAccesPOA;
 import GestAcces.ServeurAccesPackage.CollaborateurInexistant;
 import GestAcces.ServeurAccesPackage.PorteInexistante;
@@ -10,11 +9,10 @@ import GestAcces.Zone;
 import bdd.objetDao.AccesDAO;
 import bdd.objetDao.ZoneDAO;
 import bdd.objetsMetier.Acces;
-import bdd.objetsMetier.JourToTimestamp;
+import utils.AccesUtils;
 import bdd.objetsMetier.acces.AccesPermanent;
 import bdd.objetsMetier.acces.AccesTemporaire;
 
-import javax.sound.sampled.Port;
 import java.util.ArrayList;
 
 
@@ -32,7 +30,7 @@ public class ServeurAccesImpl extends ServeurAccesPOA {
     @Override
     public void ajoutTemp(short id, Jour jourDeb, Jour jourFin, short heureDebut, short heureFin, short idZone) throws ZoneInexistante {
         Zone z = zoneDAO.find(idZone);
-        AccesTemporaire at = new AccesTemporaire(z, id, heureDebut, heureFin, JourToTimestamp.convert(jourDeb), JourToTimestamp.convert(jourFin));
+        AccesTemporaire at = new AccesTemporaire(z, id, heureDebut, heureFin, AccesUtils.corbaJourToTimestamp(jourDeb), AccesUtils.corbaJourToTimestamp(jourFin));
         accesDAO.create(at);
     }
 

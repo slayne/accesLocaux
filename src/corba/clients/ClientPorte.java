@@ -60,9 +60,7 @@ public class ClientPorte {
             porteInexistante.printStackTrace();
             System.out.println("La porte demandée est inexistante");
             serveurLog.envoyerLog("Porte " + idPorte + " : inexistante");
-
         }
-
     }
 
 

@@ -42,8 +42,6 @@ public class ClientRH {
             log = AccesUtils.connexionLog(orb,nameRoot);
 
             gererCollabos();
-
-
         } catch (Exception e) {
             e.printStackTrace();
         }

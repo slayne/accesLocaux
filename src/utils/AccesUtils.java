@@ -1,13 +1,14 @@
 package utils;
 
 import GestAcces.*;
+import GestAcces.Date;
 import org.omg.CORBA.ORB;
 import org.omg.CORBA.Object;
 import org.omg.CosNaming.NameComponent;
 import org.omg.CosNaming.NamingContext;
 import org.omg.CosNaming.NamingContextHelper;
 
-import java.sql.Timestamp;
+import java.sql.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
@@ -20,6 +21,10 @@ public class AccesUtils {
     public static final String ANNUAIRE_SERVER = "Le serveur d'annuaire pour toutes ces douces beurettes";
     public static final String EMPREINTE_SERVER = "Ce genre de serveur d'empreinte mamene";
 
+    public static Timestamp corbaJourToTimestamp(Jour j) {
+        java.sql.Date d = new java.sql.Date(j.annee, j.mois, j.jour);
+        return new Timestamp(d.getTime());
+    }
 
     public static Timestamp corbaDateToTimeStamp(GestAcces.Date d) {
         Timestamp timestamp = null;
@@ -34,6 +39,21 @@ public class AccesUtils {
 
         return timestamp;
     }
+
+    public static GestAcces.Date stringToCorbaDate(String date) {
+        Timestamp timestamp = null;
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        java.util.Date parsedDate = null;
+        try {
+            parsedDate = dateFormat.parse(date);
+            timestamp = new java.sql.Timestamp(parsedDate.getTime());
+            return timestampToCorbaDate(timestamp);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
 
     public static GestAcces.Date timestampToCorbaDate(Timestamp t) {
         GestAcces.Date d = new Date(new Jour((short) t.getYear(), (short) t.getMonth(), (short) t.getDay()),
@@ -126,7 +146,7 @@ public class AccesUtils {
 
             // Construction du nom a rechercher
             NameComponent[] nameToFind = new NameComponent[1];
-            nameToFind[0] = new NameComponent(idObj,"");
+            nameToFind[0] = new NameComponent(idObj, "");
 
 
             // Recherche aupres du naming service
@@ -146,7 +166,6 @@ public class AccesUtils {
 
         return null;
     }
-
 
 
 }

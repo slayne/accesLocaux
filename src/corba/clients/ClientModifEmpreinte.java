@@ -40,9 +40,9 @@ public class ClientModifEmpreinte {
                 invalidName.printStackTrace();
             }
 
-            AccesUtils.connexionEmpreinte(orb,nameRoot);
-            AccesUtils.connexionLog(orb,nameRoot);
-            AccesUtils.connexionAnnuaire(orb,nameRoot);
+            myEmpreinte =AccesUtils.connexionEmpreinte(orb,nameRoot);
+            log = AccesUtils.connexionLog(orb,nameRoot);
+            annuaire = AccesUtils.connexionAnnuaire(orb,nameRoot);
 
 
         } catch (Exception e) {
@@ -86,102 +86,4 @@ public class ClientModifEmpreinte {
             }
         }
     }
-
-    private static void gererCollabo(int cId, CollaborateurCorba[] collabos) {
-        CollaborateurCorba collabo = null;
-        for (CollaborateurCorba c : collabos) {
-            if (c.id == (short)cId) {
-                collabo = c;
-                break;
-            }
-        }
-
-        System.out.println("Collabo " + collabo.nom + " - " + getType(collabo.isTemp));
-        System.out.println("que voulez vous faire ?");
-        System.out.println("--- 0 : quitter");
-        System.out.println("--- 1 : supprimer un accès");
-        System.out.println("--- 2 : ajouter un accès");
-
-        int n = reader.nextInt(); // Scans the next token of the input as an int.
-        switch (n) {
-            case 0:
-                break;
-            case 1:
-                supprimerAcces(collabo);
-                break;
-            case 2:
-                ajouterAcces(collabo);
-                break;
-            default: break;
-        }
-    }
-
-    private static void ajouterAcces(CollaborateurCorba collabo) {
-        System.out.println("Zones disponibles : ");
-        for (Zone z : acces.getListeZone()) {
-            System.out.println(" - n°" + z.idZone + " : " + z.nomZone);
-        }
-
-        System.out.println("Ajout de l'accès " + getType(collabo.isTemp) +":");
-
-        if (collabo.isTemp) {
-            System.out.println("Entrez : ");
-            System.out.println("- l'id zone : ");
-            int idZ = reader.nextInt();
-            System.out.println("- l'heure de début : ");
-            int hD = reader.nextInt();
-            System.out.println("- l'heure de fin : ");
-            int hF = reader.nextInt();
-            System.out.println("- l'année d'expiration : ");
-            int aE = reader.nextInt();
-            System.out.println("- le mois d'expiration : ");
-            int mE = reader.nextInt();
-            System.out.println("- le jour d'expiration : ");
-            int jE = reader.nextInt();
-            System.out.println("- l'année d'activation : ");
-            int aA = reader.nextInt();
-            System.out.println("- le mois d'activation : ");
-            int mA = reader.nextInt();
-            System.out.println("- le jour d'activation : ");
-            int jA = reader.nextInt();
-
-
-            try {
-                acces.ajoutTemp(collabo.id,
-                        new Jour((short)aA,(short)mA,(short)jA),
-                        new Jour((short)aE,(short)mE,(short)jE),
-                        (short) hD,
-                        (short) hF,
-                        (short) idZ);
-            } catch (ZoneInexistante zoneInexistante) {
-                System.out.println("Erreur : zone inexistante");
-            }
-
-        } else {
-            // ajout accès collabo permanent
-            System.out.println("Entrez : ");
-            System.out.println("- l'id zone : ");
-            int idZ = reader.nextInt();
-            System.out.println("- l'heure de début : ");
-            int hD = reader.nextInt();
-            System.out.println("- l'heure de fin : ");
-            int hF = reader.nextInt();
-
-            try {
-                acces.ajoutPerm(collabo.id,(short)hD,(short)hF,(short)idZ);
-            } catch (ZoneInexistante zoneInexistante) {
-                System.out.println("Erreur : zone inexistante");
-            }
-        }
-    }
-
-
-    public static void supprimerAcces(CollaborateurCorba c) {
-
-    }
-
-    private static String getType(boolean isTemp) {
-        return (isTemp ? "temporaire" : "permanent");
-    }
-
 }

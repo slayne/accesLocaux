@@ -23,10 +23,6 @@ public class ClientLog {
             // Intialisation de l'orb
             ORB orb = ORB.init(args,null);
 
-            // Saisie du nom de l'objet (si utilisation du service de nommage)
-            // System.out.println("Quel objet Corba voulez-vous contacter ?");
-            //BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
-            //String idObj = in.readLine();
             String idObj = AccesUtils.LOG_SERVER;
             // Recuperation du naming service
             NamingContext nameRoot =
@@ -42,9 +38,6 @@ public class ClientLog {
             System.out.println("Objet '" + idObj + "' trouve aupres du service de noms. IOR de l'objet :");
             System.out.println(orb.object_to_string(distantAcces));
 
-            // Utilisation directe de l'IOR (SAUF utilisation du service de nommage)
-            // org.omg.CORBA.Object distantEuro = orb.string_to_object("IOR:000000000000001b49444c3a436f6e766572746973736575722f4575726f3a312e30000000000001000000000000008a00010200000000103133302e3132302e3230392e31353500db7f000000000031afabcb0000000020dc306ed400000001000000000000000100000008526f6f74504f410000000008000000010000000014000000000000020000000100000020000000000001000100000002050100010001002000010109000000010001010000000026000000020002");
-            // Casting de l'objet CORBA au type talk
             myLog = ServeurLogHelper.narrow(distantAcces);
 
 
@@ -53,6 +46,8 @@ public class ClientLog {
                 System.out.println("que voulez vous faire ?");
                 System.out.println("--- 0 : quitter");
                 System.out.println("--- 1 : lire tous les logs");
+                System.out.println("--- 2 : lire les logs depuis une date");
+                System.out.println("--- 3 : lire les logs depuis une date, jusqu'à une date");
                 Scanner reader = new Scanner(System.in);  // Reading from System.in
                 int n = reader.nextInt(); // Scans the next token of the input as an int.
                 switch (n) {
@@ -61,6 +56,24 @@ public class ClientLog {
                     case 1:
                         Log[] ls = myLog.afficherLogs();
                         for (Log l : ls) {
+                            System.out.println("log : " + l.log + " / " + l.date.h + ":" + l.date.m);
+                        }
+                        break;
+                    case 2:
+                        System.out.println("Entrez une date sous le format yyyy-MM-dd hh:mm:ss :");
+                        String datef = reader.next();
+                        Log[] ll = myLog.afficherLogsFromDate(AccesUtils.stringToCorbaDate(datef));
+                        for (Log l : ll) {
+                            System.out.println("log : " + l.log + " / " + l.date.h + ":" + l.date.m);
+                        }
+                        break;
+                    case 3:
+                        System.out.println("Date de début : Entrez une date sous le format yyyy-MM-dd hh:mm:ss :");
+                        String datedeb = reader.next();
+                        System.out.println("Date de fin : Entrez une date sous le format yyyy-MM-dd hh:mm:ss :");
+                        String datefin = reader.next();
+                        Log[] lls = myLog.afficherLogsfromDateToDate(AccesUtils.stringToCorbaDate(datedeb),AccesUtils.stringToCorbaDate(datefin));
+                        for (Log l : lls) {
                             System.out.println("log : " + l.log + " / " + l.date.h + ":" + l.date.m);
                         }
                         break;

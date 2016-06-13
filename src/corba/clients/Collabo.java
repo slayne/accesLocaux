@@ -3,7 +3,6 @@ package corba.clients;
 
 import GestAcces.ServeurAnnuairePackage.CollaborateurInexistant;
 import GestAcces.Zone;
-import bdd.objetDao.PorteDAO;
 
 import java.util.HashMap;
 import java.util.Scanner;
@@ -51,10 +50,13 @@ public class Collabo {
     }
 
     public void fouillerZoneCourante() {
-        portesZone = Portes.getPortesInZone(zoneCourante);
+        portesZone = Entreprise.getPortesInZone(zoneCourante);
 
         for (ClientPorte p : portesZone.values()) {
             System.out.println("Porte " + p.getIdPorte() + " : vers zone " + p.getZoneSuivante(zoneCourante).nomZone);
+        }
+        if (zoneCourante.idZone ==1) {
+            System.out.println("Un modidificateur d'empreinte est disponible près de la machine à café : tapez 99");
         }
     }
 
@@ -64,15 +66,17 @@ public class Collabo {
         boolean input = true;
         while (input) {
             Scanner reader = new Scanner(System.in);  // Reading from System.in
-            System.out.println("Quelle porte voulez vous franchir ? (0 pour quitter)");
+            System.out.println("Quelle élément voulez vous atteindre ? (0 pour quitter)");
             int n = reader.nextInt(); // Scans the next token of the input as an int.
             if (n==0) {
                 input = false;
             } else {
+                if ((n==99) && (zoneCourante.idZone ==1)) {
+                    Entreprise.getModifEmpreinte().modifierEmpreinte(photo,empreinte);
+                }
                 ClientPorte p = portesZone.get(n);
 
                 passerPorte(p, p.getZoneSuivante(zoneCourante));
-
             }
         }
     }

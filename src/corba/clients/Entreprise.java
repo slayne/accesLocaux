@@ -9,10 +9,11 @@ import java.util.HashMap;
 /**
  * Created by yoan on 11/06/16.
  */
-public class Portes {
+public class Entreprise {
     private static ArrayList<Integer> idPortes;
     private static ArrayList<ClientPorte> portes;
     private static boolean init;
+    private static ClientModifEmpreinte modifEmpreinte = new ClientModifEmpreinte();
 
     public static void main(String[] args) {
         initPortes();
@@ -40,5 +41,9 @@ public class Portes {
         }
 
         init = true;
+    }
+
+    public static ClientModifEmpreinte getModifEmpreinte() {
+        return modifEmpreinte;
     }
 }
