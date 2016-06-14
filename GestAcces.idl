@@ -33,6 +33,17 @@ module GestAcces {
             boolean isTemp;
     };
 
+    struct AccesCorba {
+        short idAcces;
+        Zone zone;
+        short idCollaborateur;
+        Date dateDebut;
+        Date dateFin;
+        short heureDebut;
+        short heureFin;
+        boolean isTemp;
+     };
+
     typedef sequence<CollaborateurCorba> lCollabo;
 
 	interface ServeurAnnuaire {
@@ -69,7 +80,7 @@ module GestAcces {
 	};
 
 	typedef sequence<Zone> lZone;
-	typedef sequence<Acces> lAcces;
+	typedef sequence<AccesCorba> lAcces;
 
 
 	interface ServeurAcces {
