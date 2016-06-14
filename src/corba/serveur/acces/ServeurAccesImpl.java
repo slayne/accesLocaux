@@ -111,11 +111,22 @@ public class ServeurAccesImpl extends ServeurAccesPOA {
         }
     }
 
-    public Acces[] getAccesCollaborateur(short idCollaborateur)
+    public AccesCorba[] getAccesCollaborateur(short idCollaborateur)
     {
         ArrayList<Acces> accesList = accesDAO.getInstances(idCollaborateur);
-        Acces[] acces = new Acces[accesList.size()];
-        acces = accesList.toArray(acces);
+        AccesCorba[] acces = new AccesCorba[accesList.size()];
+        int i=0;
+        for (Acces a : accesList) {
+            if (a instanceof AccesTemporaire)
+            {
+                acces[i] = new AccesCorba(a.getIdAcces(), a.getZone(), a.getIdCollaborateur(), AccesUtils.timestampToCorbaDate(((AccesTemporaire) a).getDateDebut()), AccesUtils.timestampToCorbaDate(((AccesTemporaire) a).getDateFin()), (short) ((AccesTemporaire) a).getHeureDebut(), (short) ((AccesTemporaire) a).getHeureFin(), true);
+            }
+            else
+            {
+                acces[i] = new AccesCorba(a.getIdAcces(), a.getZone(), a.getIdCollaborateur(), null,null, (short) ((AccesPermanent) a).getHeureDebut(), (short) ((AccesPermanent) a).getHeureFin(), false);
+            }
+            i++;
+        }
 
         return acces;
     }
