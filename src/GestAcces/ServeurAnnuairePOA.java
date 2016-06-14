@@ -39,6 +39,8 @@ public abstract class ServeurAnnuairePOA extends org.omg.PortableServer.Servant
                 return _invoke_enregisterCollaborateurPermanent(_is, handler);
         } else if (opName.equals("enregisterCollaborateurTemporaire")) {
                 return _invoke_enregisterCollaborateurTemporaire(_is, handler);
+        } else if (opName.equals("rechercherCollaborateur")) {
+                return _invoke_rechercherCollaborateur(_is, handler);
         } else if (opName.equals("rechercherCollaborateurs")) {
                 return _invoke_rechercherCollaborateurs(_is, handler);
         } else if (opName.equals("supprimerCollaborateur")) {
@@ -146,6 +148,29 @@ public abstract class ServeurAnnuairePOA extends org.omg.PortableServer.Servant
             supprimerCollaborateur(arg0_in);
 
             _output = handler.createReply();
+
+        }
+        catch (GestAcces.ServeurAnnuairePackage.CollaborateurInexistant _exception)
+        {
+            _output = handler.createExceptionReply();
+            GestAcces.ServeurAnnuairePackage.CollaborateurInexistantHelper.write(_output,_exception);
+        }
+        return _output;
+    }
+
+    private org.omg.CORBA.portable.OutputStream _invoke_rechercherCollaborateur(
+            final org.omg.CORBA.portable.InputStream _is,
+            final org.omg.CORBA.portable.ResponseHandler handler) {
+        org.omg.CORBA.portable.OutputStream _output;
+        String arg0_in = GestAcces.PhotoHelper.read(_is);
+        String arg1_in = _is.read_string();
+
+        try
+        {
+            GestAcces.CollaborateurCorba _arg_result = rechercherCollaborateur(arg0_in, arg1_in);
+
+            _output = handler.createReply();
+            GestAcces.CollaborateurCorbaHelper.write(_output,_arg_result);
 
         }
         catch (GestAcces.ServeurAnnuairePackage.CollaborateurInexistant _exception)

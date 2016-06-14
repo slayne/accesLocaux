@@ -1,10 +1,13 @@
 package bdd.objetDao;
 
+import GestAcces.AccesCorba;
+import GestAcces.CollaborateurCorba;
 import bdd.DAO;
 import bdd.connectionJDBC.ConnectionBDD;
 import bdd.objetsMetier.personnel.Collaborateur;
 import bdd.objetsMetier.personnel.collabos.CollaborateurPermanent;
 import bdd.objetsMetier.personnel.collabos.CollaborateurTemporaire;
+import utils.AccesUtils;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -68,6 +71,38 @@ public class CollaborateurDAO extends DAO<Collaborateur> {
                             result.getTimestamp("dateentree"),
                             null);
                 }
+
+
+                //collaborateur.setId(result.getInt("idCollabo"));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return collaborateur;
+    }
+
+    public CollaborateurCorba findCorba(String p, AccesCorba[] a) {
+        CollaborateurCorba collaborateur = null;
+        try {
+            ResultSet result = this .connect
+                    .createStatement(
+                            ResultSet.TYPE_SCROLL_INSENSITIVE,
+                            ResultSet.CONCUR_UPDATABLE
+                    ).executeQuery(
+                            "select * from collaborateur where collaborateur.photo="+p+";"
+                    );
+            if(result.first()) {
+
+
+                    collaborateur = new CollaborateurCorba(result.getShort(1),result.getString("nom"),
+                            result.getString("photo"),
+                            AccesUtils.timestampToCorbaDate(result.getTimestamp("dateentree")),
+                            "null",
+                            result.getBoolean("istemp"),
+                            AccesUtils.timestampToCorbaDate(result.getTimestamp("datefin")),
+                            a);
+
 
 
                 //collaborateur.setId(result.getInt("idCollabo"));

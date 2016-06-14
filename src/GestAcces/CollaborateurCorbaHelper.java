@@ -73,7 +73,7 @@ public class CollaborateurCorbaHelper
                     return org.omg.CORBA.ORB.init().create_recursive_tc(id());
                 _working = true;
                 org.omg.CORBA.ORB orb = org.omg.CORBA.ORB.init();
-                org.omg.CORBA.StructMember []_members = new org.omg.CORBA.StructMember[6];
+                org.omg.CORBA.StructMember []_members = new org.omg.CORBA.StructMember[8];
 
                 _members[0] = new org.omg.CORBA.StructMember();
                 _members[0].name = "id";
@@ -93,6 +93,12 @@ public class CollaborateurCorbaHelper
                 _members[5] = new org.omg.CORBA.StructMember();
                 _members[5].name = "isTemp";
                 _members[5].type = orb.get_primitive_tc(org.omg.CORBA.TCKind.tk_boolean);
+                _members[6] = new org.omg.CORBA.StructMember();
+                _members[6].name = "dateFin";
+                _members[6].type = GestAcces.DateHelper.type();
+                _members[7] = new org.omg.CORBA.StructMember();
+                _members[7].name = "acces";
+                _members[7].type = GestAcces.lAccesHelper.type();
                 _tc = orb.create_struct_tc(id(),"CollaborateurCorba",_members);
                 _working = false;
             }
@@ -126,6 +132,8 @@ public class CollaborateurCorbaHelper
         new_one.dateEntree = GestAcces.DateHelper.read(istream);
         new_one.empreinte = istream.read_string();
         new_one.isTemp = istream.read_boolean();
+        new_one.dateFin = GestAcces.DateHelper.read(istream);
+        new_one.acces = GestAcces.lAccesHelper.read(istream);
 
         return new_one;
     }
@@ -143,6 +151,8 @@ public class CollaborateurCorbaHelper
         GestAcces.DateHelper.write(ostream,value.dateEntree);
         ostream.write_string(value.empreinte);
         ostream.write_boolean(value.isTemp);
+        GestAcces.DateHelper.write(ostream,value.dateFin);
+        GestAcces.lAccesHelper.write(ostream,value.acces);
     }
 
 }

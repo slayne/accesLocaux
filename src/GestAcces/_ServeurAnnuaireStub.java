@@ -302,4 +302,61 @@ public class _ServeurAnnuaireStub extends org.omg.CORBA.portable.ObjectImpl
         }
     }
 
+    /**
+     * Operation rechercherCollaborateur
+     */
+    public GestAcces.CollaborateurCorba rechercherCollaborateur(String p, String empreinte)
+        throws GestAcces.ServeurAnnuairePackage.CollaborateurInexistant
+    {
+        while(true)
+        {
+            if (!this._is_local())
+            {
+                org.omg.CORBA.portable.InputStream _input = null;
+                try
+                {
+                    org.omg.CORBA.portable.OutputStream _output = this._request("rechercherCollaborateur",true);
+                    GestAcces.PhotoHelper.write(_output,p);
+                    _output.write_string(empreinte);
+                    _input = this._invoke(_output);
+                    GestAcces.CollaborateurCorba _arg_ret = GestAcces.CollaborateurCorbaHelper.read(_input);
+                    return _arg_ret;
+                }
+                catch(org.omg.CORBA.portable.RemarshalException _exception)
+                {
+                    continue;
+                }
+                catch(org.omg.CORBA.portable.ApplicationException _exception)
+                {
+                    String _exception_id = _exception.getId();
+                    if (_exception_id.equals(GestAcces.ServeurAnnuairePackage.CollaborateurInexistantHelper.id()))
+                    {
+                        throw GestAcces.ServeurAnnuairePackage.CollaborateurInexistantHelper.read(_exception.getInputStream());
+                    }
+
+                    throw new org.omg.CORBA.UNKNOWN("Unexpected User Exception: "+ _exception_id);
+                }
+                finally
+                {
+                    this._releaseReply(_input);
+                }
+            }
+            else
+            {
+                org.omg.CORBA.portable.ServantObject _so = _servant_preinvoke("rechercherCollaborateur",_opsClass);
+                if (_so == null)
+                   continue;
+                GestAcces.ServeurAnnuaireOperations _self = (GestAcces.ServeurAnnuaireOperations) _so.servant;
+                try
+                {
+                    return _self.rechercherCollaborateur( p,  empreinte);
+                }
+                finally
+                {
+                    _servant_postinvoke(_so);
+                }
+            }
+        }
+    }
+
 }

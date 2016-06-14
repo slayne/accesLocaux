@@ -37,12 +37,16 @@ public abstract class ServeurAccesPOA extends org.omg.PortableServer.Servant
                 return _invoke_ajoutPerm(_is, handler);
         } else if (opName.equals("ajoutTemp")) {
                 return _invoke_ajoutTemp(_is, handler);
+        } else if (opName.equals("getAccesCollaborateur")) {
+                return _invoke_getAccesCollaborateur(_is, handler);
         } else if (opName.equals("getListeZone")) {
                 return _invoke_getListeZone(_is, handler);
         } else if (opName.equals("getZonesPorte")) {
                 return _invoke_getZonesPorte(_is, handler);
-        } else if (opName.equals("supprimerAcces")) {
-                return _invoke_supprimerAcces(_is, handler);
+        } else if (opName.equals("supprimerAccesCollaborateur")) {
+                return _invoke_supprimerAccesCollaborateur(_is, handler);
+        } else if (opName.equals("supprimerUnAcces")) {
+                return _invoke_supprimerUnAcces(_is, handler);
         } else if (opName.equals("verifierAcces")) {
                 return _invoke_verifierAcces(_is, handler);
         } else {
@@ -101,7 +105,7 @@ public abstract class ServeurAccesPOA extends org.omg.PortableServer.Servant
         return _output;
     }
 
-    private org.omg.CORBA.portable.OutputStream _invoke_supprimerAcces(
+    private org.omg.CORBA.portable.OutputStream _invoke_supprimerUnAcces(
             final org.omg.CORBA.portable.InputStream _is,
             final org.omg.CORBA.portable.ResponseHandler handler) {
         org.omg.CORBA.portable.OutputStream _output;
@@ -110,7 +114,7 @@ public abstract class ServeurAccesPOA extends org.omg.PortableServer.Servant
 
         try
         {
-            supprimerAcces(arg0_in, arg1_in);
+            supprimerUnAcces(arg0_in, arg1_in);
 
             _output = handler.createReply();
 
@@ -135,6 +139,27 @@ public abstract class ServeurAccesPOA extends org.omg.PortableServer.Servant
         _output = handler.createReply();
         _output.write_boolean(_arg_result);
 
+        return _output;
+    }
+
+    private org.omg.CORBA.portable.OutputStream _invoke_supprimerAccesCollaborateur(
+            final org.omg.CORBA.portable.InputStream _is,
+            final org.omg.CORBA.portable.ResponseHandler handler) {
+        org.omg.CORBA.portable.OutputStream _output;
+        short arg0_in = _is.read_short();
+
+        try
+        {
+            supprimerAccesCollaborateur(arg0_in);
+
+            _output = handler.createReply();
+
+        }
+        catch (GestAcces.ServeurAccesPackage.CollaborateurInexistant _exception)
+        {
+            _output = handler.createExceptionReply();
+            GestAcces.ServeurAccesPackage.CollaborateurInexistantHelper.write(_output,_exception);
+        }
         return _output;
     }
 
@@ -170,6 +195,20 @@ public abstract class ServeurAccesPOA extends org.omg.PortableServer.Servant
             _output = handler.createExceptionReply();
             GestAcces.ServeurAccesPackage.PorteInexistanteHelper.write(_output,_exception);
         }
+        return _output;
+    }
+
+    private org.omg.CORBA.portable.OutputStream _invoke_getAccesCollaborateur(
+            final org.omg.CORBA.portable.InputStream _is,
+            final org.omg.CORBA.portable.ResponseHandler handler) {
+        org.omg.CORBA.portable.OutputStream _output;
+        short arg0_in = _is.read_short();
+
+        GestAcces.AccesCorba[] _arg_result = getAccesCollaborateur(arg0_in);
+
+        _output = handler.createReply();
+        GestAcces.lAccesHelper.write(_output,_arg_result);
+
         return _output;
     }
 

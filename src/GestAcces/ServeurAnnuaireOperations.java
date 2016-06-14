@@ -36,4 +36,10 @@ public interface ServeurAnnuaireOperations
     public void supprimerCollaborateur(short id)
         throws GestAcces.ServeurAnnuairePackage.CollaborateurInexistant;
 
+    /**
+     * Operation rechercherCollaborateur
+     */
+    public GestAcces.CollaborateurCorba rechercherCollaborateur(String p, String empreinte)
+        throws GestAcces.ServeurAnnuairePackage.CollaborateurInexistant;
+
 }

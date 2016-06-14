@@ -20,15 +20,21 @@ public interface ServeurAccesOperations
         throws GestAcces.ServeurAccesPackage.ZoneInexistante;
 
     /**
-     * Operation supprimerAcces
+     * Operation supprimerUnAcces
      */
-    public void supprimerAcces(short idCollaborateur, short idZone)
+    public void supprimerUnAcces(short idCollaborateur, short idZone)
         throws GestAcces.ServeurAccesPackage.CollaborateurInexistant;
 
     /**
      * Operation verifierAcces
      */
     public boolean verifierAcces(short idCollaborateur, short idZone);
+
+    /**
+     * Operation supprimerAccesCollaborateur
+     */
+    public void supprimerAccesCollaborateur(short idCollaborateur)
+        throws GestAcces.ServeurAccesPackage.CollaborateurInexistant;
 
     /**
      * Operation getListeZone
@@ -40,5 +46,10 @@ public interface ServeurAccesOperations
      */
     public GestAcces.Zone[] getZonesPorte(short idPorte)
         throws GestAcces.ServeurAccesPackage.PorteInexistante;
+
+    /**
+     * Operation getAccesCollaborateur
+     */
+    public GestAcces.AccesCorba[] getAccesCollaborateur(short idCollaborateur);
 
 }

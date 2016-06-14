@@ -106,4 +106,13 @@ public class ServeurAnnuairePOATie extends ServeurAnnuairePOA
         _tie.supprimerCollaborateur( id);
     }
 
+    /**
+     * Operation rechercherCollaborateur
+     */
+    public GestAcces.CollaborateurCorba rechercherCollaborateur(String p, String empreinte)
+        throws GestAcces.ServeurAnnuairePackage.CollaborateurInexistant
+    {
+        return _tie.rechercherCollaborateur( p,  empreinte);
+    }
+
 }

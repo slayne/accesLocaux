@@ -1,5 +1,6 @@
 package corba.serveur.acces;
 
+import GestAcces.AccesCorba;
 import GestAcces.Jour;
 import GestAcces.ServeurAccesPOA;
 import GestAcces.ServeurAccesPackage.CollaborateurInexistant;
@@ -119,11 +120,11 @@ public class ServeurAccesImpl extends ServeurAccesPOA {
         for (Acces a : accesList) {
             if (a instanceof AccesTemporaire)
             {
-                acces[i] = new AccesCorba(a.getIdAcces(), a.getZone(), a.getIdCollaborateur(), AccesUtils.timestampToCorbaDate(((AccesTemporaire) a).getDateDebut()), AccesUtils.timestampToCorbaDate(((AccesTemporaire) a).getDateFin()), (short) ((AccesTemporaire) a).getHeureDebut(), (short) ((AccesTemporaire) a).getHeureFin(), true);
+                acces[i] = new AccesCorba((short)a.getIdAcces(), a.getZone(), a.getIdCollaborateur(), AccesUtils.timestampToCorbaDate(((AccesTemporaire) a).getDateDebut()), AccesUtils.timestampToCorbaDate(((AccesTemporaire) a).getDateFin()), (short) ((AccesTemporaire) a).getHeureDebut(), (short) ((AccesTemporaire) a).getHeureFin(), true);
             }
             else
             {
-                acces[i] = new AccesCorba(a.getIdAcces(), a.getZone(), a.getIdCollaborateur(), null,null, (short) ((AccesPermanent) a).getHeureDebut(), (short) ((AccesPermanent) a).getHeureFin(), false);
+                acces[i] = new AccesCorba((short)a.getIdAcces(), a.getZone(), a.getIdCollaborateur(), null,null, (short) ((AccesPermanent) a).getHeureDebut(), (short) ((AccesPermanent) a).getHeureFin(), false);
             }
             i++;
         }

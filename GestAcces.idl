@@ -24,14 +24,7 @@ module GestAcces {
 	    string log;
 	};
 
-	struct CollaborateurCorba {
-	        short id;
-            string nom;
-            Photo photo;
-            Date dateEntree;
-            string empreinte;
-            boolean isTemp;
-    };
+
 
     struct AccesCorba {
         short idAcces;
@@ -44,6 +37,19 @@ module GestAcces {
         boolean isTemp;
      };
 
+     typedef sequence<AccesCorba> lAcces;
+
+     struct CollaborateurCorba {
+                 short id;
+                 string nom;
+                 Photo photo;
+                 Date dateEntree;
+                 string empreinte;
+                 boolean isTemp;
+                 Date dateFin;
+                 lAcces acces;
+         };
+
     typedef sequence<CollaborateurCorba> lCollabo;
 
 	interface ServeurAnnuaire {
@@ -55,7 +61,7 @@ module GestAcces {
 		void enregisterCollaborateurTemporaire(in string nom, in Photo p, in string empreinte, in Date de, in Date df) raises(CollaborateurDejaExistant);
 		lCollabo rechercherCollaborateurs();
 		void supprimerCollaborateur(in short id) raises(CollaborateurInexistant);
-		short rechercherCollaborateur(in Photo p, in string empreinte) raises (CollaborateurInexistant);
+		CollaborateurCorba rechercherCollaborateur(in Photo p, in string empreinte) raises (CollaborateurInexistant);
 	};
 
 	interface ServeurEmpreinte {
@@ -80,7 +86,7 @@ module GestAcces {
 	};
 
 	typedef sequence<Zone> lZone;
-	typedef sequence<AccesCorba> lAcces;
+
 
 
 	interface ServeurAcces {

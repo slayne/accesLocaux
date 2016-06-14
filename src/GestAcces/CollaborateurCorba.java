@@ -38,6 +38,16 @@ public final class CollaborateurCorba implements org.omg.CORBA.portable.IDLEntit
     public boolean isTemp;
 
     /**
+     * Struct member dateFin
+     */
+    public GestAcces.Date dateFin;
+
+    /**
+     * Struct member acces
+     */
+    public GestAcces.AccesCorba[] acces;
+
+    /**
      * Default constructor
      */
     public CollaborateurCorba()
@@ -51,8 +61,10 @@ public final class CollaborateurCorba implements org.omg.CORBA.portable.IDLEntit
      * @param dateEntree dateEntree struct member
      * @param empreinte empreinte struct member
      * @param isTemp isTemp struct member
+     * @param dateFin dateFin struct member
+     * @param acces acces struct member
      */
-    public CollaborateurCorba(short id, String nom, String photo, GestAcces.Date dateEntree, String empreinte, boolean isTemp)
+    public CollaborateurCorba(short id, String nom, String photo, GestAcces.Date dateEntree, String empreinte, boolean isTemp, GestAcces.Date dateFin, GestAcces.AccesCorba[] acces)
     {
         this.id = id;
         this.nom = nom;
@@ -60,6 +72,8 @@ public final class CollaborateurCorba implements org.omg.CORBA.portable.IDLEntit
         this.dateEntree = dateEntree;
         this.empreinte = empreinte;
         this.isTemp = isTemp;
+        this.dateFin = dateFin;
+        this.acces = acces;
     }
 
 }

@@ -81,12 +81,12 @@ public class ServeurAccesPOATie extends ServeurAccesPOA
     }
 
     /**
-     * Operation supprimerAcces
+     * Operation supprimerUnAcces
      */
-    public void supprimerAcces(short idCollaborateur, short idZone)
+    public void supprimerUnAcces(short idCollaborateur, short idZone)
         throws GestAcces.ServeurAccesPackage.CollaborateurInexistant
     {
-        _tie.supprimerAcces( idCollaborateur,  idZone);
+        _tie.supprimerUnAcces( idCollaborateur,  idZone);
     }
 
     /**
@@ -95,6 +95,15 @@ public class ServeurAccesPOATie extends ServeurAccesPOA
     public boolean verifierAcces(short idCollaborateur, short idZone)
     {
         return _tie.verifierAcces( idCollaborateur,  idZone);
+    }
+
+    /**
+     * Operation supprimerAccesCollaborateur
+     */
+    public void supprimerAccesCollaborateur(short idCollaborateur)
+        throws GestAcces.ServeurAccesPackage.CollaborateurInexistant
+    {
+        _tie.supprimerAccesCollaborateur( idCollaborateur);
     }
 
     /**
@@ -112,6 +121,14 @@ public class ServeurAccesPOATie extends ServeurAccesPOA
         throws GestAcces.ServeurAccesPackage.PorteInexistante
     {
         return _tie.getZonesPorte( idPorte);
+    }
+
+    /**
+     * Operation getAccesCollaborateur
+     */
+    public GestAcces.AccesCorba[] getAccesCollaborateur(short idCollaborateur)
+    {
+        return _tie.getAccesCollaborateur( idCollaborateur);
     }
 
 }
