@@ -3,7 +3,7 @@ package corba.serveur.annuaire;
 import GestAcces.ServeurAnnuaire;
 import GestAcces.ServeurAnnuaireHelper;
 import GestAcces.ServeurEmpreinteHelper;
-import corba.clients.Portes;
+import corba.clients.ClientPorte;
 import corba.serveur.acces.ServeurAccesImpl;
 import corba.serveur.empreinte.ServeurEmpreinteImpl;
 import org.omg.CORBA.*;
@@ -20,7 +20,7 @@ public class ServeurAnnuaireMain {
 
     public static void main(String[] args) {
         try {
-            Portes.main(new String[0]);
+            //Portes.main(new String[0]);
             System.out.println("CE GENRE DE SERVEUR D'Annuaire MAMENE DU SALE");
             // Intialisation de l'ORB
             //************************

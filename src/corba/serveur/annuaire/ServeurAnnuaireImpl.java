@@ -89,6 +89,8 @@ public class ServeurAnnuaireImpl extends GestAcces.ServeurAnnuairePOA {
 
     @Override
     public CollaborateurCorba[] rechercherCollaborateurs() {
+
+
         return new CollaborateurCorba[0];
     }
 
@@ -129,7 +131,7 @@ public class ServeurAnnuaireImpl extends GestAcces.ServeurAnnuairePOA {
         collabDAO.delete(collabDAO.find(id));
         try {
             servEmpreinte.supprimerEmpreinte(id);
-            serveurAcces.supprimerAcces(id);
+         //   serveurAcces.supprimerAccesCollaborateur;
             //faire supprimer acces
         } catch (EmpreinteInexistante empreinteInexistante) {
             throw  new CollaborateurInexistant();
