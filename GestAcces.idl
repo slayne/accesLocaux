@@ -80,8 +80,9 @@ module GestAcces {
 
 		void ajoutPerm(in short id, in Heure heureDebut, in Heure heureFin, in short idZone) raises (ZoneInexistante);
 		void ajoutTemp(in short id, in Jour jourDeb, in Jour jourFin,in Heure heureDebut, in Heure heureFin, in short idZone) raises (ZoneInexistante);
-		void supprimerAcces (in short idCollaborateur, in short idZone) raises (CollaborateurInexistant);
+		void supprimerUnAcces (in short idCollaborateur, in short idZone) raises (CollaborateurInexistant);
 		boolean verifierAcces (in short idCollaborateur,in short idZone);
+		void supprimerAccesCollaborateur(in short idCollaborateur) raises (CollaborateurInexistant);
 
 		lZone getListeZone();
 
