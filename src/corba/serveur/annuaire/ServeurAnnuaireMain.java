@@ -1,9 +1,12 @@
 package corba.serveur.annuaire;
 
-import GestAcces.ServeurEmpreinte;
+import GestAcces.ServeurAnnuaire;
+import GestAcces.ServeurAnnuaireHelper;
 import GestAcces.ServeurEmpreinteHelper;
+import corba.clients.Portes;
+import corba.serveur.acces.ServeurAccesImpl;
+import corba.serveur.empreinte.ServeurEmpreinteImpl;
 import org.omg.CORBA.*;
-import org.omg.CORBA.Object;
 import org.omg.CosNaming.NameComponent;
 import org.omg.CosNaming.NamingContext;
 import org.omg.PortableServer.POA;
@@ -15,15 +18,13 @@ import utils.AccesUtils;
  */
 public class ServeurAnnuaireMain {
 
-    private static NamingContext nameRoot;
-    private static ORB orb;
-
     public static void main(String[] args) {
         try {
+            Portes.main(new String[0]);
             System.out.println("CE GENRE DE SERVEUR D'Annuaire MAMENE DU SALE");
             // Intialisation de l'ORB
             //************************
-            orb = org.omg.CORBA.ORB.init(args, null);
+            org.omg.CORBA.ORB orb = org.omg.CORBA.ORB.init(args, null);
 
             // Gestion du POA
             //****************
@@ -44,7 +45,7 @@ public class ServeurAnnuaireMain {
             // Enregistrement dans le service de nommage
             //*******************************************
             // Recuperation du naming service
-            nameRoot = org.omg.CosNaming.NamingContextHelper.narrow(orb.resolve_initial_references("NameService"));
+            NamingContext nameRoot = org.omg.CosNaming.NamingContextHelper.narrow(orb.resolve_initial_references("NameService"));
             //NamingContext nameRoot=org.omg.CosNaming.NamingContextHelper.narrow(orb.string_to_object("corbaloc://iiop:1.2@130.120.210.149:2001/NameService"));
             // Construction du nom a enregistrer
             org.omg.CosNaming.NameComponent[] nameToRegister = new org.omg.CosNaming.NameComponent[1];
@@ -60,8 +61,10 @@ public class ServeurAnnuaireMain {
             System.out.println(IORServant);
 
 
+            //recup du client empreinte
 
-            // Construction du nom a rechercher + transfert de la souche myEmpreinte au serveur Annuaire
+
+            /*// Construction du nom a rechercher + transfert de la souche myEmpreinte au serveur Annuaire
             NameComponent[] nameToFind = new NameComponent[1];
             nameToFind[0] = new NameComponent(AccesUtils.ANNUAIRE_SERVER,"");
             // Recherche aupres du naming service
@@ -69,10 +72,24 @@ public class ServeurAnnuaireMain {
             System.out.println("Objet '" + AccesUtils.ANNUAIRE_SERVER + "' trouve aupres du service de noms. IOR de l'objet :");
             System.out.println(orb.object_to_string(distantAcces));
 
+            ServeurAnnuaireImpl.setServEmpreinte(distantAcces);*/
+
             //recup du serveur empreinte
-            AccesUtils.connexionEmpreinte(orb,nameRoot);
+            ServeurAnnuaireImpl.setServEmpreinte(AccesUtils.connexionEmpreinte(orb, nameRoot));
 
 
+            //recup du client acces
+
+
+            // Construction du nom a rechercher + transfert de la souche myEmpreinte au serveur Annuaire
+           /* NameComponent[] nameToFind2 = new NameComponent[1];
+            nameToFind2[0] = new NameComponent(AccesUtils.ACCES_SERVER,"");
+            // Recherche aupres du naming service
+            org.omg.CORBA.Object distantAcces2 = nameRoot.resolve(nameToFind2);
+            System.out.println("Objet '" + AccesUtils.ACCES_SERVER + "' trouve aupres du service de noms. IOR de l'objet :");
+            System.out.println(orb.object_to_string(distantAcces2));*/
+
+            ServeurAnnuaireImpl.setAcces(AccesUtils.connexionAcces(orb,nameRoot));
 
             // Lancement de l'ORB et mise en attente de requete
             //**************************************************

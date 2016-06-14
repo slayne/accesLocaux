@@ -2,6 +2,7 @@ package corba.serveur.annuaire;
 
 import GestAcces.CollaborateurCorba;
 import GestAcces.Date;
+import GestAcces.ServeurAcces;
 import GestAcces.ServeurAnnuairePackage.CollaborateurDejaExistant;
 import GestAcces.ServeurAnnuairePackage.CollaborateurInexistant;
 import GestAcces.ServeurAnnuairePackage.CollaborateurInnexistant;
@@ -15,6 +16,7 @@ import bdd.objetsMetier.Empreinte;
 import bdd.objetsMetier.personnel.Collaborateur;
 import bdd.objetsMetier.personnel.collabos.CollaborateurPermanent;
 import bdd.objetsMetier.personnel.collabos.CollaborateurTemporaire;
+import corba.clients.Collabo;
 import corba.serveur.empreinte.ServeurEmpreinteImpl;
 
 import java.sql.Timestamp;
@@ -27,16 +29,38 @@ import static utils.AccesUtils.corbaDateToTimeStamp;
 public class ServeurAnnuaireImpl extends GestAcces.ServeurAnnuairePOA {
 
     private static CollaborateurDAO collabDAO= new CollaborateurDAO();
-    private static ServeurEmpreinte servEmpreinte;
+    public static ServeurEmpreinte servEmpreinte;
+    public static ServeurAcces serveurAcces;
 
     public static void setServEmpreinte( ServeurEmpreinte s){
         servEmpreinte = s ;
     }
 
+    public static void setAcces (ServeurAcces s){
+        serveurAcces=s;
+    }
 
     @Override
     public boolean demanderAcces(String Photo, String mdp, short idZone) throws CollaborateurInexistant {
-        return false;
+
+        boolean res= false;
+
+        if(collabDAO.isTemp(Photo)){
+            CollaborateurTemporaire c =(CollaborateurTemporaire)collabDAO.find(Photo);
+
+            if(c.getEmpreinte().equals(mdp)){
+                res=serveurAcces.verifierAcces((short)c.getIdbd(),idZone);
+            }
+
+        }else{
+            CollaborateurPermanent c = (CollaborateurPermanent) collabDAO.find(Photo);
+
+            if(c.getEmpreinte().equals(mdp)){
+                res=serveurAcces.verifierAcces((short)c.getIdbd(),idZone);
+            }
+        }
+
+        return res;
     }
 
     @Override
@@ -91,7 +115,8 @@ public class ServeurAnnuaireImpl extends GestAcces.ServeurAnnuairePOA {
         return c;
     }
 
-    public CollaborateurTemporaire updateTeporaire(CollaborateurTemporaire co) throws EmpreinteInvalide, EmpreinteInexistante {
+    public CollaborateurTemporaire updateTeporaire(CollaborateurTemporaire co) throws EmpreinteInvalide, EmpreinteInexistante, CollaborateurInexistant {
+
         CollaborateurTemporaire c = (CollaborateurTemporaire) collabDAO.update(co);
         servEmpreinte.modifierEmpreinte((short) c.getIdbd(), co.getEmpreinte());
         c.setEmpreinte(servEmpreinte.getEmpreinte((short) c.getIdbd()));
@@ -102,5 +127,12 @@ public class ServeurAnnuaireImpl extends GestAcces.ServeurAnnuairePOA {
     @Override
     public void supprimerCollaborateur(short id) throws CollaborateurInexistant {
         collabDAO.delete(collabDAO.find(id));
+        try {
+            servEmpreinte.supprimerEmpreinte(id);
+            serveurAcces.supprimerAcces(id);
+            //faire supprimer acces
+        } catch (EmpreinteInexistante empreinteInexistante) {
+            throw  new CollaborateurInexistant();
+        }
     }
 }

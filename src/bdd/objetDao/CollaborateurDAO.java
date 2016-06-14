@@ -79,6 +79,62 @@ public class CollaborateurDAO extends DAO<Collaborateur> {
         return collaborateur;
     }
 
+    public Collaborateur find(String photo) {
+        Collaborateur collaborateur = null;
+        try {
+            ResultSet result = this .connect
+                    .createStatement(
+                            ResultSet.TYPE_SCROLL_INSENSITIVE,
+                            ResultSet.CONCUR_UPDATABLE
+                    ).executeQuery(
+                            "select * from collaborateur where collaborateur.photo="+photo+";"
+                    );
+            if(result.first()) {
+               /* Identifiant identifiant = new Identifiant(
+                        result.getString("empreinte")
+                );*/
+
+                if(result.getBoolean("istemp") == true){
+                    collaborateur = new CollaborateurTemporaire(result.getString("nom"),
+                            result.getString("photo"),
+                            result.getTimestamp("dateentree"),
+                            null,
+                            result.getTimestamp("datefin"));
+                }else{
+                    collaborateur = new CollaborateurPermanent(result.getString("nom"),
+                            result.getString("photo"),
+                            result.getTimestamp("dateentree"),
+                            null);
+                }
+
+
+                //collaborateur.setId(result.getInt("idCollabo"));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return collaborateur;
+    }
+    public boolean isTemp(String photo) {
+        Boolean res=false;
+        try {
+            ResultSet result = this .connect
+                    .createStatement(
+                            ResultSet.TYPE_SCROLL_INSENSITIVE,
+                            ResultSet.CONCUR_UPDATABLE
+                    ).executeQuery(
+                            "select istemp from collaborateur where collaborateur.photo="+photo+";"
+                    );
+            res= result.getBoolean("istemp");
+
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return res;
+    }
+
     @Override
     public Collaborateur create(Collaborateur obj) {
         try {
