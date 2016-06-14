@@ -47,7 +47,7 @@ public class ServeurAccesImpl extends ServeurAccesPOA {
     }
 
     @Override
-    public void supprimerAcces(short idCollaborateur, short idZone) throws CollaborateurInexistant {
+    public void supprimerUnAcces(short idCollaborateur, short idZone) throws CollaborateurInexistant {
         Acces a = accesDAO.find(idCollaborateur, idZone);
         if (a == null)
         {
@@ -56,6 +56,20 @@ public class ServeurAccesImpl extends ServeurAccesPOA {
         else
         {
             accesDAO.delete(a);
+        }
+    }
+
+    public void supprimerAccesCollaborateur(short idCollaborateur) throws CollaborateurInexistant {
+        ArrayList<Acces> aList = accesDAO.getInstances(idCollaborateur);
+        if (aList.isEmpty())
+        {
+            throw new CollaborateurInexistant();
+        }
+        else
+        {
+            for (Acces a: aList) {
+                accesDAO.create(a);
+            }
         }
     }
 
