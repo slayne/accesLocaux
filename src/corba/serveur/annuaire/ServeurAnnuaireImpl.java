@@ -98,8 +98,10 @@ public class ServeurAnnuaireImpl extends GestAcces.ServeurAnnuairePOA {
         for(Collaborateur c : list){
             listcorba.add(collabDAO.findCorba(c.getPhoto(),serveurAcces.getAccesCollaborateur((short) c.getIdbd())));
         }
+        System.out.println(listcorba.get(1).nom);
         CollaborateurCorba[] res = new CollaborateurCorba[listcorba.size()];
-        res= (CollaborateurCorba[])listcorba.toArray();
+        res= listcorba.toArray(res);
+
         return res;
     }
 

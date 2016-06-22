@@ -1,7 +1,7 @@
 package bdd.objetDao;
 
-import GestAcces.AccesCorba;
-import GestAcces.CollaborateurCorba;
+import GestAcces.*;
+import GestAcces.Date;
 import bdd.DAO;
 import bdd.connectionJDBC.ConnectionBDD;
 import bdd.objetsMetier.personnel.Collaborateur;
@@ -9,10 +9,7 @@ import bdd.objetsMetier.personnel.collabos.CollaborateurPermanent;
 import bdd.objetsMetier.personnel.collabos.CollaborateurTemporaire;
 import utils.AccesUtils;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 
 /**
@@ -90,19 +87,63 @@ public class CollaborateurDAO extends DAO<Collaborateur> {
                             ResultSet.TYPE_SCROLL_INSENSITIVE,
                             ResultSet.CONCUR_UPDATABLE
                     ).executeQuery(
-                            "select * from collaborateur where collaborateur.photo="+p+";"
+                            "select * from collaborateur where collaborateur.photo='"+p+"';"
                     );
             if(result.first()) {
 
+                    //gestion date fin
+                    Date df=new Date(new Jour((short)0,(short)0,(short)0),(short)0,(short)0);
+                    if( result.getBoolean("istemp")){
+                         df= AccesUtils.timestampToCorbaDate(result.getTimestamp("datef"));
+                    }
 
                     collaborateur = new CollaborateurCorba(result.getShort(1),result.getString("nom"),
                             result.getString("photo"),
                             AccesUtils.timestampToCorbaDate(result.getTimestamp("dateentree")),
                             "null",
                             result.getBoolean("istemp"),
-                            AccesUtils.timestampToCorbaDate(result.getTimestamp("datef")),
+                            df,
                             a);
+                            //new AccesCorba[]{new AccesCorba((short)1,new Zone((short)1,"re"),(short)0,AccesUtils.timestampToCorbaDate(new Timestamp(System.currentTimeMillis())),AccesUtils.timestampToCorbaDate(new Timestamp(System.currentTimeMillis())),(short)1,(short)2,false)});
+                    System.out.println("ss");
 
+
+                //collaborateur.setId(result.getInt("idCollabo"));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return collaborateur;
+    }
+
+    public CollaborateurCorba findAllCorba(String p, AccesCorba[] a) {
+        CollaborateurCorba collaborateur = null;
+        try {
+            ResultSet result = this .connect
+                    .createStatement(
+                            ResultSet.TYPE_SCROLL_INSENSITIVE,
+                            ResultSet.CONCUR_UPDATABLE
+                    ).executeQuery(
+                            "select * from collaborateur where collaborateur.photo='"+p+"';"
+                    );
+            if(result.first()) {
+
+                //gestion date fin
+                Date df=new Date(new Jour((short)0,(short)0,(short)0),(short)0,(short)0);
+                if( result.getBoolean("istemp")){
+                    df= AccesUtils.timestampToCorbaDate(result.getTimestamp("datef"));
+                }
+
+                collaborateur = new CollaborateurCorba(result.getShort(1),result.getString("nom"),
+                        result.getString("photo"),
+                        AccesUtils.timestampToCorbaDate(result.getTimestamp("dateentree")),
+                        "null",
+                        result.getBoolean("istemp"),
+                        df,
+                        a);
+                //new AccesCorba[]{new AccesCorba((short)1,new Zone((short)1,"re"),(short)0,AccesUtils.timestampToCorbaDate(new Timestamp(System.currentTimeMillis())),AccesUtils.timestampToCorbaDate(new Timestamp(System.currentTimeMillis())),(short)1,(short)2,false)});
+                System.out.println("ss");
 
 
                 //collaborateur.setId(result.getInt("idCollabo"));

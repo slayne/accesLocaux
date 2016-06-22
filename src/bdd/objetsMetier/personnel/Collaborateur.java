@@ -9,7 +9,7 @@ import java.util.ArrayList;
 /**
  * Created by igloo on 27/05/2016.
  */
-public abstract class Collaborateur {
+public class Collaborateur {
     private String nom;
     private String photo;
     private Timestamp dateEntree;
@@ -23,7 +23,6 @@ public abstract class Collaborateur {
         this.dateEntree = dateEntree;
         accesTemporaires = new ArrayList<>();
         this.empreinte = empreinte;
-        this.idbd=0;
     }
 
     public String getNom() {

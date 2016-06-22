@@ -17,7 +17,7 @@ public class Collabo {
 
     public static void main(String[] args) {
 
-        Collabo collabo = new Collabo("zlatan","zlatana");
+        Collabo collabo = new Collabo("d","d");
         collabo.naviguer();
     }
 
