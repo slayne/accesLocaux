@@ -64,7 +64,7 @@ public class CollaborateurDAO extends DAO<Collaborateur> {
                                                                 result.getString("photo"),
                                                                 result.getTimestamp("dateentree"),
                                                                 null,
-                                                                result.getTimestamp("datefin"));
+                                                                result.getTimestamp("datef"));
                 }else{
                     collaborateur = new CollaborateurPermanent(result.getString("nom"),
                             result.getString("photo"),
@@ -100,7 +100,7 @@ public class CollaborateurDAO extends DAO<Collaborateur> {
                             AccesUtils.timestampToCorbaDate(result.getTimestamp("dateentree")),
                             "null",
                             result.getBoolean("istemp"),
-                            AccesUtils.timestampToCorbaDate(result.getTimestamp("datefin")),
+                            AccesUtils.timestampToCorbaDate(result.getTimestamp("datef")),
                             a);
 
 
@@ -122,7 +122,7 @@ public class CollaborateurDAO extends DAO<Collaborateur> {
                             ResultSet.TYPE_SCROLL_INSENSITIVE,
                             ResultSet.CONCUR_UPDATABLE
                     ).executeQuery(
-                            "select * from collaborateur where collaborateur.photo="+photo+";"
+                            "select * from collaborateur where photo='"+photo+"';"
                     );
             if(result.first()) {
                /* Identifiant identifiant = new Identifiant(
@@ -143,7 +143,7 @@ public class CollaborateurDAO extends DAO<Collaborateur> {
                 }
 
 
-                //collaborateur.setId(result.getInt("idCollabo"));
+                collaborateur.setIdbd(result.getInt("id"));
             }
 
         } catch (SQLException e) {

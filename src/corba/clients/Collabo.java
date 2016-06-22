@@ -17,14 +17,14 @@ public class Collabo {
 
     public static void main(String[] args) {
 
-        Collabo collabo = new Collabo("Photo","empreinte");
+        Collabo collabo = new Collabo("zlatan","zlatana");
         collabo.naviguer();
     }
 
     public Collabo(String p, String e) {
         photo = p;
         empreinte = e;
-        zoneCourante = new Zone((short)2,"Z2");
+        zoneCourante = new Zone((short)1,"Accueil");
     }
 
     /**

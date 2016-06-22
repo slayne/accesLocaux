@@ -70,6 +70,7 @@ public class ServeurAnnuaireImpl extends GestAcces.ServeurAnnuairePOA {
         c=(CollaborateurPermanent) collabDAO.create(c);
 
         try {
+            System.out.println("Id bdd : " + c.getIdbd());
             servEmpreinte.enregistrerEmpreinte((short)c.getIdbd(),empreinte);
         } catch (EmpreintePresente empreintePresente) {
            throw new CollaborateurDejaExistant();
@@ -150,10 +151,9 @@ public class ServeurAnnuaireImpl extends GestAcces.ServeurAnnuairePOA {
 
     @Override
     public CollaborateurCorba rechercherCollaborateur(String p, String empreinte) throws CollaborateurInexistant {
-
-        CollaborateurPermanent ctemp = (CollaborateurPermanent)collabDAO.find(p);
-        CollaborateurCorba co = collabDAO.findCorba(p,serveurAcces.getAccesCollaborateur((short)ctemp.getIdbd()));
-
+        System.out.println("wesg");
+        CollaborateurCorba co = collabDAO.findCorba(p,serveurAcces.getAccesCollaborateur((short)collabDAO.find(p).getIdbd()));
+        System.out.println("test " + co.nom);
         return co;
     }
 

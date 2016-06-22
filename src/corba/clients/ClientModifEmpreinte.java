@@ -5,7 +5,6 @@ import GestAcces.ServeurAccesPackage.CollaborateurInexistant;
 import GestAcces.ServeurAccesPackage.ZoneInexistante;
 import GestAcces.ServeurEmpreintePackage.EmpreinteInexistante;
 import bdd.objetsMetier.Acces;
-import com.sun.deploy.util.SessionState;
 import org.omg.CORBA.ORB;
 import org.omg.CORBA.ORBPackage.InvalidName;
 import org.omg.CORBA.Object;
@@ -40,9 +39,9 @@ public class ClientModifEmpreinte {
                 invalidName.printStackTrace();
             }
 
-            myEmpreinte =AccesUtils.connexionEmpreinte(orb,nameRoot);
-            log = AccesUtils.connexionLog(orb,nameRoot);
-            annuaire = AccesUtils.connexionAnnuaire(orb,nameRoot);
+            myEmpreinte = AccesUtils.connexionEmpreinte(orb, nameRoot);
+            log = AccesUtils.connexionLog(orb, nameRoot);
+            annuaire = AccesUtils.connexionAnnuaire(orb, nameRoot);
 
 
         } catch (Exception e) {
@@ -56,8 +55,8 @@ public class ClientModifEmpreinte {
         int collaboId = 0;
 
         try {
-            collaboId = annuaire.rechercherCollaborateur(photo, empreinte);
-        } catch (CollaborateurInexistant e) {
+            collaboId = annuaire.rechercherCollaborateur(photo, empreinte).id;
+        } catch (GestAcces.ServeurAnnuairePackage.CollaborateurInexistant collaborateurInexistant) {
             System.out.println("Identifiants invalides !");
             return;
         }
@@ -69,20 +68,22 @@ public class ClientModifEmpreinte {
             System.out.println("--- 1 : modifier mon empreinte");
             int n = reader.nextInt(); // Scans the next token of the input as an int.
             switch (n) {
-                case 0: userInput = false;
+                case 0:
+                    userInput = false;
                     break;
                 case 1:
                     System.out.println("Entre votre nouvelle empreinte :");
-                    String nouvelleEmpreinte =  reader.next();
+                    String nouvelleEmpreinte = reader.next();
                     try {
-                        myEmpreinte.modifierEmpreinte((short)collaboId, nouvelleEmpreinte);
+                        myEmpreinte.modifierEmpreinte((short) collaboId, nouvelleEmpreinte);
                     } catch (EmpreinteInexistante empreinteInexistante) {
                         System.out.println("Empreinte du collaborateur inexistante");
                         return;
                     }
                     System.out.println("Empreinte modifiée");
                     break;
-                default: break;
+                default:
+                    break;
             }
         }
     }

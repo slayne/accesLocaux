@@ -61,38 +61,9 @@ public class ServeurAnnuaireMain {
             System.out.println(IORServant);
 
 
-            //recup du client empreinte
-
-
-            /*// Construction du nom a rechercher + transfert de la souche myEmpreinte au serveur Annuaire
-            NameComponent[] nameToFind = new NameComponent[1];
-            nameToFind[0] = new NameComponent(AccesUtils.ANNUAIRE_SERVER,"");
-            // Recherche aupres du naming service
-            org.omg.CORBA.Object distantAcces = nameRoot.resolve(nameToFind);
-            System.out.println("Objet '" + AccesUtils.ANNUAIRE_SERVER + "' trouve aupres du service de noms. IOR de l'objet :");
-            System.out.println(orb.object_to_string(distantAcces));
-
-            ServeurAnnuaireImpl.setServEmpreinte(distantAcces);*/
-
-            //recup du serveur empreinte
             ServeurAnnuaireImpl.setServEmpreinte(AccesUtils.connexionEmpreinte(orb, nameRoot));
-
-
-            //recup du client acces
-
-
-            // Construction du nom a rechercher + transfert de la souche myEmpreinte au serveur Annuaire
-           /* NameComponent[] nameToFind2 = new NameComponent[1];
-            nameToFind2[0] = new NameComponent(AccesUtils.ACCES_SERVER,"");
-            // Recherche aupres du naming service
-            org.omg.CORBA.Object distantAcces2 = nameRoot.resolve(nameToFind2);
-            System.out.println("Objet '" + AccesUtils.ACCES_SERVER + "' trouve aupres du service de noms. IOR de l'objet :");
-            System.out.println(orb.object_to_string(distantAcces2));*/
-
             ServeurAnnuaireImpl.setAcces(AccesUtils.connexionAcces(orb,nameRoot));
 
-            // Lancement de l'ORB et mise en attente de requete
-            //**************************************************
             orb.run();
 
         } catch (Exception e) {
