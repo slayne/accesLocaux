@@ -165,7 +165,7 @@ public class AccesDAO extends DAO<Acces> {
                             ResultSet.TYPE_SCROLL_INSENSITIVE,
                             ResultSet.CONCUR_UPDATABLE
                     ).executeQuery(
-                            "SELECT * FROM acces WHERE idCollaborateur = " + idC + "AND idZone = "+ idZ + ";"
+                            "SELECT * FROM acces WHERE idCollaborateur = " + idC + "AND idacces = "+ idZ + ";"
                     );
             if(result.first()) {
                 if (result.getTimestamp("dateDebut") == null)

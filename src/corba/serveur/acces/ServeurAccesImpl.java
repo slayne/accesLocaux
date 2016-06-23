@@ -51,8 +51,8 @@ public class ServeurAccesImpl extends ServeurAccesPOA {
     }
 
     @Override
-    public void supprimerUnAcces(short idCollaborateur, short idZone) throws CollaborateurInexistant {
-        Acces a = accesDAO.find(idCollaborateur, idZone);
+    public void supprimerUnAcces(short idCollaborateur, short idAcces) throws CollaborateurInexistant {
+        Acces a = accesDAO.find(idCollaborateur, idAcces);
         if (a == null)
         {
             throw new CollaborateurInexistant();

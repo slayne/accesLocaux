@@ -23,7 +23,7 @@ public class _ServeurAccesStub extends org.omg.CORBA.portable.ObjectImpl
     /**
      * Operation ajoutPerm
      */
-    public void ajoutPerm(short id, short heureDebut, short heureFin, short idZone)
+    public void ajoutPerm(short id, short heureDebut, short heureFin, short idAcces)
         throws GestAcces.ServeurAccesPackage.ZoneInexistante
     {
         while(true)
@@ -37,7 +37,7 @@ public class _ServeurAccesStub extends org.omg.CORBA.portable.ObjectImpl
                     _output.write_short(id);
                     GestAcces.HeureHelper.write(_output,heureDebut);
                     GestAcces.HeureHelper.write(_output,heureFin);
-                    _output.write_short(idZone);
+                    _output.write_short(idAcces);
                     _input = this._invoke(_output);
                     return;
                 }
@@ -68,7 +68,7 @@ public class _ServeurAccesStub extends org.omg.CORBA.portable.ObjectImpl
                 GestAcces.ServeurAccesOperations _self = (GestAcces.ServeurAccesOperations) _so.servant;
                 try
                 {
-                    _self.ajoutPerm( id,  heureDebut,  heureFin,  idZone);
+                    _self.ajoutPerm( id,  heureDebut,  heureFin,  idAcces);
                     return;
                 }
                 finally

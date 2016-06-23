@@ -65,10 +65,10 @@ public class ServeurAccesPOATie extends ServeurAccesPOA
     /**
      * Operation ajoutPerm
      */
-    public void ajoutPerm(short id, short heureDebut, short heureFin, short idZone)
+    public void ajoutPerm(short id, short heureDebut, short heureFin, short idAcces)
         throws GestAcces.ServeurAccesPackage.ZoneInexistante
     {
-        _tie.ajoutPerm( id,  heureDebut,  heureFin,  idZone);
+        _tie.ajoutPerm( id,  heureDebut,  heureFin,  idAcces);
     }
 
     /**

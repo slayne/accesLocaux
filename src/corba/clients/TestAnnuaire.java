@@ -46,8 +46,7 @@ public class TestAnnuaire {
             log = AccesUtils.connexionLog(orb, nameRoot);
             acces = AccesUtils.connexionAcces(orb,nameRoot);
 
-            System.out.println(c.find(28).getIdbd());
-            c.delete(c.find(28));
+            acces.supprimerUnAcces((short)1128,(short)1);
         } catch (Exception e) {
             e.printStackTrace();
         }

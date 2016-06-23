@@ -11,6 +11,7 @@ import org.omg.CosNaming.NamingContextHelper;
 import java.sql.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 /**
  * Created by yoan on 05/06/16.
@@ -31,12 +32,6 @@ public class AccesUtils {
             e.printStackTrace();
         }
         return new Timestamp(d.getTime());
-    }
-
-    public static Jour timestampToCorbaJour(Timestamp t) {
-        Jour j = new Jour((short)t.getYear(),(short)t.getMonth(),(short)t.getDay());
-
-        return j;
     }
 
     public static Timestamp corbaDateToTimeStamp(GestAcces.Date d) {
@@ -69,8 +64,10 @@ public class AccesUtils {
 
 
     public static GestAcces.Date timestampToCorbaDate(Timestamp t) {
-        GestAcces.Date d = new Date(new Jour((short) t.getYear(), (short) t.getMonth(), (short) t.getDay()),
-                (short) t.getHours(), (short) t.getMinutes());
+        Calendar cal = Calendar.getInstance();
+        cal.setTimeInMillis(t.getTime());
+        GestAcces.Date d = new Date(new Jour((short) cal.get(Calendar.YEAR), (short) cal.get(Calendar.MONTH), (short) cal.get(Calendar.DAY_OF_MONTH)),
+                (short) cal.get(Calendar.HOUR), (short) cal.get(Calendar.MINUTE));
 
         return d;
     }

@@ -93,7 +93,6 @@ public class ClientRH {
         System.out.println("- le type : 1=temporaire, 0=permanent ");
         boolean isTemp = (reader.nextInt() == 1);
 
-
         if (isTemp) {
             System.out.println("- l'année d'expiration : ");
             int aE = reader.nextInt();
@@ -105,7 +104,6 @@ public class ClientRH {
             int hE = reader.nextInt();
             System.out.println("- la minute d'expiration : ");
             int minE = reader.nextInt();
-
 
             try {
                 annuaire.enregisterCollaborateurTemporaire(nom,photo,empreinte,

@@ -10,7 +10,7 @@ public interface ServeurAccesOperations
     /**
      * Operation ajoutPerm
      */
-    public void ajoutPerm(short id, short heureDebut, short heureFin, short idZone)
+    public void ajoutPerm(short id, short heureDebut, short heureFin, short idAcces)
         throws GestAcces.ServeurAccesPackage.ZoneInexistante;
 
     /**
