@@ -80,7 +80,7 @@ public class ServeurAccesImpl extends ServeurAccesPOA {
     @Override
     public boolean verifierAcces(short idCollaborateur, short idZone) {
         System.out.println("Id : " + idCollaborateur + " / " + idZone);
-        Acces a = accesDAO.find(idCollaborateur, idZone);
+        Acces a = accesDAO.findByZone(idCollaborateur, idZone);
         if (a == null)
         {
             return false;
@@ -91,6 +91,7 @@ public class ServeurAccesImpl extends ServeurAccesPOA {
             {
                 AccesTemporaire aPer = (AccesTemporaire)  a;
                 Timestamp currentTime = new Timestamp(System.currentTimeMillis());
+                System.out.println(currentTime.toLocalDateTime() + " / " + currentTime.getHours() + " / " + aPer.getHeureDebut() + " + " + aPer.getHeureFin());
                 if (       (aPer.getHeureDebut() < currentTime.getHours())
                         && (aPer.getHeureFin() > currentTime.getHours())
                         && (aPer.getDateFin().after(currentTime)) && (aPer.getDateDebut().before(currentTime)))
@@ -106,6 +107,7 @@ public class ServeurAccesImpl extends ServeurAccesPOA {
             {
                 AccesPermanent aPer = (AccesPermanent)  a;
                 Timestamp currentTime = new Timestamp(System.currentTimeMillis());
+                System.out.println(currentTime.toLocalDateTime() + " / " + currentTime.getHours() + " / " + aPer.getHeureDebut() + " + " + aPer.getHeureFin());
                 if (aPer.getHeureDebut() < currentTime.getHours() && aPer.getHeureFin() > currentTime.getHours())
                 {
                     return true;

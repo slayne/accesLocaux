@@ -188,4 +188,38 @@ public class AccesDAO extends DAO<Acces> {
         }
         return a;
     }
+
+    public Acces findByZone(long idC, long idZ) {
+        ZoneDAO zoneDAO = new ZoneDAO();
+        Acces a = null;
+        try {
+            ResultSet result = this.connect
+                    .createStatement(
+                            ResultSet.TYPE_SCROLL_INSENSITIVE,
+                            ResultSet.CONCUR_UPDATABLE
+                    ).executeQuery(
+                            "SELECT * FROM acces WHERE idCollaborateur = " + idC + "AND idzone = "+ idZ + ";"
+                    );
+            if(result.first()) {
+                if (result.getTimestamp("dateDebut") == null)
+                {
+                    a = new AccesPermanent(zoneDAO.find(result.getInt("idZone")),result.getShort("idCollaborateur"), result.getInt("heureDebut"), result.getInt("heureFin"));
+                    a.setIdAcces(result.getInt("idAcces"));
+                }
+                else {
+                    a = new AccesTemporaire(zoneDAO.find(result.getInt("idZone")),result.getShort("idCollaborateur"), result.getInt("heureDebut"), result.getInt("heureFin"),result.getTimestamp("dateDebut"), result.getTimestamp("dateFin"));
+                    a.setIdAcces(result.getInt("idAcces"));
+                }
+            }
+            else
+            {
+                a = null;
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return a;
+    }
+
 }
