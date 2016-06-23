@@ -55,12 +55,14 @@ public class ServeurAnnuaireImpl extends GestAcces.ServeurAnnuairePOA {
         }
 
         try {
-            servEmpreinte.verifierEmpreinte((short)c.getIdbd(),c.getEmpreinte());
-
+            servEmpreinte.verifierEmpreinte((short)c.getIdbd(),mdp);
+            System.out.println("empreinte OK");
             res=serveurAcces.verifierAcces((short)c.getIdbd(),idZone);
         } catch (EmpreinteInvalide empreinteInvalide) {
             System.out.println("Empreinte invalide");
         }
+
+        System.out.println("swag");
 
         return res;
     }
