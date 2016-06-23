@@ -237,9 +237,10 @@ public class CollaborateurDAO extends DAO<Collaborateur> {
                     ResultSet rs = prepare.getGeneratedKeys();
                     rs.next();
                     int idColl = rs.getInt(1);
-                    obj.setIdbd(idColl);
+                    Collaborateur co = find(idColl);
+                    co.setIdbd(idColl);
 
-            return find(idColl);
+            return co;
         }
         catch (SQLException e) {
             e.printStackTrace();

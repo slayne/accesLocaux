@@ -67,10 +67,12 @@ public class ServeurAnnuaireImpl extends GestAcces.ServeurAnnuairePOA {
     @Override
     public void enregisterCollaborateurPermanent(String nom, String p, String empreinte, Date de) throws CollaborateurDejaExistant {
         CollaborateurPermanent c = new CollaborateurPermanent(nom,p,new Timestamp(System.currentTimeMillis()),empreinte);
+        System.out.println(c.getEmpreinte());
         c=(CollaborateurPermanent) collabDAO.create(c);
 
         try {
             System.out.println("Id bdd : " + c.getIdbd());
+            System.out.println("nom : " + c.getNom());
             servEmpreinte.enregistrerEmpreinte((short)c.getIdbd(),empreinte);
         } catch (EmpreintePresente empreintePresente) {
            throw new CollaborateurDejaExistant();
@@ -96,7 +98,7 @@ public class ServeurAnnuaireImpl extends GestAcces.ServeurAnnuairePOA {
         ArrayList<CollaborateurCorba> listcorba = new ArrayList<CollaborateurCorba>();
 
         for(Collaborateur c : list){
-            listcorba.add(collabDAO.findCorba(c.getPhoto(),serveurAcces.getAccesCollaborateur((short) c.getIdbd())));
+            listcorba.add(collabDAO.findCorba(c.getPhoto(), serveurAcces.getAccesCollaborateur((short) c.getIdbd())));
         }
         System.out.println(listcorba.get(1).nom);
         CollaborateurCorba[] res = new CollaborateurCorba[listcorba.size()];

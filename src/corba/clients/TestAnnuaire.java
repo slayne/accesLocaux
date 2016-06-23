@@ -49,6 +49,8 @@ public class TestAnnuaire {
 
             CollaborateurCorba[] lc= annuaire.rechercherCollaborateurs();
             System.out.println(lc[0].nom);
+
+
         } catch (Exception e) {
             e.printStackTrace();
         }
