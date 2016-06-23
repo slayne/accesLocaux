@@ -25,7 +25,7 @@ module GestAcces {
 	};
 
 
-
+    // structures nécessaires pour l'affichage d'informations aux IHM
     struct AccesCorba {
         short idAcces;
         Zone zone;
@@ -52,15 +52,21 @@ module GestAcces {
 
     typedef sequence<CollaborateurCorba> lCollabo;
 
+    // serveur gérant les collaborateurs
 	interface ServeurAnnuaire {
 		exception CollaborateurInexistant {};
 		exception CollaborateurDejaExistant {};
 
+        // vérifie si un collabo est autorisé à accèder à une zone (via le serveur d'accès)
 		boolean demanderAcces(in string Photo, in string mdp, in short idZone) raises (CollaborateurInexistant);
+		// enregistre un nouveau collaborateur (permanent / temmporaire))
 		void enregisterCollaborateurPermanent(in string nom, in Photo p, in string empreinte, in Date de) raises(CollaborateurDejaExistant);
 		void enregisterCollaborateurTemporaire(in string nom, in Photo p, in string empreinte, in Date de, in Date df) raises(CollaborateurDejaExistant);
+		// retourne tous les collabos (méthode ihm)
 		lCollabo rechercherCollaborateurs();
+		// supprime un collabo
 		void supprimerCollaborateur(in short id) raises(CollaborateurInexistant);
+		// retourne un collaborateur en particulier (méthode ihm)
 		CollaborateurCorba rechercherCollaborateur(in Photo p, in string empreinte) raises (CollaborateurInexistant);
 	};
 
@@ -69,9 +75,13 @@ module GestAcces {
 		exception EmpreintePresente{};
 		exception EmpreinteInvalide{};
 
+        // enregistre une empreinte à partir d'un nouveau collabo (appelé depuis serveur annuaire)
 		void enregistrerEmpreinte(in short idCollaborateur, in string empreinte) raises(EmpreintePresente);
+		// modifie une empreinte d'un collabo existant (appelé depuis IHM)
 		void modifierEmpreinte(in short idCollaborateur, in string nouvelleEmpreinte) raises (EmpreinteInexistante);
+		// supprime une empreinte (appelé uniquement quand un collabo est supprimé)
 		void supprimerEmpreinte(in short idCollaborateur) raises (EmpreinteInexistante);
+		// vérifie que l'empreinte d'un collabo est valide
 		void verifierEmpreinte(in short idCollaborateur,in string mdp) raises (EmpreinteInvalide);
 		string getEmpreinte(in short idCollaborateur) raises (EmpreinteInvalide);
 	};
@@ -79,7 +89,9 @@ module GestAcces {
     typedef sequence<Log> lLog;
 
 	interface ServeurLog {
+	    // envoie un log au serveur de log
 		oneway void envoyerLog(in string log);
+		// méthodes d'affichage de logs, renvoient un tableau de log (pour ihm)
 		lLog afficherLogs();
 		lLog afficherLogsFromDate(in Date date);
 		lLog afficherLogsfromDateToDate(in Date dated, in Date datef);
@@ -95,17 +107,21 @@ module GestAcces {
 		exception PorteInexistante {};
 		exception ZoneInexistante {};
 
+        // ajoute un accès permanent
 		void ajoutPerm(in short id, in Heure heureDebut, in Heure heureFin, in short idAcces) raises (ZoneInexistante);
+		// ajoute un accès temporaire
 		void ajoutTemp(in short id, in Jour jourDeb, in Jour jourFin,in Heure heureDebut, in Heure heureFin, in short idZone) raises (ZoneInexistante);
+		// supprime un accès
 		void supprimerUnAcces (in short idCollaborateur, in short idZone) raises (CollaborateurInexistant);
+		// vérifie si une collabo peut accèder à une zone donnée, à une date donnée (date courante)
 		boolean verifierAcces (in short idCollaborateur,in short idZone);
+		// suppression de tous les accès d'un collabo
 		void supprimerAccesCollaborateur(in short idCollaborateur) raises (CollaborateurInexistant);
 
+        // méthodes d'affichage pour IHM
 		lZone getListeZone();
-
 		// renvoie les zones liées à une porte
 		lZone getZonesPorte(in short idPorte) raises (PorteInexistante);
-
 		lAcces getAccesCollaborateur(in short idCollaborateur);
 	};
 };

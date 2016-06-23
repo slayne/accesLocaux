@@ -30,7 +30,7 @@ public class ServeurLogImpl extends ServeurLogPOA {
         logs = logsList.toArray(logs);
 
         for (Log l: logs) {
-                System.out.println("log : " + l.log + " / " + l.date.h + ":" + l.date.m);
+                System.out.println("log : " + l.log + " / " + l.date.j.annee + "-" + l.date.j.mois+ l.date.j.jour + " > " + l.date.h + ":" + l.date.m);
         }
         return logs;
     }

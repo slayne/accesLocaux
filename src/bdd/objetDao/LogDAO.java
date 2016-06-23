@@ -40,6 +40,7 @@ public class LogDAO extends DAO<Log> {
 
     public ArrayList<Log> getInstancesFrom(Date from) {
         ArrayList<Log> logs = new ArrayList<Log>();
+        System.out.println(AccesUtils.corbaDateToTimeStamp(from).toLocalDateTime());
         try {
 
             ResultSet result = this.connect.createStatement(

@@ -55,6 +55,7 @@ public class AccesUtils {
         try {
             parsedDate = dateFormat.parse(date);
             timestamp = new java.sql.Timestamp(parsedDate.getTime());
+            System.out.println(timestamp.toLocalDateTime());
             return timestampToCorbaDate(timestamp);
         } catch (ParseException e) {
             e.printStackTrace();

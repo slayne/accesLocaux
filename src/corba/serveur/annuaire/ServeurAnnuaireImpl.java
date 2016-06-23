@@ -54,19 +54,13 @@ public class ServeurAnnuaireImpl extends GestAcces.ServeurAnnuairePOA {
             c = (CollaborateurPermanent) collabDAO.find(Photo);
         }
 
-        // récupération de l'empreinte
         try {
-            c.setEmpreinte(servEmpreinte.getEmpreinte((short)c.getIdbd()));
+            servEmpreinte.verifierEmpreinte((short)c.getIdbd(),c.getEmpreinte());
+
+            res=serveurAcces.verifierAcces((short)c.getIdbd(),idZone);
         } catch (EmpreinteInvalide empreinteInvalide) {
             System.out.println("Empreinte invalide");
         }
-
-
-        if(c.getEmpreinte().equals(mdp)){
-            res=serveurAcces.verifierAcces((short)c.getIdbd(),idZone);
-        }
-
-
 
         return res;
     }

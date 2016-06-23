@@ -46,8 +46,6 @@ public class ClientLog {
                 System.out.println("que voulez vous faire ?");
                 System.out.println("--- 0 : quitter");
                 System.out.println("--- 1 : lire tous les logs");
-                System.out.println("--- 2 : lire les logs depuis une date");
-                System.out.println("--- 3 : lire les logs depuis une date, jusqu'à une date");
                 Scanner reader = new Scanner(System.in);  // Reading from System.in
                 int n = reader.nextInt(); // Scans the next token of the input as an int.
                 switch (n) {
@@ -56,26 +54,7 @@ public class ClientLog {
                     case 1:
                         Log[] ls = myLog.afficherLogs();
                         for (Log l : ls) {
-                            System.out.println("log : " + l.log + " / " + l.date.h + ":" + l.date.m);
-                        }
-                        break;
-                    case 2:
-                        System.out.println("Entrez une date sous le format yyyy-MM-dd puis hh:mm:ss :");
-                        String datef = reader.next();
-                        datef+= " " + reader.next();
-                        Log[] ll = myLog.afficherLogsFromDate(AccesUtils.stringToCorbaDate(datef));
-                        for (Log l : ll) {
-                            System.out.println("log : " + l.log + " / " + l.date.h + ":" + l.date.m);
-                        }
-                        break;
-                    case 3:
-                        System.out.println("Date de début : Entrez une date sous le format yyyy-MM-dd hh:mm:ss :");
-                        String datedeb = reader.next();
-                        System.out.println("Date de fin : Entrez une date sous le format yyyy-MM-dd hh:mm:ss :");
-                        String datefin = reader.next();
-                        Log[] lls = myLog.afficherLogsfromDateToDate(AccesUtils.stringToCorbaDate(datedeb),AccesUtils.stringToCorbaDate(datefin));
-                        for (Log l : lls) {
-                            System.out.println("log : " + l.log + " / " + l.date.h + ":" + l.date.m);
+                            System.out.println("log : " + l.log + " / " + l.date.j.annee + "-" + l.date.j.mois+ l.date.j.jour + " > " + l.date.h + ":" + l.date.m);
                         }
                         break;
                     default: break;
