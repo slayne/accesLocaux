@@ -130,7 +130,7 @@ public class ServeurAccesImpl extends ServeurAccesPOA {
             }
             else
             {
-                acces[i] = new AccesCorba((short)a.getIdAcces(), a.getZone(), a.getIdCollaborateur(), null,null, (short) ((AccesPermanent) a).getHeureDebut(), (short) ((AccesPermanent) a).getHeureFin(), false);
+                acces[i] = new AccesCorba((short)a.getIdAcces(), a.getZone(), a.getIdCollaborateur(), new GestAcces.Date(new Jour((short)0,(short)0,(short)0),(short)0,(short)0),new GestAcces.Date(new Jour((short)0,(short)0,(short)0),(short)0,(short)0), (short) ((AccesPermanent) a).getHeureDebut(), (short) ((AccesPermanent) a).getHeureFin(), false);
             }
             i++;
         }
