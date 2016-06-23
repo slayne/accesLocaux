@@ -1,6 +1,7 @@
 package corba.clients;
 
 import GestAcces.*;
+import GestAcces.ServeurAccesPackage.CollaborateurInexistant;
 import GestAcces.ServeurAccesPackage.ZoneInexistante;
 import bdd.objetsMetier.personnel.Collaborateur;
 import org.omg.CORBA.ORB;
@@ -181,6 +182,15 @@ public class ClientGestionnaireAcces {
                 System.out.println(" > du " + AccesUtils.corbaDateToTimeStamp(a.dateDebut).toGMTString() + " au " + AccesUtils.corbaDateToTimeStamp(a.dateDebut).toGMTString());
             } else System.out.println("");
         }
+
+        System.out.println("Quel accès voulez vous supprimer ? ");
+        int id = reader.nextInt();
+        try {
+            acces.supprimerAccesCollaborateur((short)id);
+            log.envoyerLog("Serveur accès : suppression accès n°" + id);
+        } catch (CollaborateurInexistant collaborateurInexistant) {
+            System.out.println("erreur suppression");
+        };
     }
 
     private static String getType(boolean isTemp) {
