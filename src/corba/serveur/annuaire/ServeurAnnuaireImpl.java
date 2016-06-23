@@ -1,12 +1,10 @@
 package corba.serveur.annuaire;
 
-import GestAcces.CollaborateurCorba;
-import GestAcces.Date;
-import GestAcces.ServeurAcces;
+import GestAcces.*;
+import GestAcces.ServeurAccesPackage.ZoneInexistante;
 import GestAcces.ServeurAnnuairePackage.CollaborateurDejaExistant;
 import GestAcces.ServeurAnnuairePackage.CollaborateurInexistant;
 import GestAcces.ServeurAnnuairePackage.CollaborateurInnexistant;
-import GestAcces.ServeurEmpreinte;
 import GestAcces.ServeurEmpreintePackage.EmpreinteInexistante;
 import GestAcces.ServeurEmpreintePackage.EmpreinteInvalide;
 import GestAcces.ServeurEmpreintePackage.EmpreintePresente;
@@ -18,6 +16,7 @@ import bdd.objetsMetier.personnel.collabos.CollaborateurPermanent;
 import bdd.objetsMetier.personnel.collabos.CollaborateurTemporaire;
 import corba.clients.Collabo;
 import corba.serveur.empreinte.ServeurEmpreinteImpl;
+import utils.AccesUtils;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -46,20 +45,28 @@ public class ServeurAnnuaireImpl extends GestAcces.ServeurAnnuairePOA {
 
         boolean res= false;
 
-        if(collabDAO.isTemp(Photo)){
-            CollaborateurTemporaire c =(CollaborateurTemporaire)collabDAO.find(Photo);
+        Collaborateur c;
 
-            if(c.getEmpreinte().equals(mdp)){
-                res=serveurAcces.verifierAcces((short)c.getIdbd(),idZone);
-            }
+        if(collabDAO.isTemp(Photo)){
+            c =(CollaborateurTemporaire)collabDAO.find(Photo);
 
         }else{
-            CollaborateurPermanent c = (CollaborateurPermanent) collabDAO.find(Photo);
-
-            if(c.getEmpreinte().equals(mdp)){
-                res=serveurAcces.verifierAcces((short)c.getIdbd(),idZone);
-            }
+            c = (CollaborateurPermanent) collabDAO.find(Photo);
         }
+
+        // récupération de l'empreinte
+        try {
+            c.setEmpreinte(servEmpreinte.getEmpreinte((short)c.getIdbd()));
+        } catch (EmpreinteInvalide empreinteInvalide) {
+            System.out.println("Empreinte invalide");
+        }
+
+
+        if(c.getEmpreinte().equals(mdp)){
+            res=serveurAcces.verifierAcces((short)c.getIdbd(),idZone);
+        }
+
+
 
         return res;
     }
@@ -71,9 +78,14 @@ public class ServeurAnnuaireImpl extends GestAcces.ServeurAnnuairePOA {
         c=(CollaborateurPermanent) collabDAO.create(c);
 
         try {
-            System.out.println("Id bdd : " + c.getIdbd());
-            System.out.println("nom : " + c.getNom());
             servEmpreinte.enregistrerEmpreinte((short)c.getIdbd(),empreinte);
+
+            // création d'un accès à l'accueil par défaut
+            try {
+                serveurAcces.ajoutPerm((short)c.getIdbd(), (short)9, (short)17,(short)1);
+            } catch (ZoneInexistante zoneInexistante) {
+                System.out.println("Erreur création accès");
+            }
         } catch (EmpreintePresente empreintePresente) {
            throw new CollaborateurDejaExistant();
         }
@@ -86,6 +98,17 @@ public class ServeurAnnuaireImpl extends GestAcces.ServeurAnnuairePOA {
 
         try {
             servEmpreinte.enregistrerEmpreinte((short)c.getIdbd(),empreinte);
+
+            // création d'un accès à l'accueil par défaut
+            try {
+                serveurAcces.ajoutTemp((short)c.getIdbd(),
+                        de.j,
+                        df.j,
+                        (short)9, (short)17,(short)1);
+            } catch (ZoneInexistante zoneInexistante) {
+                System.out.println("Erreur création accès");
+            }
+
         } catch (EmpreintePresente empreintePresente) {
             throw new CollaborateurDejaExistant();
         }
@@ -96,68 +119,41 @@ public class ServeurAnnuaireImpl extends GestAcces.ServeurAnnuairePOA {
 
          ArrayList<Collaborateur> list =  collabDAO.getInstances();
         ArrayList<CollaborateurCorba> listcorba = new ArrayList<CollaborateurCorba>();
-
         for(Collaborateur c : list){
-            listcorba.add(collabDAO.findCorba(c.getPhoto(), serveurAcces.getAccesCollaborateur((short) c.getIdbd())));
+            listcorba.add(collabDAO.findCorba(c.getPhoto(),
+                    //serveurAcces.getAccesCollaborateur((short) c.getIdbd()))
+                    new AccesCorba[0])
+            );
         }
-        System.out.println(listcorba.get(1).nom);
+        System.out.println("nonm : " + listcorba.get(0).nom);
         CollaborateurCorba[] res = new CollaborateurCorba[listcorba.size()];
         res= listcorba.toArray(res);
 
+        System.out.println(res);
         return res;
-    }
-
-    public CollaborateurPermanent getPermanent(int id) throws EmpreinteInvalide {
-        CollaborateurPermanent c = (CollaborateurPermanent)collabDAO.find(id);
-        c.setEmpreinte(servEmpreinte.getEmpreinte((short) id));
-
-
-        return c;
-    }
-
-    public CollaborateurTemporaire getTemporaire(int id) throws EmpreinteInvalide {
-        CollaborateurTemporaire c = (CollaborateurTemporaire)collabDAO.find(id);
-        c.setEmpreinte(servEmpreinte.getEmpreinte((short)id));
-
-        return c;
-    }
-
-    public CollaborateurPermanent updatePermanent(CollaborateurPermanent co) throws EmpreinteInvalide, EmpreinteInexistante {
-        CollaborateurPermanent c = (CollaborateurPermanent) collabDAO.update(co);
-        servEmpreinte.modifierEmpreinte((short) c.getIdbd(), co.getEmpreinte());
-        c.setEmpreinte(servEmpreinte.getEmpreinte((short) c.getIdbd()));
-
-        return c;
-    }
-
-    public CollaborateurTemporaire updateTeporaire(CollaborateurTemporaire co) throws EmpreinteInvalide, EmpreinteInexistante, CollaborateurInexistant {
-
-        CollaborateurTemporaire c = (CollaborateurTemporaire) collabDAO.update(co);
-        servEmpreinte.modifierEmpreinte((short) c.getIdbd(), co.getEmpreinte());
-        c.setEmpreinte(servEmpreinte.getEmpreinte((short) c.getIdbd()));
-
-        return c;
     }
 
     @Override
     public void supprimerCollaborateur(short id) throws CollaborateurInexistant {
-        collabDAO.delete(collabDAO.find(id));
+        Collaborateur c = collabDAO.find(id);
+        if (c==null) throw new CollaborateurInexistant();
+
         try {
             servEmpreinte.supprimerEmpreinte(id);
-           serveurAcces.supprimerAccesCollaborateur((short)id);
+            serveurAcces.supprimerAccesCollaborateur(id);
             //faire supprimer acces
         } catch (EmpreinteInexistante empreinteInexistante) {
-            throw  new CollaborateurInexistant();
+            System.out.println("Empreinte déjà supprimée");
         } catch (GestAcces.ServeurAccesPackage.CollaborateurInexistant collaborateurInexistant) {
             collaborateurInexistant.printStackTrace();
         }
+        collabDAO.delete(c);
     }
 
     @Override
     public CollaborateurCorba rechercherCollaborateur(String p, String empreinte) throws CollaborateurInexistant {
-        System.out.println("wesg");
-        CollaborateurCorba co = collabDAO.findCorba(p,serveurAcces.getAccesCollaborateur((short)collabDAO.find(p).getIdbd()));
-        System.out.println("test " + co.nom);
+        AccesCorba[] as = new AccesCorba[0];
+        CollaborateurCorba co = collabDAO.findCorba(p,as);
         return co;
     }
 

@@ -49,17 +49,23 @@ public class ClientModifEmpreinte {
         }
     }
 
-    public void modifierEmpreinte(String photo, String empreinte) {
+    public String modifierEmpreinte(String photo, String empreinte) {
         System.out.println("Modification des empreintes");
 
         int collaboId = 0;
 
         try {
-            collaboId = annuaire.rechercherCollaborateur(photo, empreinte).id;
+            CollaborateurCorba co = annuaire.rechercherCollaborateur(photo, empreinte);
+            if (co.isTemp) {
+                System.out.println("Vous n'avez pas le droit de modifier votre empreinte");
+                return null;
+            }
+            collaboId = co.id;
         } catch (GestAcces.ServeurAnnuairePackage.CollaborateurInexistant collaborateurInexistant) {
             System.out.println("Identifiants invalides !");
-            return;
+            return null;
         }
+        String nouvelleEmpreinte = null;
         reader = new Scanner(System.in);  // Reading from System.in
         boolean userInput = true;
         while (userInput) {
@@ -73,12 +79,12 @@ public class ClientModifEmpreinte {
                     break;
                 case 1:
                     System.out.println("Entre votre nouvelle empreinte :");
-                    String nouvelleEmpreinte = reader.next();
+                    nouvelleEmpreinte = reader.next();
                     try {
                         myEmpreinte.modifierEmpreinte((short) collaboId, nouvelleEmpreinte);
                     } catch (EmpreinteInexistante empreinteInexistante) {
                         System.out.println("Empreinte du collaborateur inexistante");
-                        return;
+                        return null;
                     }
                     System.out.println("Empreinte modifiée");
                     break;
@@ -86,5 +92,7 @@ public class ClientModifEmpreinte {
                     break;
             }
         }
+
+        return nouvelleEmpreinte;
     }
 }

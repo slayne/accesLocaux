@@ -22,8 +22,21 @@ public class AccesUtils {
     public static final String EMPREINTE_SERVER = "Ce genre de serveur d'empreinte mamene";
 
     public static Timestamp corbaJourToTimestamp(Jour j) {
-        java.sql.Date d = new java.sql.Date(j.annee, j.mois, j.jour);
+        System.out.println("Corba ! " + j.annee + " / " + j.mois + j.jour);
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        java.util.Date d = null;
+        try {
+            d = sdf.parse(j.jour + "/" + j.mois +"/"+ j.annee);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
         return new Timestamp(d.getTime());
+    }
+
+    public static Jour timestampToCorbaJour(Timestamp t) {
+        Jour j = new Jour((short)t.getYear(),(short)t.getMonth(),(short)t.getDay());
+
+        return j;
     }
 
     public static Timestamp corbaDateToTimeStamp(GestAcces.Date d) {
@@ -75,8 +88,8 @@ public class AccesUtils {
 
             // Recherche aupres du naming service
             Object distantAcces = nameRoot.resolve(nameToFind);
-            System.out.println("Objet '" + idObj + "' trouve aupres du service de noms. IOR de l'objet :");
-            System.out.println(orb.object_to_string(distantAcces));
+            /*System.out.println("Objet '" + idObj + "' trouve aupres du service de noms. IOR de l'objet :");
+            System.out.println(orb.object_to_string(distantAcces));*/
 
             // Utilisation directe de l'IOR (SAUF utilisation du service de nommage)
             // org.omg.CORBA.Object distantEuro = orb.string_to_object("IOR:000000000000001b49444c3a436f6e766572746973736575722f4575726f3a312e30000000000001000000000000008a00010200000000103133302e3132302e3230392e31353500db7f000000000031afabcb0000000020dc306ed400000001000000000000000100000008526f6f74504f410000000008000000010000000014000000000000020000000100000020000000000001000100000002050100010001002000010109000000010001010000000026000000020002");
@@ -100,8 +113,8 @@ public class AccesUtils {
 
             // Recherche aupres du naming service
             Object distantAcces = nameRoot.resolve(nameToFind);
-            System.out.println("Objet '" + idObj + "' trouve aupres du service de noms. IOR de l'objet :");
-            System.out.println(orb.object_to_string(distantAcces));
+            /*System.out.println("Objet '" + idObj + "' trouve aupres du service de noms. IOR de l'objet :");
+            System.out.println(orb.object_to_string(distantAcces));*/
 
             // Utilisation directe de l'IOR (SAUF utilisation du service de nommage)
             // org.omg.CORBA.Object distantEuro = orb.string_to_object("IOR:000000000000001b49444c3a436f6e766572746973736575722f4575726f3a312e30000000000001000000000000008a00010200000000103133302e3132302e3230392e31353500db7f000000000031afabcb0000000020dc306ed400000001000000000000000100000008526f6f74504f410000000008000000010000000014000000000000020000000100000020000000000001000100000002050100010001002000010109000000010001010000000026000000020002");
@@ -151,8 +164,8 @@ public class AccesUtils {
 
             // Recherche aupres du naming service
             Object distantAcces = nameRoot.resolve(nameToFind);
-            System.out.println("Objet '" + idObj + "' trouve aupres du service de noms. IOR de l'objet :");
-            System.out.println(orb.object_to_string(distantAcces));
+            /*System.out.println("Objet '" + idObj + "' trouve aupres du service de noms. IOR de l'objet :");
+            System.out.println(orb.object_to_string(distantAcces));*/
 
             // Utilisation directe de l'IOR (SAUF utilisation du service de nommage)
             // org.omg.CORBA.Object distantEuro = orb.string_to_object("IOR:000000000000001b49444c3a436f6e766572746973736575722f4575726f3a312e30000000000001000000000000008a00010200000000103133302e3132302e3230392e31353500db7f000000000031afabcb0000000020dc306ed400000001000000000000000100000008526f6f74504f410000000008000000010000000014000000000000020000000100000020000000000001000100000002050100010001002000010109000000010001010000000026000000020002");

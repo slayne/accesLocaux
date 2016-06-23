@@ -13,6 +13,8 @@ import bdd.objetsMetier.Acces;
 import utils.AccesUtils;
 import bdd.objetsMetier.acces.AccesPermanent;
 import bdd.objetsMetier.acces.AccesTemporaire;
+
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -42,6 +44,7 @@ public class ServeurAccesImpl extends ServeurAccesPOA {
         }
         else
         {
+            System.out.println(jourDeb.annee);
             AccesTemporaire at = new AccesTemporaire(z, id, heureDebut, heureFin, AccesUtils.corbaJourToTimestamp(jourDeb), AccesUtils.corbaJourToTimestamp(jourFin));
             accesDAO.create(at);
         }
@@ -69,13 +72,14 @@ public class ServeurAccesImpl extends ServeurAccesPOA {
         else
         {
             for (Acces a: aList) {
-                accesDAO.create(a);
+                accesDAO.delete(a);
             }
         }
     }
 
     @Override
     public boolean verifierAcces(short idCollaborateur, short idZone) {
+        System.out.println("Id : " + idCollaborateur + " / " + idZone);
         Acces a = accesDAO.find(idCollaborateur, idZone);
         if (a == null)
         {
@@ -86,8 +90,10 @@ public class ServeurAccesImpl extends ServeurAccesPOA {
             if (a instanceof AccesTemporaire)
             {
                 AccesTemporaire aPer = (AccesTemporaire)  a;
-                Date d = new Date();
-                if (aPer.getHeureDebut() < d.getHours() && aPer.getHeureFin() > d.getHours() && aPer.getDateFin().getDate() > d.getDate()  )
+                Timestamp currentTime = new Timestamp(System.currentTimeMillis());
+                if (       (aPer.getHeureDebut() < currentTime.getHours())
+                        && (aPer.getHeureFin() > currentTime.getHours())
+                        && (aPer.getDateFin().after(currentTime)) && (aPer.getDateDebut().before(currentTime)))
                 {
                      return true;
                 }
@@ -99,8 +105,8 @@ public class ServeurAccesImpl extends ServeurAccesPOA {
             else
             {
                 AccesPermanent aPer = (AccesPermanent)  a;
-                Date d = new Date();
-                if (aPer.getHeureDebut() < d.getHours() && aPer.getHeureFin() > d.getHours())
+                Timestamp currentTime = new Timestamp(System.currentTimeMillis());
+                if (aPer.getHeureDebut() < currentTime.getHours() && aPer.getHeureFin() > currentTime.getHours())
                 {
                     return true;
                 }

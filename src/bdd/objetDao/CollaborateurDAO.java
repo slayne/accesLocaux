@@ -70,7 +70,7 @@ public class CollaborateurDAO extends DAO<Collaborateur> {
                 }
 
 
-                //collaborateur.setId(result.getInt("idCollabo"));
+                collaborateur.setIdbd(result.getInt("id"));
             }
 
         } catch (SQLException e) {
@@ -105,7 +105,6 @@ public class CollaborateurDAO extends DAO<Collaborateur> {
                             df,
                             a);
                             //new AccesCorba[]{new AccesCorba((short)1,new Zone((short)1,"re"),(short)0,AccesUtils.timestampToCorbaDate(new Timestamp(System.currentTimeMillis())),AccesUtils.timestampToCorbaDate(new Timestamp(System.currentTimeMillis())),(short)1,(short)2,false)});
-                    System.out.println("ss");
 
 
                 //collaborateur.setId(result.getInt("idCollabo"));
@@ -175,7 +174,7 @@ public class CollaborateurDAO extends DAO<Collaborateur> {
                             result.getString("photo"),
                             result.getTimestamp("dateentree"),
                             null,
-                            result.getTimestamp("datefin"));
+                            result.getTimestamp("datef"));
                 }else{
                     collaborateur = new CollaborateurPermanent(result.getString("nom"),
                             result.getString("photo"),
@@ -194,16 +193,20 @@ public class CollaborateurDAO extends DAO<Collaborateur> {
     }
     public boolean isTemp(String photo) {
         Boolean res=false;
+        System.out.println("temp?");
+
         try {
             ResultSet result = this .connect
                     .createStatement(
                             ResultSet.TYPE_SCROLL_INSENSITIVE,
                             ResultSet.CONCUR_UPDATABLE
                     ).executeQuery(
-                            "select istemp from collaborateur where collaborateur.photo="+photo+";"
+                            "SELECT * FROM collaborateur WHERE photo=\'"+photo+"\';"
                     );
-            res= result.getBoolean("istemp");
-
+            if(result.first()) {
+                System.out.println("ttest");
+                res = result.getBoolean("istemp");
+            }
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -251,10 +254,7 @@ public class CollaborateurDAO extends DAO<Collaborateur> {
 
     @Override
     public Collaborateur update(Collaborateur obj) {
-
-
         try {
-
             if(obj instanceof CollaborateurTemporaire){
                 this.connect
                         .createStatement(

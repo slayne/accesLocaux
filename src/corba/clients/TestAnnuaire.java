@@ -5,6 +5,8 @@ import GestAcces.ServeurAnnuairePackage.CollaborateurDejaExistant;
 import GestAcces.ServeurAnnuairePackage.CollaborateurInexistant;
 import bdd.objetDao.CollaborateurDAO;
 import bdd.objetsMetier.Acces;
+import bdd.objetsMetier.personnel.collabos.CollaborateurPermanent;
+import bdd.objetsMetier.personnel.collabos.CollaborateurTemporaire;
 import org.omg.CORBA.ORB;
 import org.omg.CORBA.ORBPackage.InvalidName;
 import org.omg.CORBA.Object;
@@ -21,6 +23,7 @@ import java.util.Scanner;
  */
 public class TestAnnuaire {
     public static ServeurAnnuaire annuaire;
+    public static ServeurAcces acces;
     public static ServeurLog log;
     public static ORB orb;
     private static NamingContext nameRoot;
@@ -41,16 +44,10 @@ public class TestAnnuaire {
             CollaborateurDAO c= new CollaborateurDAO();
             annuaire = AccesUtils.connexionAnnuaire(orb,nameRoot);
             log = AccesUtils.connexionLog(orb, nameRoot);
+            acces = AccesUtils.connexionAcces(orb,nameRoot);
 
-
-            CollaborateurCorba co=annuaire.rechercherCollaborateur("un", "un");
-            System.out.println(co.nom);
-
-
-            CollaborateurCorba[] lc= annuaire.rechercherCollaborateurs();
-            System.out.println(lc[0].nom);
-
-
+            System.out.println(c.find(28).getIdbd());
+            c.delete(c.find(28));
         } catch (Exception e) {
             e.printStackTrace();
         }

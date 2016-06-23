@@ -139,7 +139,6 @@ public class ClientGestionnaireAcces {
             System.out.println("- le jour d'activation : ");
             int jA = reader.nextInt();
 
-
             try {
                 acces.ajoutTemp(collabo.id,
                         new Jour((short) aA, (short) mA, (short) jA),
@@ -174,7 +173,14 @@ public class ClientGestionnaireAcces {
 
 
     public static void supprimerAcces(CollaborateurCorba c) {
+        System.out.println("Liste des accès : ");
 
+        for (AccesCorba a : acces.getAccesCollaborateur(c.id)) {
+            System.out.print(" - n°"+a.idAcces + " : " + " acces" + getType(a.isTemp) + " " + a.heureDebut + "h - " + a.heureFin + "h ");
+            if (a.isTemp) {
+                System.out.println(" > du " + AccesUtils.corbaDateToTimeStamp(a.dateDebut).toGMTString() + " au " + AccesUtils.corbaDateToTimeStamp(a.dateDebut).toGMTString());
+            } else System.out.println("");
+        }
     }
 
     private static String getType(boolean isTemp) {

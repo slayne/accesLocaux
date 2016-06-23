@@ -50,10 +50,10 @@ public class EmpreinteDAO extends DAO<Empreinte> {
                             ResultSet.TYPE_SCROLL_INSENSITIVE,
                             ResultSet.CONCUR_UPDATABLE
                     ).executeQuery(
-                            "SELECT * FROM empreinte WHERE idCollaborateur = " + id
+                            "SELECT * FROM empreinte WHERE idcollaborateur = " + id
                     );
             if(result.first()) {
-                log = new Empreinte(result.getString("empreinte"), (short)result.getInt("idCollaborateur"));
+                log = new Empreinte(result.getString("empreinte"), (short)result.getInt("idcollaborateur"));
             }
 
         } catch (SQLException e) {
@@ -68,7 +68,7 @@ public class EmpreinteDAO extends DAO<Empreinte> {
             // insertion de l'objet
             PreparedStatement prepare =
                     this.connect.prepareStatement(
-                            "INSERT INTO empreinte(empreinte,idCollaborateur) VALUES (?, ?)",
+                            "INSERT INTO empreinte(empreinte,idcollaborateur) VALUES (?, ?)",
                             Statement.RETURN_GENERATED_KEYS
                     );
             prepare.setString(1, obj.empreinte);

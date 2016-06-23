@@ -3,6 +3,10 @@ package corba.clients;
 
 import GestAcces.ServeurAnnuairePackage.CollaborateurInexistant;
 import GestAcces.Zone;
+import bdd.objetDao.CollaborateurDAO;
+import bdd.objetDao.EmpreinteDAO;
+import bdd.objetsMetier.Empreinte;
+import bdd.objetsMetier.personnel.Collaborateur;
 
 import java.util.HashMap;
 import java.util.Scanner;
@@ -16,8 +20,21 @@ public class Collabo {
     private HashMap<Integer,ClientPorte> portesZone;
 
     public static void main(String[] args) {
+        Scanner reader = new Scanner(System.in);  // Reading from System.in
+        System.out.println("Choissisez un collabo :");
+        CollaborateurDAO c = new CollaborateurDAO();
+        EmpreinteDAO e = new EmpreinteDAO();
+        for (Collaborateur collabo : c.getInstances()) {
+            System.out.println("- n°" + collabo.getIdbd() + " : " + collabo.getNom());
+        }
+        int id = reader.nextInt();
+        Collaborateur choosen = c.find(id);
 
-        Collabo collabo = new Collabo("d","d");
+        Empreinte emp = e.find(id);
+
+        System.out.println("Collaborateur " + choosen.getNom() + " , photo " + choosen.getPhoto() + " / empreinte " + emp.empreinte + " arrivé à l'accueil");
+
+        Collabo collabo = new Collabo(choosen.getPhoto(),emp.empreinte);
         collabo.naviguer();
     }
 
@@ -47,6 +64,13 @@ public class Collabo {
         } else {
             System.out.println("Accès interdit");
         }
+
+        portesZone = Entreprise.getPortesInZone(zoneCourante);
+        for (ClientPorte po : portesZone.values()) {
+            System.out.println("Porte " + po.getIdPorte() + " : vers zone " + po.getZoneSuivante(zoneCourante).nomZone);
+        }
+
+
     }
 
     public void fouillerZoneCourante() {
@@ -66,17 +90,18 @@ public class Collabo {
         boolean input = true;
         while (input) {
             Scanner reader = new Scanner(System.in);  // Reading from System.in
-            System.out.println("Quelle élément voulez vous atteindre ? (0 pour quitter)");
+            System.out.println("Quel élément voulez vous atteindre ? (0 pour quitter)");
             int n = reader.nextInt(); // Scans the next token of the input as an int.
             if (n==0) {
                 input = false;
             } else {
                 if ((n==99) && (zoneCourante.idZone ==1)) {
-                    Entreprise.getModifEmpreinte().modifierEmpreinte(photo,empreinte);
+                    String nouvelleEmpreinte =  Entreprise.getModifEmpreinte().modifierEmpreinte(photo,empreinte);
+                    empreinte = nouvelleEmpreinte;
+                } else {
+                    ClientPorte p = portesZone.get(n);
+                    passerPorte(p, p.getZoneSuivante(zoneCourante));
                 }
-                ClientPorte p = portesZone.get(n);
-
-                passerPorte(p, p.getZoneSuivante(zoneCourante));
             }
         }
     }

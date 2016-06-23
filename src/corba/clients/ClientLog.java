@@ -60,8 +60,9 @@ public class ClientLog {
                         }
                         break;
                     case 2:
-                        System.out.println("Entrez une date sous le format yyyy-MM-dd hh:mm:ss :");
+                        System.out.println("Entrez une date sous le format yyyy-MM-dd puis hh:mm:ss :");
                         String datef = reader.next();
+                        datef+= " " + reader.next();
                         Log[] ll = myLog.afficherLogsFromDate(AccesUtils.stringToCorbaDate(datef));
                         for (Log l : ll) {
                             System.out.println("log : " + l.log + " / " + l.date.h + ":" + l.date.m);

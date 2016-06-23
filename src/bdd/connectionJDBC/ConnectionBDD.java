@@ -3,6 +3,7 @@ package bdd.connectionJDBC;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.HashMap;
 
 /**
  * Created by Stéfan on 08/11/2015.
@@ -15,22 +16,23 @@ public class ConnectionBDD {
 
     private static String user = "postgres";
 
-    private static String passwd = "admin";
+    private static String passwd = "dev";
 
-    private static Connection connect;
+    private static HashMap<String,Connection> connect;
 
     /**
      * Returns database respConnection instance (and creates it if it doesn't exist)
      * 	 * @return Database respConnection link
      */
     public static Connection getInstance(String url){
-        if(connect == null){
+        if (connect == null) connect = new HashMap<>();
+        if(connect.get(url) == null){
             try {
-                connect = DriverManager.getConnection(url, user, passwd);
+                connect.put(url,DriverManager.getConnection(url, user, passwd));
             } catch (SQLException e) {
                 e.printStackTrace();
             }
         }
-        return connect;
+        return connect.get(url);
     }
 }
